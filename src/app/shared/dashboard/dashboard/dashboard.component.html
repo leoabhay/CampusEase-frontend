@@ -221,12 +221,12 @@
               <span>Discussion</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('setting')">
               <i class="fas fa-cog"></i>
               <span>Setting</span>
             </a>
-          </li>
+          </li> -->
           <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
@@ -285,6 +285,12 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('feedback')">
+              <i class="fas fa-comment-dots"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('events')">
               <i class="fas fa-calendar-check"></i>
               <span>Events</span>
@@ -336,12 +342,12 @@
               <span>Club</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('events')">
               <i class="fas fa-calendar-check"></i>
               <span>Events</span>
             </a>
-          </li>
+          </li> -->
         </ng-container>
         <ng-container *ngIf="userRole === 'faculty'">
           <li class="nav-header">Faculty/Teacher</li>
@@ -435,9 +441,9 @@
       <div *ngIf="currentSection === 'our-courses'">
         <app-our-course></app-our-course>
       </div>
-      <div *ngIf="currentSection === 'setting'">
+      <!-- <div *ngIf="currentSection === 'setting'">
         <app-setting></app-setting>
-      </div>
+      </div> -->
       <div *ngIf="currentSection === 'join-club'">
         <app-join-clubs></app-join-clubs>
       </div>

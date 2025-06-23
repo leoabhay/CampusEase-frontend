@@ -55,57 +55,52 @@ export class DashboardComponent implements OnInit {
   searchResults: any;
 
   constructor(private router: Router, private userService: UserAuthService, private http: HttpClient) {
-    this.currentSection = 'attendance'
     this.userService.getuserDataLogin().subscribe((res) => {
-      console.log(res);
       this.showUserProfileData = res.data;
-      console.log(this.showUserProfileData);
-    })
+    });
+  }
 
-  }
   ngOnInit(): void {
-    this.userRole = localStorage.getItem('userRole')
+    this.userRole = localStorage.getItem('userRole');
+
+    // Load currentSection from localStorage, fallback to 'attendance'
+    const savedSection = localStorage.getItem('currentSection');
+    if (savedSection) {
+      this.currentSection = savedSection;
+    } else {
+      this.currentSection = 'attendance';
+    }
   }
-  loginButton() {
-    this.router.navigate(['login'])
-  }
-  registerButton() {
-    this.router.navigate(['register'])
-  }
+
   showSection(section: string): void {
     this.currentSection = section;
+    // Save to localStorage on section change
+    localStorage.setItem('currentSection', section);
+  }
 
-  }
   LogoutButton() {
-    localStorage.clear()
-    this.router.navigate(['/login'])
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
+
   searchStudents() {
-    if (!this.searchQuery) {
-      return;
-    }
+    if (!this.searchQuery) return;
 
     const requestBody = { query: { name: this.searchQuery } };
 
-    this.http.post<any>('http://localhost:3200/search-student', requestBody)
-      .subscribe(
-        (response) => {
-          this.searchResults = response;
-          console.log('Search results:', this.searchResults);
-
-          // Assuming response contains student ID, navigate to details page
-          if (this.searchResults && this.searchResults.length > 0) {
-            const studentId = this.searchResults[0]._id; // Adjust based on your API response structure
-            this.router.navigate(['/student', studentId]);
-          } else {
-            console.log('No student found.');
-            // Handle case where no student is found
-          }
-        },
-        (error) => {
-          console.error('Error searching students:', error);
-          // Handle error as needed
+    this.http.post<any>('http://localhost:3200/search-student', requestBody).subscribe(
+      (response) => {
+        this.searchResults = response;
+        if (this.searchResults && this.searchResults.length > 0) {
+          const studentId = this.searchResults[0]._id;
+          this.router.navigate(['/student', studentId]);
+        } else {
+          console.log('No student found.');
         }
-      );
+      },
+      (error) => {
+        console.error('Error searching students:', error);
+      }
+    );
   }
 }

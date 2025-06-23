@@ -1,72 +1,75 @@
-<div class="register register-with-news-feed">
-  
-  <div class="news-feed">
-    <div class="news-image" style="background-image: url(../assets/img/login-bg/login-bg-15.jpg)"></div>
-    <div class="news-caption">
-      <h4 class="caption-title"><b>Color</b> Admin App</h4>
-      <p>
-        As a Color Admin app administrator, you use the Color Admin console to manage your organization’s account, such as add new users, manage security settings, and turn on the services you want your team to access.
-      </p>
+<!-- register.component.html -->
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="row shadow-lg rounded overflow-hidden w-100" style="max-width: 1000px;">
+
+    <!-- News Feed Section -->
+    <div class="col-md-6 d-none d-md-block p-0">
+      <div class="h-100" style="background: url(../assets/img/login-bg/login-bg-15.jpg) center/cover no-repeat;">
+        <div class="h-100 d-flex flex-column justify-content-center text-white bg-dark bg-opacity-50 text-center p-4">
+          <h3 class="fw-bold">CampusEase</h3>
+          <!-- <p class="mt-2">
+            As a Color Admin app administrator, you use the console to manage users, security, and services for your organization.
+          </p> -->
+        </div>
+      </div>
     </div>
-  </div>
- 
-  <div class="right-content">
-   
-    <h1 class="register-header">
-      Sign Up
-      <small>Create your Color Admin Account. It’s free and always will be.</small>
-    </h1>
-   
-    <div class="register-content">
-      <form action="index.html" class="margin-bottom-0">
-        <label class="control-label">Name <span class="text-danger">*</span></label>
-        <div class="row row-space-10">
-          <div class="col-md-6 m-b-15">
+
+    <!-- Registration Form -->
+    <div class="col-md-6 bg-white p-5">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold mb-1">Sign Up</h2>
+        <p class="text-muted small">Create your new Admin Account.</p>
+      </div>
+
+      <form action="index.html" class="needs-validation">
+        <label class="form-label">Name <span class="text-danger">*</span></label>
+        <div class="row g-2 mb-3">
+          <div class="col-md-6">
             <input type="text" class="form-control" placeholder="First name" required />
           </div>
-          <div class="col-md-6 m-b-15">
+          <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Last name" required />
           </div>
         </div>
-        <label class="control-label">Email <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="Email address" required />
-          </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" placeholder="Email address" required />
         </div>
-        <label class="control-label">Re-enter Email <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="Re-enter email address" required />
-          </div>
+
+        <div class="mb-3">
+          <label class="form-label">Re-enter Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" placeholder="Re-enter email address" required />
         </div>
-        <label class="control-label">Password <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="password" class="form-control" placeholder="Password" required />
-          </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" placeholder="Password" required />
         </div>
-        <div class="checkbox checkbox-css m-b-30">
-          <div class="checkbox checkbox-css m-b-30">
-            <input type="checkbox" id="agreement_checkbox" value="">
-            <label for="agreement_checkbox">
-            By clicking Sign Up, you agree to our <a href="javascript:;">Terms</a> and that you have read our <a href="javascript:;">Data Policy</a>, including our <a href="javascript:;">Cookie Use</a>.
-            </label>
-          </div>
+
+        <div class="form-check mb-4">
+          <input type="checkbox" class="form-check-input" id="agreement_checkbox" />
+          <label class="form-check-label" for="agreement_checkbox">
+            By clicking Sign Up, you agree to our
+            <a href="#">Terms</a>, have read our <a href="#">Data Policy</a>, including our <a href="#">Cookie Use</a>.
+          </label>
         </div>
-        <div class="register-buttons">
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
         </div>
-        <div class="m-t-30 m-b-30 p-b-30">
-          Already a member? Click <a href="registration-page">here</a> to login.
-        </div>
+
+        <p class="text-center mb-4">
+          Already a member? Click <a href="login">here</a> to login.
+        </p>
+
         <hr />
-        <p class="text-center mb-0">
-          &copy; Color Admin All Right Reserved 2020
+        <p class="text-center text-muted small mb-0">
+          &copy; Color Admin All Rights Reserved 2020
         </p>
       </form>
     </div>
-  
+
   </div>
- 
-</div> 
+</div>
