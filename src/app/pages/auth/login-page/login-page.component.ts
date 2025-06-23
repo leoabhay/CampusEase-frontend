@@ -111,6 +111,7 @@ export class LoginPageComponent implements OnInit {
           debugger
           this.router.navigate(['/dashboard'])
           
+          
           alertify.success('Login  Sucessfull')
         }
         else{

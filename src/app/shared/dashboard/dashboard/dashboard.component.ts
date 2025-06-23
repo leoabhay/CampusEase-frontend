@@ -68,7 +68,12 @@ export class DashboardComponent implements OnInit {
     if (savedSection) {
       this.currentSection = savedSection;
     } else {
-      this.currentSection = 'attendance';
+       // Default section based on user role
+    if (this.userRole === 'admin') {
+      this.currentSection = 'user-management';
+    } else {
+      this.currentSection = 'profile';
+    }
     }
   }
 
@@ -83,24 +88,24 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  searchStudents() {
-    if (!this.searchQuery) return;
+  // searchStudents() {
+  //   if (!this.searchQuery) return;
 
-    const requestBody = { query: { name: this.searchQuery } };
+  //   const requestBody = { query: { name: this.searchQuery } };
 
-    this.http.post<any>('http://localhost:3200/search-student', requestBody).subscribe(
-      (response) => {
-        this.searchResults = response;
-        if (this.searchResults && this.searchResults.length > 0) {
-          const studentId = this.searchResults[0]._id;
-          this.router.navigate(['/student', studentId]);
-        } else {
-          console.log('No student found.');
-        }
-      },
-      (error) => {
-        console.error('Error searching students:', error);
-      }
-    );
-  }
+  //   this.http.post<any>('http://localhost:3200/search-student', requestBody).subscribe(
+  //     (response) => {
+  //       this.searchResults = response;
+  //       if (this.searchResults && this.searchResults.length > 0) {
+  //         const studentId = this.searchResults[0]._id;
+  //         this.router.navigate(['/student', studentId]);
+  //       } else {
+  //         console.log('No student found.');
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error searching students:', error);
+  //     }
+  //   );
+  // }
 }

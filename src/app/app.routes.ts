@@ -5,6 +5,8 @@ import { RegisterPageComponent } from './pages/auth/register-page/register-page.
 import { DashboardComponent } from './shared/dashboard/dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { StudentDetailsComponent } from './pages/component/student-details/student-details.component';
+import { UserManagementComponent } from './pages/admin-component/user-management/user-management.component';
+import { ProfileComponent } from './pages/component/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -24,6 +26,18 @@ export const routes: Routes = [
         component:DashboardComponent,
         canActivate:[authGuard]
     },
-    { path: 'student/:id', component: StudentDetailsComponent,  canActivate:[authGuard] }
+    { path: 'student/:id', component: StudentDetailsComponent,  canActivate:[authGuard] },
+
+    {
+  path: 'user-management',
+  component: UserManagementComponent,
+  canActivate: [authGuard]
+},
+{
+  path: 'profile',
+  component: ProfileComponent,
+  canActivate: [authGuard]
+},
+
 
 ];
