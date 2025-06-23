@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+    <h3>Classroom Allocation</h3>
+   
+    <form [formGroup]="classScheduleForm" (ngSubmit)="submitClassSchedule()">
+      <div class="form-group">
+        <label for="className">Class Name</label>
+        <input type="text" class="form-control" id="className" formControlName="className">
+        <div *ngIf="classScheduleForm.get('className')?.touched && classScheduleForm.get('className')?.hasError('required')" class="text-danger">
+          Class Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="startTime">Start Time</label>
+        <input type="time" class="form-control" id="startTime" formControlName="startTime">
+        <div *ngIf="classScheduleForm.get('startTime')?.touched && classScheduleForm.get('startTime')?.hasError('required')" class="text-danger">
+          Start Time is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="endTime">End Time</label>
+        <input type="time" class="form-control" id="endTime" formControlName="endTime">
+        <div *ngIf="classScheduleForm.get('endTime')?.touched && classScheduleForm.get('endTime')?.hasError('required')" class="text-danger">
+          End Time is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" formControlName="location">
+        <div *ngIf="classScheduleForm.get('location')?.touched && classScheduleForm.get('location')?.hasError('required')" class="text-danger">
+          Location is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="instructor">Instructor</label>
+        <input type="text" class="form-control" id="instructor" formControlName="instructor">
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="classScheduleForm.invalid">Submit</button>
+    </form>
+    
+    
+  </div>
+    
+  </div>
+    
+  
+    <div class="mt-5 card">
+        <h3 class="text-center mb-4">Class Schedule</h3>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Class Name</th>
+                <th scope="col">Time</th>
+                <th scope="col">Location</th>
+                <th scope="col">Instructor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let class of classSchedule">
+                <td>{{ class.name }}</td>
+                <td>{{ class.time }}</td>
+                <td>{{ class.location }}</td>
+                <td>{{ class.instructor }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+      
+</div>

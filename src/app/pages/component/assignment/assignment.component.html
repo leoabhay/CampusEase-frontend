@@ -1,0 +1,120 @@
+<h5>Assignment</h5>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+          <div class="col-lg-12 mb-4">
+            <select class="form-select" formControlName="subject">
+              <option value="" disabled selected>Select Subject</option>
+              <option *ngFor="let subject of uniqueSubjects" [value]="subject">{{ subject }}</option>
+            </select>
+          </div>
+          <div class="col-lg-12 mb-4">
+            <select class="form-select" formControlName="assignment">
+              <option value="" disabled selected>Select Assignment Name</option>
+      <option *ngFor="let item of filteredAssignments" [value]="item.assignmentName">{{ item.assignmentName }}</option>
+            </select>
+          </div>
+          <div class="col-lg-12 mb-4">
+            <input type="file" class="form-control" (change)="onFileChange($event)" />
+          </div>
+          <div class="col-lg-12 mb-4">
+            <button type="submit" class="btn btn-primary mb-4" [disabled]="assignmentForm.invalid">Apply</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5>Assignment List</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+        <table class="table ">
+          <thead class="thead-dark">
+
+            <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Subject</th>
+            
+              <th scope="col">Assignment Name</th>
+              <th scope="col">File</th>
+              <th scope="col">Remarks</th>
+              <th scope="col">Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+            *ngFor="let item of showAssignmentsByEnrolledSubjects | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
+              <!-- <td>{{ (p1 - 1) * 5 + showAssignmentsByEnrolledSubjects.indexOf(item) + 1 }}</td> -->
+              <th scope="row">{{ i + 1 + (p1 - 1) * 5 }}</th> 
+
+              <td>{{item.subject}}</td>
+              <td>{{item.assignmentName}}</td>
+              <td>
+                <!-- {{item.assignmentFile}} -->
+
+                <a [href]="item.assignmentFile" target="_blank" download>
+                  <i class="fas fa-file-download"></i>
+                </a>
+
+              </td>
+              <td>{{item.remarks}}</td>
+              <td>{{item.dueDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
+
+      </div>
+    </div>
+</div>
+ <div class="row">
+
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Assignment Submitted</h5>
+      </div>
+  
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">S.N</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">File</th>
+                <th scope="col">Rollno</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of showassignmentsbyemail; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{ item.subject }}</td>
+                <td>{{ item.assignment }}</td>
+                <td>
+                  <a [href]="item.assignmentFile" target="_blank" download>
+                    <i class="fas fa-file-download"></i>
+                  </a>
+                </td>
+                <td>{{ item.rollno || 'N/A' }}</td>
+                <td>{{ item.status }}</td>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+</div> 
+</div>

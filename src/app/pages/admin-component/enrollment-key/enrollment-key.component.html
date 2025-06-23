@@ -1,0 +1,67 @@
+<!-- src/app/enrollment-form/enrollment-form.component.html -->
+<div class="container-fluid">
+  <form [formGroup]="enrollmentForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <div class="col-4 mb-3">
+        <input type="text" class="form-control" formControlName="enrollmentKey" placeholder="Enter Enrollment Key">
+        <div *ngIf="enrollmentForm.get('enrollmentKey')?.invalid && enrollmentForm.get('enrollmentKey')?.touched" class="text-danger">
+          Enrollment Key is required
+        </div>
+      </div>
+      <div class="col-4 mb-3">
+        <input type="text" class="form-control" formControlName="semester" placeholder="Enter Semester">
+        <div *ngIf="enrollmentForm.get('semester')?.invalid && enrollmentForm.get('semester')?.touched" class="text-danger">
+          Semester is required and must contain only digits
+        </div>
+      </div>
+      <div class="col-4 mb-3">
+        <select class="form-control" formControlName="department">
+          <option value="">Select Department</option>
+          <option *ngFor="let dept of departmentData" [value]="dept.createFaculty">{{ dept.createFaculty }}</option>
+        </select>
+        <div *ngIf="enrollmentForm.get('department')?.invalid && enrollmentForm.get('department')?.touched" class="text-danger">
+          Department is required
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="subjects">
+      <div *ngFor="let subject of subjects.controls; let i = index" [formGroupName]="i" class="row align-items-center mb-2">
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <input type="text" class="form-control" formControlName="name" placeholder="Enter Subject Name">
+          <div *ngIf="getSubjectControl(i, 'name')?.invalid && getSubjectControl(i, 'name')?.touched" class="text-danger">
+            Subject Name is required and must contain only letters and spaces
+          </div>
+        </div>
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <input type="text" class="form-control" formControlName="credit" placeholder="Enter Subject Credit">
+          <div *ngIf="getSubjectControl(i, 'credit')?.invalid && getSubjectControl(i, 'credit')?.touched" class="text-danger">
+            Subject Credit is required and must contain only digits
+          </div>
+        </div>
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <input type="text" class="form-control" formControlName="code" placeholder="Enter Subject Code">
+          <div *ngIf="getSubjectControl(i, 'code')?.invalid && getSubjectControl(i, 'code')?.touched" class="text-danger">
+            Subject Code is required and must contain only alphanumeric characters
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <select class="form-select" formControlName="teacher">
+            <option value="" disabled selected>Select Teacher Name</option>
+            <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
+          </select>
+          <div *ngIf="getSubjectControl(i, 'teacher')?.invalid && getSubjectControl(i, 'teacher')?.touched" class="text-danger">
+            Teacher Name is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12 d-flex justify-content-between">
+        <button type="button" class="btn btn-primary" (click)="addSubject()">Add Subject</button>
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,282 @@
+<section *ngIf="userRole == 'student'">
+  <div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card my-4">
+          <div class="card-body  text-center">
+            <h5 class="card-title">
+              Join Club
+            </h5>
+            <form [formGroup]="clubForm" (ngSubmit)="onJoin()">
+              <div class="col-lg-12 mb-4">
+                <select class="form-select" formControlName="clubStatus">
+                  <option value="" disabled selected>Select Club Status</option>
+                  <option selected value="Political">Political</option>
+                  <option value="Non-Political">Non-Political</option>
+
+                </select>
+              </div>
+              <div class="col-lg-12 mb-4">
+                <select class="form-select" formControlName="clubName">
+                  <option value="" disabled selected>Select Clubame</option>
+                  <option *ngFor="let item of filteredClubList" [value]="item.clubName">{{item.clubName}}</option>
+                </select>
+
+              </div>
+              <div class="col-lg-12 mb-4">
+                <textarea class="form-control" placeholder="Why do you wanna join Club" id="reasonjoinclub"
+                  formControlName="reason" rows="3"></textarea>
+              </div>
+              <div class="col-lg-12 mb-4">
+                <button type="submit" [disabled]="clubForm.invalid" class="btn btn-primary mb-4">Join Club</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card my-4">
+          <div class="card-header">
+            <h5>Total Clubs</h5>
+          </div>
+          <div class="card-body  text-center">
+
+            <table class="table table-striped">
+
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">S.N</th>
+                  <th scope="col">Club Name</th>
+                  <th scope="col">Club Status</th>
+                  <th scope="col">Contact Number </th>
+                  <th scope="col">Created Date </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor=" let item of clubListData let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{item.clubName}}</td>
+                  <td>{{item.clubStatus}}</td>
+                  <td>{{item.contactNumber}}</td>
+                  <td>{{item.createdDate}}</td>
+
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card">
+      <div class="container mt-4">
+        <h2 class="mb-4">Joined Club Information</h2>
+        <button class="btn btn-primary mb-3">Print Table</button>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped" id="clubTable">
+            <thead class="thead-dark">
+              <tr>
+                <th>SN</th>
+                <th>Joined By</th>
+                <th>Club Name</th>
+                <th>Reason</th>
+                <th>Joined Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let club of allClubs | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+                <td>{{ i + 1 + (page - 1) * 10 }}</td>
+                <td>{{ club.joinedBy }}</td>
+                <td>{{ club.clubName }}</td>
+                <td>{{ club.reason }}</td>
+                <td>{{ club.joinedDate }}</td>
+                <td>{{ club.type }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="container-fluid" *ngIf="userRole == 'admin'">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card my-4">
+        <div class="card-body  text-center">
+          <h5 class="card-title">
+            Create Club
+          </h5>
+          <form [formGroup]="createClubForm" (ngSubmit)="createClub()" class="row">
+            <div class="col-lg-3 mb-4">
+              <select id="clubStatus" class="form-control" formControlName="clubStatus">
+                <option value="" disabled selected>Select Club Status</option>
+                <option value="Non-Political">Non-Political</option>
+                <option value="Political">Political</option>
+              </select>
+              <div *ngIf="createClubForm.get('clubStatus')?.invalid && (createClubForm.get('clubStatus')?.dirty || createClubForm.get('clubStatus')?.touched)">
+                <small class="text-danger" *ngIf="createClubForm.get('clubStatus')?.errors?.['required']">Club Status is required.</small>
+              </div>
+            </div>
+          
+            <div class="col-lg-3 mb-4">
+              <input type="text" formControlName="clubName" class="form-control" placeholder="Club Name">
+              <div *ngIf="createClubForm.get('clubName')?.invalid && (createClubForm.get('clubName')?.dirty || createClubForm.get('clubName')?.touched)">
+                <small class="text-danger" *ngIf="createClubForm.get('clubName')?.errors?.['required']">Club Name is required.</small>
+                <small class="text-danger" *ngIf="createClubForm.get('clubName')?.errors?.['pattern']">Club Name should only contain alpha characters and spaces.</small>
+              </div>
+            </div>
+          
+            <div class="col-lg-3 mb-4">
+              <input type="text" formControlName="contactNumber" class="form-control" placeholder="Club Contact Number">
+              <div *ngIf="createClubForm.get('contactNumber')?.invalid && (createClubForm.get('contactNumber')?.dirty || createClubForm.get('contactNumber')?.touched)">
+                <small class="text-danger" *ngIf="createClubForm.get('contactNumber')?.errors?.['required']">Contact Number is required.</small>
+                <small class="text-danger" *ngIf="createClubForm.get('contactNumber')?.errors?.['pattern']">Contact Number must be exactly 10 digits.</small>
+              </div>
+            </div>
+          
+            <div class="col-lg-3 mb-4">
+              <select class="form-select" formControlName="contactEmail">
+                <option value="" disabled selected>Select Secretary Email</option>
+                <option *ngFor="let item of secretaryList" [value]="item.email">{{item.name}}</option>
+              </select>
+              <div *ngIf="createClubForm.get('contactEmail')?.invalid && (createClubForm.get('contactEmail')?.dirty || createClubForm.get('contactEmail')?.touched)">
+                <small class="text-danger" *ngIf="createClubForm.get('contactEmail')?.errors?.['required']">Secretary Email is required.</small>
+                <small class="text-danger" *ngIf="createClubForm.get('contactEmail')?.errors?.['email']">Invalid Secretary Email.</small>
+              </div>
+            </div>
+          
+            <div class="col-lg-2 mb-4">
+              <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+            </div>
+          </form>
+          
+          
+        </div>
+      </div>
+
+    </div>
+    <div class="container mt-4">
+      <h2 class="mb-4">Club Information</h2>
+      <button class="btn btn-primary mb-3">Print Table</button>
+      <table class="table table-bordered table-striped" id="clubTable">
+        <thead class="thead-dark">
+          <tr>
+
+            <th>S.N</th>
+            <th>Club Name</th>
+            <th>Club Status</th>
+            <th>Contact Email</th>
+            <th>Contact Number</th>
+            <th>Created Date </th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor=" let item of clubListData let i = index">
+            <th>{{i+1}}</th>
+            <td>{{item.clubName}}</td>
+            <td>{{item.clubStatus}}</td>
+            <td>{{item.contactEmail}}</td>
+            <td>{{item.contactNumber}}</td>
+            <td>{{item.createdDate}}</td>
+            <td><button type="button" class="btn btn-outline-primary" (click)="editClub(item._id)" ><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-outline-danger mx-2" (click)="deleteClub(item._id)"><i
+                  class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="container-fluid" *ngIf="userRole=='secretary'">
+  <div class="card my-4">
+    <div class="card-body">
+
+
+      <div class="table-responsive">
+        <h5> Club Requested</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th> Name</th>
+                <th>Reason</th>
+                <th>Joined Date</th>
+                <th>Decision</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of JoinedClubbyClubName.Requested_Clubs; let i = index"
+                  [ngClass]="{
+                    'table-success': item.decision === 'Accepted',
+                    'table-danger': item.decision === 'Rejected',
+                    'table-light': item.decision === 'Pending'
+                  }">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.joinedBy }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.joinedDate }}</td>
+                <td>{{ item.decision }}</td>
+                <td>
+                  <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-secondary mx-4"
+                          (click)="updateSponsorship(item._id, 'Accepted')">
+                    <i class="fas fa-check-circle"></i> Accept
+                  </button>
+                  <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-danger"
+                          (click)="updateSponsorship(item._id, 'Rejected')">
+                    <i class="fas fa-times-circle"></i> Reject
+                  </button>
+                </td>
+              </tr>
+        
+              <tr *ngFor="let item of JoinedClubbyClubName.Accepted_Clubs; let i = index"
+                  [ngClass]="{
+                    'table-success': item.decision === 'Accepted',
+                    'table-danger': item.decision === 'Rejected',
+                    'table-light': item.decision === 'Pending'
+                  }">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.joinedBy }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.joinedDate }}</td>
+                <td>{{ item.decision }}</td>
+                <td>
+                </td>
+              </tr>
+        
+              <tr *ngFor="let item of JoinedClubbyClubName.Rejected_Clubs; let i = index"
+                  [ngClass]="{
+                    'table-success': item.decision === 'Accepted',
+                    'table-danger': item.decision === 'Rejected',
+                    'table-light': item.decision === 'Pending'
+                  }">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.joinedBy }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.joinedDate }}</td>
+                <td>{{ item.decision }}</td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

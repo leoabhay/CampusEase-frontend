@@ -1,0 +1,83 @@
+<div id="" class="" *ngIf="userRole == 'student'">
+  <div class="row">
+      <div class="row">
+        <div class="col-lg-12">
+          <label>Enter OTP:</label>
+          <input type="text" class="form-control" placeholder="OTP" [(ngModel)]="otp">
+     
+          <button type="submit" class="btn btn-primary my-2" (click)="verifyOTP()">Verify OTP</button>
+        </div>
+      </div>
+      <p *ngIf="verified">Attendance marked present!</p>
+      <p *ngIf="invalidOtp">Invalid OTP</p>
+      <p *ngIf="error">Error verifying OTP: {{ error }}</p>
+      <!-- end col-10 -->
+    </div>
+  </div>
+
+  <div *ngIf="userRole == 'faculty'">
+    <div>
+      <h1>OTP Attendance System</h1>
+      <div class="table-responsive">
+        <h5>Total Events </h5>
+        <div class="table-responsive">
+          <button class="btn btn-success mb-3" (click)="sendAllOtps()">Send OTPs to All</button>
+
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th> Name</th>
+                <th>Email</th>
+                <th>Rollno</th>
+                <th>Action</th>
+          
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of enrollmentDatabyEnrolledsubject  let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.rollno}}</td>
+                <td>
+                  <button class="btn btn-primary mx-2" (click)="sendOtp(item)">Send OTP</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="row"*ngIf="userRole == 'student'">
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>SN</th>
+        <th>Date</th>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor="let student of studentAttendance; let i = index">
+     
+        <td>{{ i+1 }}</td>
+        <td>{{ student.date }}</td>
+        <td>{{ student.email }}</td>
+        <!-- <td>{{ student.name }}</td> -->
+        <td>{{ student.present ? 'Present' : 'Absent' }}</td>
+
+        <td>   <input type="checkbox" [checked]="student.present" disabled> {{ student.present }}</td>
+      </tr>
+    </table>
+    
+    
+
+  </div>

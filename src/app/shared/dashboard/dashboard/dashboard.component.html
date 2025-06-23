@@ -1,0 +1,510 @@
+<div id="page-container" class=" page-sidebar-fixed page-header-fixed" *ngIf="showUserProfileData">
+
+
+  <div id="header" class="header navbar-default">
+    <div class="navbar-header">
+      <a href="/dashboard" class="navbar-brand"><span class="navbar-logo"></span> <b>College</b>Automation</a>
+      <button type="button"  class="navbar-toggle" data-click="sidebar-toggled">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <ul class="navbar-nav navbar-right">
+      <!-- <li class="navbar-form">
+        <form (ngSubmit)="searchStudents()" #searchForm="ngForm">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter keyword" name="searchQuery" [(ngModel)]="searchQuery" required>
+            <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+          </div>
+        </form>
+        
+      </li> -->
+      <!-- <ng-container *ngIf="searchResults.length > 0">
+        <li *ngFor="let result of searchResults" class="nav-item">
+          <a class="nav-link" [routerLink]="['/student', result.id]" (click)="clearSearchForm()">{{ result.name }}</a>
+        </li>
+      </ng-container> -->
+    
+      <!-- Show a message if no results -->
+      <!-- <li *ngIf="searchResults.length === 0 && searchQuery.trim().length > 0" class="nav-item">
+        <span class="nav-link">No results found.</span>
+      </li>
+       -->
+    
+      
+      
+      <!-- <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+          <i class="fa fa-bell"></i>
+          <span class="label">5</span>
+        </a>
+        <div class="dropdown-menu media-list dropdown-menu-right">
+          <div class="dropdown-header">NOTIFICATIONS (5)</div>
+          <a href="javascript:;" class="dropdown-item media">
+            <div class="media-left">
+              <i class="fa fa-bug media-object bg-silver-darker"></i>
+            </div>
+            <div class="media-body">
+              <h6 class="media-heading">Server Error Reports <i class="fa fa-exclamation-circle text-danger"></i></h6>
+              <div class="text-muted f-s-10">3 minutes ago</div>
+            </div>
+          </a>
+          <a href="javascript:;" class="dropdown-item media">
+            <div class="media-left">
+              <img src="../assets/img/user/user-1.jpg" class="media-object" alt="" />
+              <i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
+            </div>
+            <div class="media-body">
+              <h6 class="media-heading">John Smith</h6>
+              <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+              <div class="text-muted f-s-10">25 minutes ago</div>
+            </div>
+          </a>
+          <a href="javascript:;" class="dropdown-item media">
+            <div class="media-left">
+              <img src="../assets/img/user/user-2.jpg" class="media-object" alt="" />
+              <i class="fab fa-facebook-messenger text-blue media-object-icon"></i>
+            </div>
+            <div class="media-body">
+              <h6 class="media-heading">Olivia</h6>
+              <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+              <div class="text-muted f-s-10">35 minutes ago</div>
+            </div>
+          </a>
+          <a href="javascript:;" class="dropdown-item media">
+            <div class="media-left">
+              <i class="fa fa-plus media-object bg-silver-darker"></i>
+            </div>
+            <div class="media-body">
+              <h6 class="media-heading"> New User Registered</h6>
+              <div class="text-muted f-s-10">1 hour ago</div>
+            </div>
+          </a>
+          <a href="javascript:;" class="dropdown-item media">
+            <div class="media-left">
+              <i class="fa fa-envelope media-object bg-silver-darker"></i>
+              <i class="fab fa-google text-warning media-object-icon f-s-14"></i>
+            </div>
+            <div class="media-body">
+              <h6 class="media-heading"> New Email From John</h6>
+              <div class="text-muted f-s-10">2 hour ago</div>
+            </div>
+          </a>
+          <div class="dropdown-footer text-center">
+            <a href="javascript:;">View more</a>
+          </div>
+        </div>
+      </li> -->
+      <li class="dropdown navbar-user text-light">
+        <a  class="dropdown-toggle" data-toggle="dropdown">
+                            <img [src]="showUserProfileData.photo" alt="">
+
+            <span class="d-none d-md-inline">{{showUserProfileData.name}}</span>
+            <b class="caret"></b>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right bg-dark">
+            <a (click)="showSection('profile')" class="dropdown-item text-light">Edit Profile</a>
+            <a (click)="showSection('setting')" class="dropdown-item text-light">Setting</a>
+            <div class="dropdown-divider"></div>
+            <a (click)="LogoutButton()" class="dropdown-item text-light">Log Out</a>
+        </div>
+    </li>
+    
+    
+    </ul>
+  </div>
+  <div id="sidebar" class="sidebar" style="height: 100vh; overflow-y: auto;">
+    <div data-scrollbar="true" data-height="100%">
+      <ul class="nav flex-column">
+        <li class="nav-profile">
+          <a href="javascript:;" data-toggle="nav-profile">
+            <!-- <div class="cover with-shadow"></div> -->
+            <div class="image">
+                        <img [src]="showUserProfileData.photo" alt="">
+
+            </div>
+            <div class="info">
+              <b class="caret pull-right"></b>  <a (click)="showSection('setting')">{{showUserProfileData.name}}</a>
+              <small>{{showUserProfileData.role}}</small>
+            </div>
+          </a>
+        </li>
+        <li>
+          <ul class="nav nav-profile">
+            <li><a href="javascript:;"><i class="fa fa-cog"></i> Settings</a></li>
+            <li><a href="javascript:;"><i class="fa fa-pencil-alt"></i> Send Feedback</a></li>
+            <li><a href="javascript:;"><i class="fa fa-question-circle"></i> Helps</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav">
+        <ng-container *ngIf="userRole === 'student'">
+          <li class="nav-header">Student</li>
+          <li class="active cursor">
+            <a (click)="showSection('profile')">
+              <i class="fas fa-user" aria-hidden="true"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('course-enroll')">
+              <i class="fas fa-book"></i>
+              <span>Course Enroll</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('attendance-record')">
+              <i class="fas fa-clipboard"></i>
+              <span>Attendance Record</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('semester')">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Semester Enroll</span>
+            </a>
+          </li>
+       
+          <li class="active cursor">
+            <a (click)="showSection('our-courses')">
+              <i class="fas fa-book-open"></i>
+              <span>Our Courses</span>
+            </a>
+          </li>
+        
+          <li class="active cursor">
+            <a (click)="showSection('join-club')">
+              <i class="fas fa-users"></i>
+              <span>Join Club</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('id-card')">
+              <i class="fas fa-id-card"></i>
+              <span>ID Card Renew</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('sponsorship')">
+              <i class="fas fa-hand-holding-usd"></i>
+              <span>Sponsorship</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('assignment')">
+              <i class="fas fa-tasks"></i>
+              <span>Assignment</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('model-question')">
+              <i class="fas fa-question-circle"></i>
+              <span>Model Question</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('feedback')">
+              <i class="fas fa-comment-dots"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('events')">
+              <i class="fas fa-calendar-check"></i>
+              <span>Events</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('discussion')">
+              <i class="fas fa-comments"></i>
+              <span>Discussion</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('setting')">
+              <i class="fas fa-cog"></i>
+              <span>Setting</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('academic-records')">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Academic Record</span>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'admin'">
+          <li class="nav-header">Admin</li>
+          <li class="active cursor">
+            <a (click)="showSection('user-management')">
+              <i class="fas fa-users-cog"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('search-data')">
+              <i class="fas fa-users-cog"></i>
+              <span>Search Data</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('join-club')">
+              <i class="fas fa-users"></i>
+              <span> Club</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('department')">
+              <i class="fas fa-comments"></i>
+              <span>Department</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('enrollment-key')">
+              <i class="fas fa-key"></i>
+              <span>Enrollment Key</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('list-course')">
+              <i class="fas fa-list"></i>
+              <span>Listed Course</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('academic-records')">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Academic Record (Admin)</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('payment')">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Id card Request</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('events')">
+              <i class="fas fa-calendar-check"></i>
+              <span>Events</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('job-vacancy')">
+              <i class="fas fa-briefcase"></i>
+              <span>Job Vacancy Management</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('sponsorship')">
+              <i class="fas fa-hand-holding-usd"></i>
+              <span>Sponsorship</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('discussion')">
+              <i class="fas fa-comments"></i>
+              <span>Discussion (Admin)</span>
+            </a>
+          </li>
+          
+          <li class="active cursor">
+            <a (click)="showSection('profile')">
+              <i class="fas fa-user"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'secretary'">
+          <li class="nav-header">Club/Secretary</li>
+          <li class="active cursor">
+            <a (click)="showSection('profile')">
+              <i class="fas fa-user"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('discussion')">
+              <i class="fas fa-comments"></i>
+              <span>Discussion</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('join-club')">
+              <i class="fas fa-comments"></i>
+              <span>Club</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('events')">
+              <i class="fas fa-calendar-check"></i>
+              <span>Events</span>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="userRole === 'faculty'">
+          <li class="nav-header">Faculty/Teacher</li>
+          <li class="active cursor">
+            <a (click)="showSection('profile')">
+              <i class="fas fa-user"></i>
+              <span>Profile</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('our-courses')">
+              <i class="fas fa-book"></i>
+              <span>My Course</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('attendance-record')">
+              <i class="fas fa-clipboard-list"></i>
+              <span>Attendance</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('assignment-record')">
+              <i class="fas fa-file-alt"></i>
+              <span>Assignment / Materials</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('model-question')">
+              <i class="fas fa-question-circle"></i>
+              <span>Model Question</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('feedback')">
+              <i class="fas fa-comment-dots"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('internal-records')">
+              <i class="fas fa-chart-line"></i>
+              <span>Internal Valuations</span>
+            </a>
+          </li>
+         
+          <li class="active cursor">
+            <a (click)="showSection('student-work-record')">
+              <i class="fas fa-book-open"></i>
+              <span>Student Work Record</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('discussion')">
+              <i class="fas fa-comments"></i>
+              <span>Discussion</span>
+            </a>
+          </li>
+        </ng-container>
+        <li class="active cursor">
+          <a (click)="LogoutButton()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <div class="sidebar-bg"></div>
+
+
+  <div id="content" class="content">
+
+    <div>
+      <div *ngIf="currentSection === 'semester'">
+        <app-semester-enroll></app-semester-enroll>
+      </div>
+      <div *ngIf="currentSection === 'search-data'">
+        <app-student-details></app-student-details>
+      </div>
+      <div *ngIf="currentSection === 'attendance-record'">
+        <app-attendance-record></app-attendance-record>
+      </div>
+      <div *ngIf="currentSection === 'academic-records'">
+        <app-academic-records></app-academic-records>
+      </div>
+      <div *ngIf="currentSection === 'course-enroll'">
+        <app-course-enroll></app-course-enroll>
+      </div>
+      <div *ngIf="currentSection === 'our-courses'">
+        <app-our-course></app-our-course>
+      </div>
+      <div *ngIf="currentSection === 'setting'">
+        <app-setting></app-setting>
+      </div>
+      <div *ngIf="currentSection === 'join-club'">
+        <app-join-clubs></app-join-clubs>
+      </div>
+      <div *ngIf="currentSection === 'department'">
+        <app-department></app-department>
+      </div>
+      <div *ngIf="currentSection === 'payment'">
+        <app-payment></app-payment>
+      </div>
+
+      <div *ngIf="currentSection === 'id-card'">
+        <app-id-card></app-id-card>
+      </div>
+      <div *ngIf="currentSection === 'profile'">
+        <app-profile></app-profile>
+      </div>
+      <div *ngIf="currentSection === 'sponsorship'">
+        <app-sponsorship></app-sponsorship>
+      </div>
+      <div *ngIf="currentSection === 'assignment'">
+        <app-assignment></app-assignment>
+      </div>
+      <div *ngIf="currentSection === 'feedback'">
+        <app-feedback></app-feedback>
+      </div>
+      <div *ngIf="currentSection === 'discussion'">
+        <app-discussion></app-discussion>
+      </div>
+      <div *ngIf="currentSection === 'semester-enoll'">
+        <app-semester-enroll></app-semester-enroll>
+      </div>
+      <div *ngIf="currentSection === 'assignment-record'">
+        <app-assignment-materials></app-assignment-materials>
+      </div>
+
+      <div *ngIf="currentSection === 'internal-records'">
+        <app-internal-records></app-internal-records>
+      </div>
+      <div *ngIf="currentSection === 'model-question'">
+        <app-model-question></app-model-question>
+      </div>
+      <div *ngIf="currentSection === 'course-record'">
+        <app-course-record></app-course-record>
+      </div>
+      <div *ngIf="currentSection === 'student-work-record'">
+        <app-student-work></app-student-work>
+      </div>
+
+      <div *ngIf="currentSection === 'enrollment-key'">
+        <app-enrollment-key></app-enrollment-key>
+      </div>
+      <div *ngIf="currentSection === 'user-management'">
+        <app-user-management></app-user-management>
+      </div>
+      <div *ngIf="currentSection === 'job-vacancy'">
+        <app-job-vacancy></app-job-vacancy>
+      </div>
+      <div *ngIf="currentSection === 'list-course'">
+        <app-list-course></app-list-course>
+      </div>
+      <div *ngIf="currentSection === 'events'">
+        <app-events></app-events>
+      </div>
+      <div *ngIf="currentSection === 'class-schedule'">
+        <app-class-schedule></app-class-schedule>
+      </div>
+    </div>
+  </div>
+
+

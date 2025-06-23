@@ -1,0 +1,177 @@
+<div class="row" *ngIf="userRole == 'student'">
+  <div class="col-lg-6">
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <h5 class="my-3">Performance Overall</h5>
+        <p class="text-muted">Hi, Anish Pokharel </p>
+        <p>Rollno:20180107</p>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary">Follow</button>
+          <button class="btn btn-outline-primary ms-1">Follow</button>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4 mb-lg-0">
+      <div class="card-body p-0 text-center">
+        <h5 class="my-4">Semester result</h5>
+        <table class="table table-striped">
+
+          <thead>
+            <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Subject Name</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Credit </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor=" let item of paginatedItems">
+              <th scope="row">1</th>
+              <td>{{item.clubName}}</td>
+              <td>{{item.position}}</td>
+              <td>{{item.joinedDate}}</td>
+
+            </tr>
+
+
+          </tbody>
+        </table>
+        <nav>
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="setPage(currentPage - 1)">Previous</a>
+            </li>
+            <li class="page-item" [class.active]="page === currentPage" *ngFor="let page of totalPages">
+              <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages.length">
+              <a class="page-link" (click)="setPage(currentPage + 1)">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <table class="table ">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>&#64;mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>&#64;fat</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>&#64;fat</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>&#64;fat</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>&#64;fat</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>&#64;fat</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <hr>
+
+      </div>
+    </div>
+
+    <div class="card mb-4 mb-lg-0">
+      <div class="card mb-4 mb-md-0">
+        <div class="card-body">
+          <p class="mb-4"><span class="text-primary font-italic me-1">Courses</span>
+          </p>
+          <p class="mb-1" style="font-size: .77rem;">Subject1</p>
+          <div class="progress rounded" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <p class="mt-4 mb-1" style="font-size: .77rem;">Subject2</p>
+          <div class="progress rounded" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <p class="mt-4 mb-1" style="font-size: .77rem;">Subject3</p>
+          <div class="progress rounded" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <p class="mt-4 mb-1" style="font-size: .77rem;">Subject4</p>
+          <div class="progress rounded" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <p class="mt-4 mb-1" style="font-size: .77rem;">Subject5</p>
+          <div class="progress rounded mb-2" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5" *ngIf="userRole == 'admin'">
+  <div class="card shadow">
+    <div class="card-body">
+      <h5 class="card-title">File Upload</h5>
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+        <div class="form-group">
+          <label for="fileInput">Choose File</label>
+          <input type="file" class="form-control-file" id="fileInput" (change)="onFileChange($event)" formControlName="file">
+          <div *ngIf="uploadForm.get('file')?.invalid && (uploadForm.get('file')?.dirty || uploadForm.get('file')?.touched)">
+            <small *ngIf="uploadForm.get('file')?.errors?.['required']" class="text-danger">File is required.</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select id="type" class="form-control" formControlName="type">
+            <option value="" disabled selected>Select Type</option>
+            <option value="Routine">Routine</option>
+            <option value="SemesterResult">SemesterResult</option>
+          </select>
+          <div *ngIf="uploadForm.get('type')?.invalid && (uploadForm.get('type')?.dirty || uploadForm.get('type')?.touched)">
+            <small *ngIf="uploadForm.get('type')?.errors?.['required']" class="text-danger">Type is required.</small>
+          </div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Upload File</button>
+      </form>
+    </div>
+  </div>
+</div>

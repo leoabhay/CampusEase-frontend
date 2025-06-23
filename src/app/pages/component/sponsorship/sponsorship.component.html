@@ -1,0 +1,164 @@
+<section *ngIf="userRole == 'student'">
+  <div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card my-4">
+          <div class="card-header">
+            <h5>Sponsorship</h5>
+          </div>
+          <div class="card-body  text-center">
+
+            <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
+
+              <div class="col-lg-6 mb-4">
+                <select class="form-select" formControlName="faculty">
+                  <option value="" disabled selected>Select Faculty Name</option>
+                  <option *ngFor="let department of departments" [value]="department.createFaculty">
+                    {{ department.createFaculty }}
+                  </option>
+
+                </select>
+              </div>
+
+              <div class="col-lg-6 mb-4">
+                <select class="form-select" formControlName="semester">
+                  <option value="" disabled selected>Semester</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+
+              <div class="col-lg-6 mb-4">
+                <input class="form-control" formControlName="topic" type="text" placeholder="Topic">
+              </div>
+              <div class="col-lg-6 mb-4">
+                <input class="form-control" formControlName="money" type="text" placeholder="Amount">
+              </div>
+              <div class="col-lg-12 mb-4">
+                <textarea class="form-control" formControlName="reason" type="text" placeholder="Reason"
+                  rows="3"></textarea>
+              </div>
+              <div class="col-lg-12 mb-4">
+                <button type="submit" [disabled]="form.invalid" class="btn btn-primary mb-4">Apply</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card">
+        <div class="container mt-4">
+          <h2 class="mb-4">SponsorShip List</h2>
+          <button class="btn btn-primary mb-3">Print Table</button>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="">
+              <thead class="thead-dark">
+                <tr>
+                  <th>SN</th>
+                  <th>Topic</th>
+                  <th>Amount</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of sponsorshipByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i=index">
+                  <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
+                  <td>{{ item.topic }}</td>
+                  <td>{{ item.money }}</td>
+                  <td>{{ item.reason }}</td>
+                  <td>{{ item.decision }}</td>
+                  <td>
+                    <button type="button" *ngIf="item.decision !== 'accepted' && item.decision !== 'rejected'" class="btn btn-outline-primary">
+                      <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button type="button" *ngIf="item.decision !== 'accepted' && item.decision !== 'rejected'" class="btn btn-outline-danger mx-2"
+                      (click)="deleteSpon(item._id)">
+                      <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<section class="container-fluid" *ngIf="userRole=='admin'">
+  <div class="card my-4">
+    <div class="card-body">
+
+
+      <div class="table-responsive">
+        <h5>Sponsor List </h5>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th> Name</th>
+                <th>Reason</th>
+                <th>Faculty</th>
+                <th>Semester</th>
+                <th>Topic</th>
+                <th>Money</th>
+                <th>Decision</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of sponsorshipByAdminList  let i=index" [ngClass]="{
+                'table-success': item.decision === 'accepted',
+                'table-danger': item.decision === 'rejected',
+                'table-light': item.decision === 'Pending'
+              }">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.reason}}</td>
+                <td>{{item.faculty}}</td>
+                <td>{{item.semester}}</td>
+                <td>{{item.topic}}</td>
+                <td>{{item.money}}</td>
+                <td>{{item.decision}}</td>
+
+                <td>
+                  <div class="d-flex flex-column flex-md-row align-items-center">
+                    <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-secondary mb-2 mb-md-0 mr-md-4"
+                      (click)="updateSponsorship(item._id, 'accepted')">
+                      <i class="fas fa-check-circle"></i> 
+                    </button>
+                    <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-danger"
+                      (click)="updateSponsorship(item._id, 'rejected')">
+                      <i class="fas fa-times-circle"></i> 
+                    </button>
+                  </div>
+                </td>
+                
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

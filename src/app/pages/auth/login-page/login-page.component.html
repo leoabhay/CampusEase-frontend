@@ -1,0 +1,223 @@
+<!-- login.component.html
+<div class="login login-with-news-feed">
+  News feed section -->
+  <!--<div class="news-feed">
+    <div class="news-image" style="background-image: url(../../../../assets/img/bg/bg-home.jpg)"></div>
+    <div class="news-caption">
+      <h4 class="caption-title"><b>Campus</b></h4>
+      <h4 class="caption-title">Ease</h4>
+    </div>
+  </div>
+
+  <!-- Login form section 
+  <div class="right-content">
+    <div class="login-header" style="margin-top: -30px">
+      <div class="brand text-center" style="font-size: 35px !important">
+        <span></span> <b>CampusEase</b>
+      </div>
+    </div>
+    <div class="login-content">
+      <form [formGroup]="loginForm" class="margin-bottom-0">
+        <div class="form-group m-b-15">
+          <input formControlName="email"
+                 type="text"
+                 class="form-control form-control-lg inverse-mode"
+                 placeholder="Email"
+                 required
+          />
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            <small *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0px !important">
+          <input formControlName="password"
+                 type="password"
+                 class="form-control form-control-lg inverse-mode"
+                 placeholder="Password"
+                 required
+          />
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']" class="text-danger">Password is required.</small>
+          </div>
+        </div>
+
+        <!-- <div class="text-right text-danger m-b-15">
+          <a class="text-danger" (click)="openForgotPasswordModal()">Forgot Password?</a>
+        </div> 
+
+        <div class="login-buttons">
+          <button type="submit" class="btn btn-success btn-block btn-lg my-2" (click)="loginButton()">
+            Log In
+          </button>
+        </div>
+      </form>
+
+      <div class="m-t-30 m-b-30 p-b-30">
+        Want to be a new member? Click
+        <a routerLink="/registration-page"> Here </a> to be a New Member.
+      </div>
+
+      <hr />
+
+      <!-- Footer message 
+      <p class="text-center text-grey-darker mb-0">"Ease your academic journey"</p>
+    </div>
+  </div>
+</div>
+<div class="modal" [class.active]="showForgotPasswordModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeForgotPasswordModal()">&times;</span>
+    <h2>Forgot Password</h2>
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassword()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" id="email" required>
+        <div *ngIf="forgotPasswordForm.get('email')?.invalid && (forgotPasswordForm.get('email')?.dirty || forgotPasswordForm.get('email')?.touched)">
+          <small *ngIf="forgotPasswordForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+          <small *ngIf="forgotPasswordForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="forgotPasswordForm.invalid">Reset Password</button>
+    </form>
+  </div>
+</div>
+<div class="container">
+  <h2>Reset Password</h2>
+  <form [formGroup]="resetPasswordForm" (ngSubmit)="submitResetPassword()">
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input type="password" formControlName="newPassword" id="newPassword" required>
+      <div *ngIf="resetPasswordForm.get('newPassword')?.invalid && (resetPasswordForm.get('newPassword')?.dirty || resetPasswordForm.get('newPassword')?.touched)">
+        <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']" class="text-danger">New Password is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" id="confirmPassword" required>
+      <div *ngIf="resetPasswordForm.get('confirmPassword')?.invalid && (resetPasswordForm.get('confirmPassword')?.dirty || resetPasswordForm.get('confirmPassword')?.touched)">
+        <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']" class="text-danger">Confirm Password is required.</small>
+        <small *ngIf="resetPasswordForm.hasError('passwordMismatch')" class="text-danger">Passwords do not match.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+  </form>
+</div> -->
+<!-- login.component.html -->
+
+
+
+
+
+<div class="login login-with-news-feed">
+  <!-- News feed section -->
+  <div class="news-feed">
+    <div class="news-image" style="background-image: url(../../../../assets/img/bg/bg-home.jpg)"></div>
+    <div class="news-caption">
+      <h4 class="caption-title"><b>CampusEase:</b></h4>
+      <h4 class="caption-title">A College Automation System</h4>
+    </div>
+  </div>
+
+  <!-- Login form section -->
+  <div class="right-content">
+    <div class="login-header" style="margin-top: -30px">
+      <div class="brand text-center" style="font-size: 40px !important">
+        <span></span> <b>CampusEase</b>
+      </div>
+    </div>
+    <div class="login-content">
+      <form [formGroup]="loginForm" class="margin-bottom-0">
+        <div class="form-group m-b-15">
+          <input formControlName="email"
+                 type="text"
+                 class="form-control form-control-lg inverse-mode"
+                 placeholder="Email"
+                 required
+          />
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            <small *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0px !important">
+          <input formControlName="password"
+                 type="password"
+                 class="form-control form-control-lg inverse-mode"
+                 placeholder="Password"
+                 required
+          />
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']" class="text-danger">Password is required.</small>
+          </div>
+        </div>
+
+        <!-- <div class="text-right text-danger m-b-15">
+          <a class="text-danger" (click)="openForgotPasswordModal()">Forgot Password?</a>
+        </div> -->
+
+        <div class="login-buttons">
+          <button type="submit" class="btn btn-success btn-block btn-lg my-2" (click)="loginButton()">
+            Sign me in
+          </button>
+        </div>
+      </form>
+
+      <div class="m-t-30 m-b-30 p-b-30">
+        Want to be a new member? Click
+        <a href="/registration-page">here</a> to be a New Member.
+      </div>
+
+      <hr />
+
+      <!-- Footer message -->
+      <p class="text-center text-grey-darker mb-0">"Ease your academic journey"</p>
+    </div>
+  </div>
+</div>
+<div class="modal" [class.active]="showForgotPasswordModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeForgotPasswordModal()">&times;</span>
+    <h2>Forgot Password</h2>
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="submitForgotPassword()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" formControlName="email" id="email" required>
+        <div *ngIf="forgotPasswordForm.get('email')?.invalid && (forgotPasswordForm.get('email')?.dirty || forgotPasswordForm.get('email')?.touched)">
+          <small *ngIf="forgotPasswordForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+          <small *ngIf="forgotPasswordForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="forgotPasswordForm.invalid">Reset Password</button>
+    </form>
+  </div>
+</div>
+<div class="container">
+  <h2>Reset Password</h2>
+  <form [formGroup]="resetPasswordForm" (ngSubmit)="submitResetPassword()">
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input type="password" formControlName="newPassword" id="newPassword" required>
+      <div *ngIf="resetPasswordForm.get('newPassword')?.invalid && (resetPasswordForm.get('newPassword')?.dirty || resetPasswordForm.get('newPassword')?.touched)">
+        <small *ngIf="resetPasswordForm.get('newPassword')?.errors?.['required']" class="text-danger">New Password is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" id="confirmPassword" required>
+      <div *ngIf="resetPasswordForm.get('confirmPassword')?.invalid && (resetPasswordForm.get('confirmPassword')?.dirty || resetPasswordForm.get('confirmPassword')?.touched)">
+        <small *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required']" class="text-danger">Confirm Password is required.</small>
+        <small *ngIf="resetPasswordForm.hasError('passwordMismatch')" class="text-danger">Passwords do not match.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="resetPasswordForm.invalid">Reset Password</button>
+  </form>
+</div>

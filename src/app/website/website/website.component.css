@@ -1,0 +1,19 @@
+.title span {
+    display: inline-block;
+    font-size: 3rem;
+    animation: bounce 2s ease infinite alternate;
+}
+
+.title span:nth-child(odd) {
+    animation-delay: 0.1s;
+}
+
+.title span:nth-child(even) {
+    animation-delay: 2s;
+}
+
+.subtitle {
+    font-size: 2rem;
+    margin-top: 20px;
+    animation: fadeIn 2s ease-in-out infinite alternate;
+}

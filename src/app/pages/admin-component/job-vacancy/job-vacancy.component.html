@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="vacancyForm" (ngSubmit)="onSubmit()" class="row">
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancyPosition" class="col-lg-12 form-control" placeholder="Position">
+              <div *ngIf="vacancyForm.get('vacancyPosition')?.invalid && (vacancyForm.get('vacancyPosition')?.dirty || vacancyForm.get('vacancyPosition')?.touched)"
+                   class="text-danger">
+                <div *ngIf="vacancyForm.get('vacancyPosition')?.errors?.['required']">
+                  Position is required
+                </div>
+                <div *ngIf="vacancyForm.get('vacancyPosition')?.errors?.['pattern']">
+                  Position must contain only alphabetic characters and spaces
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancyExperience" class="col-lg-12 form-control" placeholder="Experience">
+              <div *ngIf="vacancyForm.get('vacancyExperience')?.invalid && (vacancyForm.get('vacancyExperience')?.dirty || vacancyForm.get('vacancyExperience')?.touched)"
+                   class="text-danger">
+                <div *ngIf="vacancyForm.get('vacancyExperience')?.errors?.['required']">
+                  Experience is required
+                </div>
+                <div *ngIf="vacancyForm.get('vacancyExperience')?.errors?.['pattern']">
+                  Experience must contain alphanumeric characters and spaces
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancyLevel" class="col-lg-12 form-control" placeholder="Level">
+              <div *ngIf="vacancyForm.get('vacancyLevel')?.invalid && (vacancyForm.get('vacancyLevel')?.dirty || vacancyForm.get('vacancyLevel')?.touched)"
+                   class="text-danger">
+                <div *ngIf="vacancyForm.get('vacancyLevel')?.errors?.['required']">
+                  Level is required
+                </div>
+                <div *ngIf="vacancyForm.get('vacancyLevel')?.errors?.['pattern']">
+                  Level must contain only alphabetic characters and spaces
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancySubject" class="col-lg-12 form-control" placeholder="Subject">
+              <div *ngIf="vacancyForm.get('vacancySubject')?.invalid && vacancyForm.get('vacancySubject')?.touched"
+                   class="text-danger">
+                Subject is required
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancyQualification" class="col-lg-12 form-control" placeholder="Qualification">
+              <div *ngIf="vacancyForm.get('vacancyQualification')?.invalid && (vacancyForm.get('vacancyQualification')?.dirty || vacancyForm.get('vacancyQualification')?.touched)"
+                   class="text-danger">
+                <div *ngIf="vacancyForm.get('vacancyQualification')?.errors?.['required']">
+                  Qualification is required
+                </div>
+                <div *ngIf="vacancyForm.get('vacancyQualification')?.errors?.['pattern']">
+                  Qualification must contain only alphabetic characters and spaces
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <select formControlName="time" class="form-control" placeholder="Time">
+                <option value="fullTime">Full Time</option>
+                <option value="partTime">Part Time</option>
+              </select>
+              <div *ngIf="vacancyForm.get('time')?.invalid && vacancyForm.get('time')?.touched"
+                   class="text-danger">
+                Time is required
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <input type="text" formControlName="vacancySalary" class="col-lg-12 form-control" placeholder="Salary">
+              <div *ngIf="vacancyForm.get('vacancySalary')?.invalid && (vacancyForm.get('vacancySalary')?.dirty || vacancyForm.get('vacancySalary')?.touched)"
+                   class="text-danger">
+                <div *ngIf="vacancyForm.get('vacancySalary')?.errors?.['required']">
+                  Salary is required
+                </div>
+                <div *ngIf="vacancyForm.get('vacancySalary')?.errors?.['pattern']">
+                  Salary must be a valid number with up to two decimal places
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+              <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+            </div>
+          </form>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row   my-4">
+    <div class="col-lg-12">
+      <div class="table-responsive">
+        <table id="data-table-select" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th width="1%">SN</th>
+              <th>Vacancy Position</th>
+              <th>Vacancy Experience</th>
+              <th>Vacancy Level</th>
+              <th>Vacancy Subject</th>
+              <th>Time</th>
+              <th>Vacancy Qualification</th>
+              <th>Vacancy Salary</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd gradeX" *ngFor="let item of jobVacancyList; let i = index">
+              <td width="1%" class="f-s-600 text-inverse">{{i+1}}</td>
+              <td>{{item.vacancyPosition}}</td>
+              <td>{{item.vacancyExperience}}</td>
+              <td>{{item.vacancyLevel}}</td>
+              <td>{{item.vacancySubject}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.vacancyQualification}}</td>
+              <td>{{item.vacancySalary}}</td>
+              <td>
+                <div class="d-flex justify-content-center justify-content-md-start">
+                  <button class="btn btn-outline-primary me-2 mb-2 mb-md-0" (click)="editVacancy(item._id)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger" (click)="deleteVacancy(item._id)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

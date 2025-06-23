@@ -1,0 +1,42 @@
+<form class="mb-4" (ngSubmit)="searchStudents()" #searchForm="ngForm">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Enter keyword" name="searchQuery" [(ngModel)]="searchQuery" required>
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+    </div>
+  </div>
+</form>
+
+<div class="card">
+  <div class="card-body" *ngIf="studentData">
+    <h2 class="card-title">{{ studentData.registerData.name }}</h2>
+    <p class="card-text"><strong>Email:</strong> {{ studentData.registerData.email }}</p>
+    <p class="card-text"><strong>Roll No:</strong> {{ studentData.registerData.rollno }}</p>
+    <p class="card-text"><strong>Address:</strong> {{ studentData.registerData.address }}</p>
+    <p class="card-text"><strong>Registered Date:</strong> {{ studentData.registerData.registereddate }}</p>
+
+    <h3 class="mt-4">Attendance Data</h3>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let attendance of studentData.attendanceData">
+        Date: {{ attendance.date }} - Present: {{ attendance.present ? 'Yes' : 'No' }}
+      </li>
+    </ul>
+
+    <h3 class="mt-4">Subjects Data</h3>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let subject of studentData.subjectsData.subjects">
+        Name: {{ subject.name }} - Credit: {{ subject.credit }} - Code: {{ subject.code }}
+      </li>
+    </ul>
+
+    <h3 class="mt-4">Assignments Data</h3>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let assignment of studentData.assignmentsData">
+        Assignment: {{ assignment.assignment }} - Submitted Date: {{ assignment.submitteddate }}
+      </li>
+    </ul>
+  </div>
+  <div class="card-footer" *ngIf="!studentData">
+    <p>Loading student data...</p>
+  </div>
+</div>

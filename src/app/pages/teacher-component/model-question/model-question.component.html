@@ -1,0 +1,122 @@
+<div class="container-fluid"  *ngIf="userRole == 'student'">
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Model Question</h5>
+              <input
+                type="text"
+                class="form-control col-lg-4"
+                placeholder="Search by subject"
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="searchQuestions()"
+              />
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <!-- <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search by subject"
+                  [(ngModel)]="searchTerm"
+                  (ngModelChange)="searchQuestions()"
+                /> -->
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">S.N</th>
+                      <th scope="col">Subject</th>
+                      <th scope="col">Model Question</th>
+                      <th scope="col">File</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of filteredQuestions | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
+                      <th scope="row">{{ (currentPage - 1) * 10 + i + 1 }}</th>
+                      <td>{{ item.subject }}</td>
+                      <td>{{ item.model_question }}</td>
+                      <td>
+                        <a [href]="item.file" target="_blank" download>
+                          <i class="fas fa-file-download"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+          
+          </div>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid" *ngIf="userRole == 'faculty'">
+  <div class="col-lg-12">
+    <div class="card">
+        <div class="card-body text-center">
+            <h5>Model Question</h5>
+            <form [formGroup]="modelQuestionForm" (ngSubmit)="onSubmitQuestion()">
+                <div class="col-lg-12 mb-4">
+                    <select class="form-select" formControlName="subject">
+                        <option value="" disabled selected>Select subject</option>
+                        <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-12 mb-4">
+                    <input type="text" class="form-control" formControlName="model_question"
+                        placeholder="Model Question" />
+                </div>
+                <div class="col-lg-12 mb-4">
+                    <input type="file" class="form-control" (change)="onFileChangeQuestion($event)" />
+                </div>
+                <div class="col-lg-12 mb-4">
+                    <button type="submit" class="btn btn-primary mb-4"
+                        [disabled]="!modelQuestionForm.valid">Submit</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="my-4">
+                Model Question
+            </h5>
+            <div class="table-responsive fixed-height-table">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Subject Name</th>
+                            <th scope="col">Question</th>
+                            <th scope="col">File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of modelQuestionList; let i = index">
+                            <th scope="row">{{ i + 1  }}</th>
+                            <td>{{ item.subject }}</td>
+                            <td>{{ item.model_question }}</td>
+                            <td>
+                                <a [href]="item.file" target="_blank" download>
+                                    <i class="fas fa-file-download"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <pagination-controls (pageChange)="mq = $event"></pagination-controls> -->
+        </div>
+    </div>
+</div>
+</div>

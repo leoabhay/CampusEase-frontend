@@ -1,0 +1,26 @@
+/* .fixed-height-table {
+    height: 400px; 
+    overflow-y: auto;
+  }
+  
+  .table {
+    height: 100%;
+    display: block;
+  }
+  
+  .table thead, .table tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .table tbody {
+    height: 100%;
+    overflow-y: auto;
+    display: block;
+  }
+  
+  .table-responsive {
+    overflow: hidden;
+  }
+   */

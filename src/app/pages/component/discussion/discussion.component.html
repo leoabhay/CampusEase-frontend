@@ -1,0 +1,108 @@
+<div id="" class="">
+
+  <h1 class="page-header">
+    Discussion <small> Discussion done </small>
+    <div *ngIf="userRole !== 'student'" >
+      <button type="button" (click)="OpenModal()" class="btn btn-primary mt-4" data-toggle="modal" data-target="#exampleModal">
+        Add Discussion
+      </button>
+      <div class="modal fade" #exampleModal  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="addDiscussion()" [formGroup]="discussionTable">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Discussion Topic"
+                    formControlName="discussion_topic"
+                    required
+                  >
+                  <div *ngIf="discussionTable.get('discussion_topic')?.invalid && (discussionTable.get('discussion_topic')?.dirty || discussionTable.get('discussion_topic')?.touched)">
+                    <small *ngIf="discussionTable.get('discussion_topic')?.errors?.['required']" class="text-danger">Discussion topic is required.</small>
+                    <small *ngIf="discussionTable.get('discussion_topic')?.errors?.['pattern']" class="text-danger">Discussion topic can only contain alphabetic characters.</small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="date"
+                    class="form-control"
+                    formControlName="date"
+                    placeholder="Date"
+                    [min]="minDate"
+                  >
+                  <div *ngIf="discussionTable.get('date')?.invalid && (discussionTable.get('date')?.dirty || discussionTable.get('date')?.touched)">
+                    <small *ngIf="discussionTable.get('date')?.errors?.['required']" class="text-danger">Date is required.</small>
+                    <small *ngIf="discussionTable.get('date')?.errors?.['pattern']" class="text-danger">Invalid date format. Expected YYYY-MM-DD.</small>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="decision"
+                    placeholder="Decision"
+                  >
+                  <div *ngIf="discussionTable.get('decision')?.invalid && (discussionTable.get('decision')?.dirty || discussionTable.get('decision')?.touched)">
+                    <small *ngIf="discussionTable.get('decision')?.errors?.['required']" class="text-danger">Decision is required.</small>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+                  <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+                </div>
+              </form>
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </h1>
+  <ul class="timeline">
+    <li *ngFor="let item of discussionData">
+      <div class="timeline-time">
+        <span class="date">Date</span>
+        <span class="time">{{item.date}}</span>
+        <span *ngIf="userRole == 'admin'" class="views">
+
+          <button type="button" class="btn btn-outline-primary btn-sm" (click)="editDiscussion(item._id)"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-outline-danger btn-sm mx-2" (click)="deleteDiscussion(item._id)" ><i class="fas fa-trash-alt"></i>
+            </button>
+
+
+        </span>
+      </div>
+      <div class="timeline-icon">
+        <a href="javascript:;">&nbsp;</a>
+      </div>
+
+      <div class="timeline-body">
+        <div class="timeline-header">
+
+          <span class="username"><a href="javascript:;">{{item.decision_by}}</a> <small></small></span>
+          <span class="views">{{item.discussion_topic}}</span>
+        </div>
+        <div class="timeline-content">
+          <p>
+            {{item.decision}}
+          </p>
+      
+        </div>
+
+      </div>
+
+    </li>
+
+
+  </ul>
+  </div>

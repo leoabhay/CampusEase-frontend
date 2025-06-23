@@ -1,0 +1,53 @@
+<div class="container-fluid" *ngIf="userRole == 'student'">
+  <div class="container-fluid">
+    <h5>Courses</h5>
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-center"> Courses list</h5>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 my-3">
+            <div class="card">
+              <div class="card-body " *ngFor="let data of listData">
+                <h5 class="card-title">{{ data.enrollment_key }}</h5>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 col-sm-4 my-2" *ngFor="let item of data.subjects">
+                    <div class="card">
+                      <img class="card-img-top" src="../../../../assets/img/book1.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.code }}</p>
+                        <a  class="btn btn-primary">{{ item.credit }} Credits</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="userRole == 'faculty'">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-center">My Courses List</h5>
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 my-3" *ngFor="let item of subjectList">
+          <div class="card">
+            <img class="card-img-top" src="../../../../assets/img/card.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">{{ item.code }}</p>
+              <a  class="btn btn-primary">{{ item.credit }} Credits</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

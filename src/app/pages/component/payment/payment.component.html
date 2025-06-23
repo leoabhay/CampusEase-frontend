@@ -1,0 +1,35 @@
+<div class="container-fluid" *ngIf="idCardData">
+    <h2 class="mb-4">Student Details</h2>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Roll No</th>
+                <th>Email</th>
+                <th>Semester</th>
+                <th>Contact No</th>
+                <th>Department</th>
+                <th>Reason</th>
+                <th>Photo</th>
+                <th>Paid</th>
+                <th>ID</th>
+                <th>Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let card of idCardData.idcard">
+                <td>{{ card.name }}</td>
+                <td>{{ card.rollno }}</td>
+                <td>{{ card.email }}</td>
+                <td>{{ card.semester }}</td>
+                <td>{{ card.contactNo }}</td>
+                <td>{{ card.department }}</td>
+                <td>{{ card.reason }}</td>
+                <td><img [src]="card.photo" alt="Photo" width="100"></td>
+                <td>{{ card.isPaid }}</td>
+                <td>{{ card._id }}</td>
+                <td>{{ card.__v }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
