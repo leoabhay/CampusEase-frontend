@@ -3,7 +3,7 @@
 
   <div id="header" class="header navbar-default">
     <div class="navbar-header">
-      <a href="/dashboard" class="navbar-brand"><span class="navbar-logo"></span> <b>College</b>Automation</a>
+      <a href="/dashboard" class="navbar-brand"><span class="navbar-logo"></span> <b>Campus</b>Ease</a>
       <button type="button"  class="navbar-toggle" data-click="sidebar-toggled">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -104,8 +104,9 @@
             <b class="caret"></b>
         </a>
         <div class="dropdown-menu dropdown-menu-right bg-dark">
-            <a (click)="showSection('profile')" class="dropdown-item text-light">Edit Profile</a>
-            <a (click)="showSection('setting')" class="dropdown-item text-light">Setting</a>
+          
+            <!-- <a (click)="showSection('profile')" class="dropdown-item text-light">Edit Profile</a> -->
+            <!-- <a (click)="showSection('setting')" class="dropdown-item text-light">Setting</a> -->
             <div class="dropdown-divider"></div>
             <a (click)="LogoutButton()" class="dropdown-item text-light">Log Out</a>
         </div>
@@ -125,16 +126,16 @@
 
             </div>
             <div class="info">
-              <b class="caret pull-right"></b>  <a (click)="showSection('setting')">{{showUserProfileData.name}}</a>
+              <b class="caret pull-right"></b>  <a (click)="showSection('profile')">{{showUserProfileData.name}}</a>
               <small>{{showUserProfileData.role}}</small>
             </div>
           </a>
         </li>
         <li>
           <ul class="nav nav-profile">
-            <li><a href="javascript:;"><i class="fa fa-cog"></i> Settings</a></li>
+            <!-- <li><a href="javascript:;"><i class="fa fa-cog"></i> Settings</a></li> -->
             <li><a href="javascript:;"><i class="fa fa-pencil-alt"></i> Send Feedback</a></li>
-            <li><a href="javascript:;"><i class="fa fa-question-circle"></i> Helps</a></li>
+            <li><a href="javascript:;"><i class="fa fa-question-circle"></i> Help</a></li>
           </ul>
         </li>
       </ul>
@@ -221,12 +222,12 @@
               <span>Discussion</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('setting')">
               <i class="fas fa-cog"></i>
               <span>Setting</span>
             </a>
-          </li>
+          </li> -->
           <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
@@ -435,9 +436,9 @@
       <div *ngIf="currentSection === 'our-courses'">
         <app-our-course></app-our-course>
       </div>
-      <div *ngIf="currentSection === 'setting'">
+      <!-- <div *ngIf="currentSection === 'setting'">
         <app-setting></app-setting>
-      </div>
+      </div> -->
       <div *ngIf="currentSection === 'join-club'">
         <app-join-clubs></app-join-clubs>
       </div>
