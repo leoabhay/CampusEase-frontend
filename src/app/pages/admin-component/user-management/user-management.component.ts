@@ -46,6 +46,7 @@ export class UserManagementComponent implements OnInit {
     // this.userForm.get('role')?.valueChanges.subscribe(role => {
     //   this.setRollNoValidation(role);
     // });
+    
     this.teacherData();
     this.getSubjectList()
     this.secretaryCount()
@@ -110,7 +111,7 @@ export class UserManagementComponent implements OnInit {
           alertify.error('Password must be atleast 6 Characters long')
         }
         else {
-          alertify.error('Password doesnot')
+          alertify.error('Password doesnot match')
         }
       }
     }
@@ -158,5 +159,29 @@ export class UserManagementComponent implements OnInit {
       this.confirmationService.showErrorMessage('Sorry cannot be deleted')
     }
   }
+  async deleteStudent(studentId: string) {
+  const confirmed = await this.confirmationService.showConfirmationPopup();
+  if (confirmed) {
+    this.userService.delStudentList(studentId).subscribe((res) => {
+      this.studentCount();
+      this.confirmationService.showSuccessMessage('Student deleted successfully');
+    });
+  } else {
+    this.confirmationService.showErrorMessage('Action cancelled');
+  }
+}
+
+async deleteSecretary(secretaryId: string) {
+  const confirmed = await this.confirmationService.showConfirmationPopup();
+  if (confirmed) {
+    this.userService.delSecretaryList(secretaryId).subscribe((res) => {
+      this.secretaryCount();
+      this.confirmationService.showSuccessMessage('Secretary deleted successfully');
+    });
+  } else {
+    this.confirmationService.showErrorMessage('Action cancelled');
+  }
+}
+
 
 }

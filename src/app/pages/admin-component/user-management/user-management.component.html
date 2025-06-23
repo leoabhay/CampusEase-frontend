@@ -140,36 +140,102 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered">
-
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>SN</th>
-                                <th>Name</th>
-                                <th>email</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of showTeacherData; let i= index">
-                                <th>{{i+1}}</th>
-                                <td>{{item.name}}</td>
-                                <td>{{item.email}}</td>
-                                <td>
-                                    <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline-primary mx-2" (click)="deleteTeacher(item._id)"><i
-                                            class="fas fa-trash-alt"></i></button>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+  <!-- ================== TEACHER TABLE ================== -->
+  <div class="col-lg-12">
+    <div class="card mb-4">
+      <h5 class="card-title text-center mt-3">Teachers</h5>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th>SN</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of showTeacherData; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>
+                <!-- <button class="btn btn-primary"><i class="fas fa-edit"></i></button> -->
+                <button class="btn btn-outline-primary mx-2" (click)="deleteTeacher(item._id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+
+<!-- ================== STUDENT TABLE ================== -->
+<div class="col-lg-12">
+  <div class="card mb-4">
+    <h5 class="card-title text-center mt-3">Students</h5>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>SN</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roll No</th>
+            <th>Action</th>  <!-- Added Action column -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of showStudentData; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.rollno }}</td>
+            <td>
+              <!-- <button class="btn btn-primary" (click)="editStudent(student)"><i class="fas fa-edit"></i></button> -->
+              <button class="btn btn-outline-primary mx-2" (click)="deleteStudent(student._id)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================== SECRETARY TABLE ================== -->
+<div class="col-lg-12">
+  <div class="card mb-4">
+    <h5 class="card-title text-center mt-3">Secretaries</h5>
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>SN</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Club (if available)</th>
+            <th>Action</th> <!-- Added Action column -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let secretary of showSecretaryData; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ secretary.name }}</td>
+            <td>{{ secretary.email }}</td>
+            <td>{{ secretary.club || 'N/A' }}</td>
+            <td>
+              <!-- <button class="btn btn-primary" (click)="editSecretary(secretary)"><i class="fas fa-edit"></i></button> -->
+              <button class="btn btn-outline-primary mx-2" (click)="deleteSecretary(secretary._id)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+
 </div>
