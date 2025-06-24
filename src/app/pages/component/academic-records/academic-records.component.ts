@@ -1,27 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 
 @Component({
   selector: 'app-academic-records',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './academic-records.component.html',
-  styleUrl: './academic-records.component.css'
+  styleUrls: ['./academic-records.component.css']
 })
-export class AcademicRecordsComponent implements OnInit{
+export class AcademicRecordsComponent implements OnInit {
   itemsPerPage = 5;
   currentPage = 1;
-  totalItems= 0;
-  totalPages:number[]=[];
-  paginatedItems:any[]=[]
-  userRole: string | null | undefined;
+  totalItems = 0;
+  totalPages: number[] = [];
+  paginatedItems: any[] = [];
+
+  userRole: string | null = null;
   selectedFile: File | null = null;
   uploadForm!: FormGroup;
 
-  constructor(private http: HttpClient,private formBuilder: FormBuilder) { }
-  
+  showUserProfileData: any = null;
+  userData: any = null;
+
   items = [
     { clubName: 'Mark', position: 'Otto', joinedDate: '2022-01-01' },
     { clubName: 'Jacob', position: 'Thornton', joinedDate: '2022-01-02' },
@@ -34,23 +37,44 @@ export class AcademicRecordsComponent implements OnInit{
     { clubName: 'Sarah', position: 'Davis', joinedDate: '2022-01-09' },
     { clubName: 'David', position: 'Miller', joinedDate: '2022-01-10' }
   ];
-    ngOnInit(): void {
-      this.totalItems = this.items.length;
-      this.totalPages = Array(Math.ceil(this.totalItems / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
-      this.setPage(1);
-      this.userRole = localStorage.getItem('userRole')
-      this.uploadForm = this.formBuilder.group({
-        file: [null, Validators.required],
-        type: ['', Validators.required],
-        // subject: ['', Validators.required]
-      });
+
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private userService: UserAuthService // ✅ Injected properly
+  ) {}
+
+  ngOnInit(): void {
+    // 1. Set up pagination
+    this.totalItems = this.items.length;
+    this.totalPages = Array(Math.ceil(this.totalItems / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+    this.setPage(1);
+
+    // 2. Get role and form
+    this.userRole = localStorage.getItem('userRole');
+    this.uploadForm = this.formBuilder.group({
+      file: [null, Validators.required],
+      type: ['', Validators.required],
+    });
+
+    // 3. Fetch user data
+    this.userService.getuserDataLogin().subscribe((res) => {
+      console.log('getuserDataLogin:', res);
+      this.showUserProfileData = res.data;
+    });
+
+    this.userService.getProfile().subscribe((res) => {
+      console.log('getProfile:', res);
+      this.userData = res;
+    });
   }
-  setPage(page:number):void{
-    if(page < 1 || page > this.totalPages.length ) return;
-    this.currentPage= page;
-    const startIndex= (page-1)*this.itemsPerPage;
-    const endIndex = startIndex+ this.itemsPerPage;
-    this.paginatedItems= this.items.slice(startIndex,endIndex)
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.totalPages.length) return;
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedItems = this.items.slice(startIndex, endIndex);
   }
 
   onFileChange(event: Event): void {
@@ -68,7 +92,6 @@ export class AcademicRecordsComponent implements OnInit{
       const formData = new FormData();
       formData.append('file', this.selectedFile);
       formData.append('type', this.uploadForm.get('type')!.value);
-      // formData.append('subject', this.uploadForm.get('subject')!.value);
 
       this.http.post('http://localhost:3200/upload', formData).subscribe(
         response => {

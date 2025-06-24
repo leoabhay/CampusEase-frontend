@@ -23,7 +23,7 @@ postuserRegister(obj:any):Observable<any>{
 postUserSignIn(obj:any):Observable<any>{
   return this.http.post(environment.api_url+'signin',obj)
 }
-getuserDara():Observable<any>{
+getuserData():Observable<any>{
   return this.http.get(environment.api_url+'userdata')
 }
 getuserDataLogin():Observable<any>{
@@ -41,13 +41,6 @@ getSecretarytData():Observable<any>{
 getIdCardData():Observable<any>{
   return this.http.get(environment.api_url+'idcard')
 }
-delTeacherList(id:string):Observable<any>{
-  return this.http.delete<any>(environment.api_url+(`deleteTeacher/${id}`))
-  // return this.http.delete<any>(environment.api_url+(`userdata/${userId}`))
-}
-// updateUserProfile(userId: string, formData: any): Observable<any> {
-//    return this.http.put(environment.api_url +(`userdata/${userId}`), formData);
-// }
 saveProfile(userId: string,data: FormData): Observable<any> {
   return this.http.put<any>(environment.api_url+(`userdata/${userId}`), data);
 }
@@ -58,8 +51,7 @@ changePassword(userId: string, data: any, options: { headers: HttpHeaders }): Ob
   return this.http.put(environment.api_url+(`password/${userId}`), data, options);
 }
 
-
-setUserDara(user:any){
+setUserData(user:any){
   localStorage.setItem('userData',JSON.stringify(user))
 }
 getUserData(){
@@ -80,6 +72,23 @@ setUserToken(token: string) {
 getUserToken() {
   return localStorage.getItem('userToken');
 }
+
+delStudentList(id: string): Observable<any> {
+  return this.http.delete<any>(environment.api_url + `user/${id}`);
+}
+
+delSecretaryList(id: string): Observable<any> {
+  return this.http.delete<any>(environment.api_url + `user/${id}`);
+}
+
+delTeacherList(id: string): Observable<any> {
+  return this.http.delete(environment.api_url + `user/${id}`);
+}
+
+updateUser(id: string, userData: any): Observable<any> {
+  return this.http.put(environment.api_url + `userdata/${id}`, userData);
+}
+
 
 isLoggedIn(): Observable<boolean> {
   const authToken = localStorage.getItem('userToken');

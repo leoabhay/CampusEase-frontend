@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "aollege-automation": {
+    "campus-ease": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/aollege-automation",
+            "outputPath": "dist/campus-ease",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -69,10 +69,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "aollege-automation:build:production"
+              "buildTarget": "campus-ease:build:production"
             },
             "development": {
-              "buildTarget": "aollege-automation:build:development"
+              "buildTarget": "campus-ease:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "aollege-automation:build"
+            "buildTarget": "campus-ease:build"
           }
         },
         "test": {
