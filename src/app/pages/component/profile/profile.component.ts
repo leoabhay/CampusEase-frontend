@@ -1,154 +1,189 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 import { CommonModule } from '@angular/common';
-import { DepartmentService } from '../../../core/services/department-service/department.service';
 import { ClubService } from '../../../core/services/club_service/club.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-
-
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  userData:any[]=[];
-  showUserProfileData:any=null;
-  clubList:any[]=[]
-  formProfile!:FormGroup;
-  changePasswordForm!:FormGroup;
-  userRole: string|null | undefined;
+  showUserProfileData: any = null;
+  clubList: any[] = [];
+  formProfile!: FormGroup;
+  changePasswordForm!: FormGroup;
+  userRole: string | null = null;
   selectedFile: File | null = null;
-  profileData: any = {};
 
+  quickStats = {
+    lastLogin: new Date(),
+    accountCreated: new Date(),
+    status: 'Active',
+    rating: 4.8,
+    coursesCount: 0
+  };
 
-constructor(private userService:UserAuthService,private clubService:ClubService ,private formBuilder:FormBuilder ){
+  constructor(
+    private userService: UserAuthService,
+    private clubService: ClubService,
+    private fb: FormBuilder
+  ) {
+    this.formProfile = this.fb.group({
+      address: ['']
+    });
+  }
 
-  this.formProfile = this.formBuilder.group({
-    photo: [''], // No need for validators, file input doesn't support "required"
-    address: [''],
-    biography: [''],
-    facebook: [''],
-    instagram: [''],
-    whatsapp: [''],
-    website: [''],
-    rollno:[0]
-  });
-
-}
-// getProfile() {
-//   this.userService.getProfile().subscribe(
-//     data => {
-//       this.profileData = data;
-//       this.formProfile.patchValue({
-//         address: data.address,
-//         biography: data.biography,
-//         facebook: data.facebook,
-//         instagram: data.instagram,
-//         whatsapp: data.whatsapp,
-//         website: data.website
-//       });
-//     },
-//     (error: HttpErrorResponse) => {
-//       console.error('Error fetching profile:', error);
-//       // alert('Error fetching profile: ' + (error.error.message || error.message));
-//     }
-//   );
-// }
   ngOnInit(): void {
-  this.userService.getuserDara().subscribe((res)=>{
-    console.log("the response is "+res);
-    this.userData=res.userData
-    console.log('hello'+this.userData);
-    console.log(this.userData);
-  })
-  this.changePasswordForm = this.formBuilder.group({
-    oldpassword: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', Validators.required]
-  }, { validator: this.passwordMatchValidator });
-  this.userRole =localStorage.getItem('userRole')
+    this.userRole = this.userService.getUserRole();
+    this.loadUserProfile();
+    this.loadClubs();
 
-  this.showUserProfile();
-  this.showClub();
-  // this.getProfile();
-}
-passwordMatchValidator(formGroup: FormGroup) {
-  return formGroup.get('password')!.value === formGroup.get('confirmPassword')!.value ? null : { mismatch: true };
-}
+    this.changePasswordForm = this.fb.group({
+      oldpassword: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+  }
 
-showUserProfile(){
-  this.userService.getuserDataLogin().subscribe((res)=>{
-    console.log(res);
-    this.showUserProfileData=res.data;
-    console.log(this.showUserProfileData);
-  })  
-}
-
-showClub(){
-  this.clubService.getClubList().subscribe((res)=>{
-    console.log(res);
-    this.clubList=res.clubName
-  })
-}
-editClub(clubId:string){}
-deleteClub(clubId:string){
-  this.clubService.delDeleteClubList(clubId).subscribe((res)=>{
-    console.log(res);
-    this.showClub()
-  })
-}
-onFileChange(event: any) {
-  this.selectedFile = event.target.files[0];
-}
-onPasswordChange(){
-  if (this.changePasswordForm.valid) {
-    const formData = this.changePasswordForm.value;
-    const userId = this.showUserProfileData._id;
-    
-    const headers = new HttpHeaders().set('Authorization', 'Bearer your-token'); // Replace with your actual token
-
-    this.userService.changePassword(userId, formData, { headers }).subscribe(
-      response => {
-        alert('Password updated successfully');
-        this.changePasswordForm.reset()
+  private loadUserProfile(): void {
+    this.userService.getuserDataLogin().subscribe({
+      next: (res) => {
+        this.showUserProfileData = res.data;
+        this.formProfile.patchValue({
+          address: this.showUserProfileData?.address || ''
+        });
+        this.initializeQuickStats();
       },
-      error => {
-        alert('Something went wrong');
-      }
-    );
+      error: (err) => console.error('Error loading profile:', err)
+    });
   }
-}
 
-
-onSubmit() {
-  const formData = new FormData();
-  if (this.selectedFile) {
-    formData.append('photo', this.selectedFile);
+  private loadClubs(): void {
+    this.clubService.getClubList().subscribe({
+      next: (res) => this.clubList = res.clubName,
+      error: (err) => console.error('Error loading clubs:', err)
+    });
   }
-  formData.append('address', this.formProfile.get('address')?.value);
-  formData.append('biography', this.formProfile.get('biography')?.value);
-  formData.append('facebook', this.formProfile.get('facebook')?.value);
-  formData.append('instagram', this.formProfile.get('instagram')?.value);
-  formData.append('whatsapp', this.formProfile.get('whatsapp')?.value);
-  formData.append('website', this.formProfile.get('website')?.value);
-  // formData.append('rollno', this.formProfile.get('rollno')?.value);
-  const userId = this.showUserProfileData._id; 
 
-  this.userService.saveProfile(userId, formData).subscribe(
-    response => {
-      console.log(response);
-      alert('Profile saved successfully!');
-    },
-    (error: HttpErrorResponse) => {
-      console.error('Error saving profile:', error);
-      alert('Error saving profile: ' + (error.error.message || error.message));
+  initializeQuickStats(): void {
+    if (this.showUserProfileData) {
+      this.quickStats = {
+        lastLogin: new Date(this.showUserProfileData.lastLogin || new Date()),
+        accountCreated: new Date(this.showUserProfileData.createdAt || new Date()),
+        status: this.showUserProfileData.status || 'Active',
+        rating: this.showUserProfileData.rating || 4.8,
+        coursesCount: this.showUserProfileData.courses?.length || 0
+      };
     }
-  );
-}
+  }
+
+  passwordMatchValidator(formGroup: FormGroup): { [key: string]: boolean } | null {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  deleteClub(clubId: string): void {
+    if (confirm('Are you sure you want to delete this club?')) {
+      this.clubService.delDeleteClubList(clubId).subscribe({
+        next: () => this.loadClubs(),
+        error: () => alert('Error deleting club')
+      });
+    }
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      this.selectedFile = input.files[0];
+      this.uploadPhoto();
+    }
+  }
+
+  triggerFileInput(): void {
+    document.getElementById('photo')?.click();
+  }
+
+  uploadPhoto(): void {
+    if (!this.selectedFile || !this.showUserProfileData?._id) return;
+
+    const formData = new FormData();
+    formData.append('photo', this.selectedFile);
+
+    this.userService.saveProfile(this.showUserProfileData._id, formData).subscribe({
+      next: () => {
+        alert('Profile photo updated successfully!');
+        this.loadUserProfile();
+      },
+      error: () => alert('Error updating profile photo')
+    });
+  }
+
+  onSubmit(): void {
+    if (this.formProfile.invalid) return;
+
+    const formData = new FormData();
+    formData.append('address', this.formProfile.get('address')?.value);
+
+    if (this.selectedFile) {
+      formData.append('photo', this.selectedFile);
+    }
+
+    this.userService.saveProfile(this.showUserProfileData._id, formData).subscribe({
+      next: () => {
+        alert('Profile updated successfully!');
+        this.loadUserProfile();
+      },
+      error: (err: HttpErrorResponse) => {
+        alert(err.error?.message || 'Error updating profile');
+      }
+    });
+  }
+
+  onPasswordChange(): void {
+    if (this.changePasswordForm.invalid) {
+      alert('Please fill all fields correctly.');
+      return;
+    }
+
+    const passwordData = {
+      oldpassword: this.changePasswordForm.value.oldpassword,
+      password: this.changePasswordForm.value.password,
+      confirmPassword: this.changePasswordForm.value.confirmPassword
+    };
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.userService.getUserToken()}`
+    });
+
+    this.userService.changePassword(
+      this.showUserProfileData._id,
+      passwordData,
+      { headers }
+    ).subscribe({
+      next: () => {
+        alert('Password changed successfully!');
+        this.changePasswordForm.reset();
+      },
+      error: (err) => {
+        const msg = err.error?.error || err.error?.message || 'Error changing password';
+        alert(msg);
+      }
+    });
+  }
+
+  formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
 }

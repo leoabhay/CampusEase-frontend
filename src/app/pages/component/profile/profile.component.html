@@ -1,146 +1,146 @@
-<!-- begin profile -->
-<div class="profile">
-    <div class="profile-header">
-        <!-- BEGIN profile-header-cover -->
-        <div class="profile-header-cover"></div>
-
-        <!-- <div *ngFor="let item of showUserProfileData"> -->
-
-        <div class="profile-header-content" *ngIf="showUserProfileData">
-            <!-- BEGIN profile-header-img -->
-            <div class="profile-header-img">
-                <img [src]="showUserProfileData.photo" alt="">
-            </div>
-            <!-- END profile-header-img -->
-            <!-- BEGIN profile-header-info -->
-            <div class="profile-header-info">
-                <h4 class="mt-0 mb-1">{{showUserProfileData.name}}</h4>
-                <p class="mb-2">{{showUserProfileData.address}}</p>
-                <a class="btn btn-xs btn-yellow">{{showUserProfileData.role}}</a>
-            </div>
-            <!-- END profile-header-info -->
-            <!-- </div> -->
+<div class="profile-header bg-gradient-primary">
+  <div class="container py-4">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <div class="profile-avatar">
+          <img [src]="showUserProfileData?.photo || 'assets/images/default-profile.png'" 
+               alt="Profile Photo" 
+               class="img-thumbnail rounded-circle border-white">
+          <button class="btn-edit-avatar" (click)="triggerFileInput()">
+            <i class="fas fa-camera"></i>
+          </button>
+          <input type="file" id="photo" class="d-none" (change)="onFileChange($event)" accept="image/*">
         </div>
-
-        <!-- END profile-header-content -->
-        <!-- BEGIN profile-header-tab -->
-        <ul class="profile-header-tab nav nav-tabs">
-            <li class="nav-item"><a href="#profile-student-about" class="nav-link active" data-toggle="tab">About </a>
-            </li>
-            <!-- <li class="nav-item"><a href="#profile-friends" class="nav-link" data-toggle="tab">Friends</a></li>
-            <li class="nav-item"><a href="#profile-request" class="nav-link" data-toggle="tab">Request</a></li> -->
-
-
-        </ul>
+      </div>
+      
+      <div class="col">
+        <div class="profile-info">
+          <h1 class="profile-name">{{showUserProfileData?.name}}</h1>
+          <p class="profile-role badge bg-yellow text-dark">{{userRole}}</p>
+          <p class="profile-location">
+            <i class="fas fa-map-marker-alt"></i> {{showUserProfileData?.address || 'No address provided'}}
+          </p>
+          <div class="profile-stats">
+            <!-- <div class="stat-item">
+              <span class="stat-value">{{quickStats.rating}}</span>
+              <span class="stat-label">Rating</span>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="profile-content">
-    <div class="tab-content p-0">
-        <div class="tab-pane fade show active" id="profile-student-about">
-            <div *ngIf="showUserProfileData">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5>Write About Me</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <!-- Profile Picture -->
-                            <div class="col-md-4">
-                                <img [src]="showUserProfileData.photo" class="img-fluid rounded-circle"
-                                    alt="Profile Picture">
-                            </div>
-
-                            <div class="col-md-8">
-                                <h6>Personal Information</h6>
-                                <p><strong>Name:</strong> {{showUserProfileData.name}}</p>
-                                <p><strong>Email:</strong> {{showUserProfileData.email}}</p>
-                                <p *ngIf="userRole == 'student'"><strong>Roll No:</strong>{{
-                                    showUserProfileData.rollno}}</p>
-                                <p><strong>Address:</strong> {{showUserProfileData.address}}</p>
-                                <p><strong>Role:</strong> {{showUserProfileData.role}}</p>
-                            </div>
-                        </div>
-                        <hr>
-
-                    </div>
-                </div>
-                <div class="card mb-3"  *ngIf="userRole !== 'admin'" >
-                    <div class="card-header">
-                        <h5>About Me</h5>
-                    </div>
-                    <div class="card-body">
-                        <form [formGroup]="formProfile" (ngSubmit)="onSubmit()">
-                            <div class="form-group">
-                                <label for="photo">Profile Picture:</label>
-                                <input type="file" id="photo" class="form-control" (change)="onFileChange($event)">
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Address:</label>
-                                <input type="text" id="address" class="form-control" formControlName="address">
-                            </div>
-                            <div class="form-group">
-                                <label for="biography">Biography:</label>
-                                <textarea class="form-control" placeholder="Biography" id="biography" formControlName="biography" rows="3"></textarea>
-                            </div>
-                            <h4>Social Media</h4>
-                            <div class="form-group">
-                                <label for="facebook">Facebook:</label>
-                                <input type="text" id="facebook" class="form-control" formControlName="facebook">
-                            </div>
-                            <div class="form-group">
-                                <label for="instagram">Instagram:</label>
-                                <input type="text" id="instagram" class="form-control" formControlName="instagram">
-                            </div>
-                            <div class="form-group">
-                                <label for="whatsapp">WhatsApp:</label>
-                                <input type="text" id="whatsapp" class="form-control" formControlName="whatsapp">
-                            </div>
-                            <div class="form-group">
-                                <label for="website">Website:</label>
-                                <input type="text" id="website" class="form-control" formControlName="website">
-                            </div>
-                            <!-- <div class="form-group">
-                                <label for="rollno">Roll No:</label>
-                                <input type="text" id="rollno" class="form-control" formControlName="rollno">
-                            </div> -->
-                            <button type="submit" class="btn btn-primary">Save Profile</button>
-                        </form>
-                    </div>
-                    
-                </div>
-
-
-            </div>
-            <!-- <button type="button" class="btn btn-primary" (click)="submitProfileForm(showUserProfileData._id)">Save</button> -->
-            <div class="card">
-                <div class="card-header">
-                    <h5>Change Password</h5>
-                </div>
-                <div class="card-body">
-                    <form [formGroup]="changePasswordForm" (ngSubmit)="onPasswordChange()">
-                      <div class="row" *ngIf="showUserProfileData">
-                        <div class="col-lg-6 mb-3">
-                          <input type="password" formControlName="oldpassword" placeholder="Enter the old password" class="form-control">
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                          <input type="password" formControlName="password" placeholder="Enter the new password" class="form-control">
-                        </div>
-                        <div class="col-lg-6 mb-3">
-                          <input type="password" formControlName="confirmPassword" placeholder="Enter the Confirm Password" class="form-control">
-                        </div>
-                        <div class="col-lg-12 mb-3">
-                          <button type="submit" class="btn btn-primary my-2" [disabled]="changePasswordForm.invalid">Change Password</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                <hr>
-
-            </div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white border-bottom-0">
+          <h5 class="card-title mb-0"><i class="fas fa-user-circle me-2"></i>About Me</h5>
         </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">Full Name</span>
+                <span class="info-value">{{showUserProfileData?.name}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{showUserProfileData?.email}}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">Address</span>
+                <span class="info-value">{{showUserProfileData?.address || 'Not specified'}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <hr class="my-4">
 
-
+          <!-- ✅ Removed role check here -->
+          <h6 class="mb-3"><i class="fas fa-edit me-2"></i>Edit Profile</h6>
+          <form [formGroup]="formProfile" (ngSubmit)="onSubmit()">
+            <div class="form-floating mb-3">
+              <input type="text" id="address" class="form-control" formControlName="address" 
+                     placeholder="Address">
+              <label for="address">Address</label>
+            </div>
+            <button type="submit" class="btn btn-primary px-4" [disabled]="formProfile.invalid">
+              <i class="fas fa-save me-2"></i>Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-
+    
+    <div class="col-lg-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white border-bottom-0">
+          <h5 class="card-title mb-0"><i class="fas fa-lock me-2"></i>Change Password</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="changePasswordForm" (ngSubmit)="onPasswordChange()">
+            <div class="form-floating mb-3">
+              <input type="password" formControlName="oldpassword" class="form-control" 
+                     id="oldPassword" placeholder="Old Password" required>
+              <label for="oldPassword">Old Password</label>
+              <div *ngIf="changePasswordForm.get('oldpassword')?.invalid && changePasswordForm.get('oldpassword')?.touched"
+                   class="text-danger small">
+                Old password is required
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" formControlName="password" class="form-control" 
+                     id="newPassword" placeholder="New Password" required>
+              <label for="newPassword">New Password</label>
+              <div *ngIf="changePasswordForm.get('password')?.invalid && changePasswordForm.get('password')?.touched"
+                   class="text-danger small">
+                Password must be at least 6 characters
+              </div>
+            </div>
+            <div class="form-floating mb-4">
+              <input type="password" formControlName="confirmPassword" class="form-control" 
+                     id="confirmPassword" placeholder="Confirm Password" required>
+              <label for="confirmPassword">Confirm Password</label>
+              <div *ngIf="changePasswordForm.hasError('mismatch') && changePasswordForm.get('confirmPassword')?.touched"
+                   class="text-danger small">
+                Passwords do not match
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="changePasswordForm.invalid">
+              <i class="fas fa-key me-2"></i>Update Password
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="card shadow-sm">
+        <div class="card-header bg-white border-bottom-0">
+          <h5 class="card-title mb-0"><i class="fas fa-chart-line me-2"></i>Quick Stats</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-3">
+            <span>Last Login</span>
+            <span class="text-muted">{{formatDate(quickStats.lastLogin)}}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span>Account Created</span>
+            <span class="text-muted">{{formatDate(quickStats.accountCreated)}}</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Status</span>
+            <span class="badge" [ngClass]="{
+              'bg-success': quickStats.status === 'Active',
+              'bg-warning': quickStats.status === 'Pending',
+              'bg-danger': quickStats.status === 'Inactive'
+            }">{{quickStats.status}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

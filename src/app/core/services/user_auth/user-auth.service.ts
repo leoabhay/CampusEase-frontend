@@ -58,7 +58,6 @@ changePassword(userId: string, data: any, options: { headers: HttpHeaders }): Ob
   return this.http.put(environment.api_url+(`password/${userId}`), data, options);
 }
 
-
 setUserDara(user:any){
   localStorage.setItem('userData',JSON.stringify(user))
 }
@@ -93,9 +92,9 @@ delTeacherList(id: string): Observable<any> {
   return this.http.delete(environment.api_url + `user/${id}`);
 }
 
-// updateUser(id: string, userData: any): Observable<any> {
-//   return this.http.put(environment.api_url + `userdata/${id}`, userData);
-// }
+updateUser(id: string, userData: any): Observable<any> {
+  return this.http.put(environment.api_url + `userdata/${id}`, userData);
+}
 
 
 isLoggedIn(): Observable<boolean> {
