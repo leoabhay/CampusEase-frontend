@@ -101,14 +101,14 @@
                             <img [src]="showUserProfileData.photo" alt="">
 
             <span class="d-none d-md-inline">{{showUserProfileData.name}}</span>
-            <b class="caret"></b>
+            <!-- <b class="caret"></b> -->
         </a>
         <div class="dropdown-menu dropdown-menu-right bg-dark">
           
             <!-- <a (click)="showSection('profile')" class="dropdown-item text-light">Edit Profile</a> -->
             <!-- <a (click)="showSection('setting')" class="dropdown-item text-light">Setting</a> -->
             <div class="dropdown-divider"></div>
-            <a (click)="LogoutButton()" class="dropdown-item text-light">Log Out</a>
+            <!-- <a (click)="LogoutButton()" class="dropdown-item text-light">Log Out</a> -->
         </div>
     </li>
     
@@ -502,9 +502,9 @@
       <div *ngIf="currentSection === 'events'">
         <app-events></app-events>
       </div>
-      <div *ngIf="currentSection === 'class-schedule'">
+      <!-- <div *ngIf="currentSection === 'class-schedule'">
         <app-class-schedule></app-class-schedule>
-      </div>
+      </div> -->
     </div>
   </div>
 

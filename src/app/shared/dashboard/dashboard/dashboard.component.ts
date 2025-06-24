@@ -25,7 +25,6 @@ import { JobVacancyComponent } from '../../../pages/admin-component/job-vacancy/
 import { ListCourseComponent } from '../../../pages/admin-component/list-course/list-course.component';
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 import { EventsComponent } from '../../../pages/component/events/events.component';
-import { ClassScheduleComponent } from '../../../pages/component/class-schedule/class-schedule.component';
 import { DepartmentComponent } from '../../../pages/component/department/department.component';
 import { OurCourseComponent } from '../../../pages/component/our-course/our-course.component';
 import { HttpClient } from '@angular/common/http';
@@ -42,7 +41,7 @@ import { PaymentComponent } from '../../../pages/component/payment/payment.compo
     AssignmentMaterialsComponent, CourseRecordComponent, FeedbackComponent, InternalRecordsComponent,
     ModelQuestionComponent, StudentWorkComponent, UserManagementComponent,
     EnrollmentKeyComponent, ProfileComponent, JobVacancyComponent, ListCourseComponent, EventsComponent
-    , ClassScheduleComponent, DepartmentComponent, OurCourseComponent,ReactiveFormsModule,StudentDetailsComponent,PaymentComponent
+    , DepartmentComponent, OurCourseComponent,ReactiveFormsModule,StudentDetailsComponent,PaymentComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

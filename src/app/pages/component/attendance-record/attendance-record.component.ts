@@ -145,7 +145,7 @@ sendAllOtps(): void {
         (error) => {
           console.error('Error sending some OTPs', error);
           alert('All OTPs sent successfully.');
-        }
+        },
       );
     },
     (error) => {

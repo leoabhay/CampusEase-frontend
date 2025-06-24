@@ -26,5 +26,12 @@ export class OtpService {
   verifyOtp(email: string, otp: string, location: {latitude: number, longitude: number}): Observable<any> {
     return this.http.post(environment.api_url + 'verify-otp', { email, otp, location });
   }
-  
+    getTodayAttendance(): Observable<any> {
+    return this.http.get(environment.api_url + 'getattendancebydate');
+  }
+     // Get attendance for specific user and date
+  getAttendanceByEmailAndDate(email: string, date: string): Observable<any> {
+    return this.http.get(environment.api_url + `attendance/${email}/${date}`);
+  }
+
 }
