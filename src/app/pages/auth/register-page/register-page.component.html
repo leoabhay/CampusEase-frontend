@@ -1,72 +1,42 @@
-<div class="register register-with-news-feed">
-  
-  <div class="news-feed">
-    <div class="news-image" style="background-image: url(../assets/img/login-bg/login-bg-15.jpg)"></div>
-    <div class="news-caption">
-      <h4 class="caption-title"><b>Color</b> Admin App</h4>
-      <p>
-        As a Color Admin app administrator, you use the Color Admin console to manage your organization’s account, such as add new users, manage security settings, and turn on the services you want your team to access.
-      </p>
+<div class="register-wrapper">
+  <div class="background-image"></div>
+  <div class="glass-card">
+    <div class="text-center mb-4">
+      <h1 class="fw-bold text-white">CampusEase</h1>
     </div>
+
+    <form>
+      <label class="text-white">Name <span class="text-danger">*</span></label>
+      <div class="row mb-3">
+        <div class="col-md-6 mb-2">
+          <input type="text" class="form-control" placeholder="First name" required />
+        </div>
+        <div class="col-md-6 mb-2">
+          <input type="text" class="form-control" placeholder="Last name" required />
+        </div>
+      </div>
+
+      <label class="text-white">Email <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="email" class="form-control" placeholder="Email address" required />
+      </div>
+
+
+      <label class="text-white">Password <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Password" required />
+      </div>
+
+
+      <button type="submit" class="btn btn-success w-100 py-2">Sign Up</button>
+
+      <div class="text-white mt-3">
+        Already a member? <a href="/login" class="text-info" style="text-decoration: none;">Click here</a> to login.
+      </div>
+
+      <hr class="bg-light" />
+
+      <p class="text-center text-white-50 mb-0">&copy; CampusEase All Rights Reserved 2025</p>
+    </form>
   </div>
- 
-  <div class="right-content">
-   
-    <h1 class="register-header">
-      Sign Up
-      <small>Create your Color Admin Account. It’s free and always will be.</small>
-    </h1>
-   
-    <div class="register-content">
-      <form action="index.html" class="margin-bottom-0">
-        <label class="control-label">Name <span class="text-danger">*</span></label>
-        <div class="row row-space-10">
-          <div class="col-md-6 m-b-15">
-            <input type="text" class="form-control" placeholder="First name" required />
-          </div>
-          <div class="col-md-6 m-b-15">
-            <input type="text" class="form-control" placeholder="Last name" required />
-          </div>
-        </div>
-        <label class="control-label">Email <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="Email address" required />
-          </div>
-        </div>
-        <label class="control-label">Re-enter Email <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="text" class="form-control" placeholder="Re-enter email address" required />
-          </div>
-        </div>
-        <label class="control-label">Password <span class="text-danger">*</span></label>
-        <div class="row m-b-15">
-          <div class="col-md-12">
-            <input type="password" class="form-control" placeholder="Password" required />
-          </div>
-        </div>
-        <div class="checkbox checkbox-css m-b-30">
-          <div class="checkbox checkbox-css m-b-30">
-            <input type="checkbox" id="agreement_checkbox" value="">
-            <label for="agreement_checkbox">
-            By clicking Sign Up, you agree to our <a href="javascript:;">Terms</a> and that you have read our <a href="javascript:;">Data Policy</a>, including our <a href="javascript:;">Cookie Use</a>.
-            </label>
-          </div>
-        </div>
-        <div class="register-buttons">
-          <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
-        </div>
-        <div class="m-t-30 m-b-30 p-b-30">
-          Already a member? Click <a href="registration-page">here</a> to login.
-        </div>
-        <hr />
-        <p class="text-center mb-0">
-          &copy; Color Admin All Right Reserved 2020
-        </p>
-      </form>
-    </div>
-  
-  </div>
- 
-</div> 
+</div>
