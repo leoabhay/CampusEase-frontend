@@ -23,7 +23,7 @@ postuserRegister(obj:any):Observable<any>{
 postUserSignIn(obj:any):Observable<any>{
   return this.http.post(environment.api_url+'signin',obj)
 }
-getuserDara():Observable<any>{
+getuserData():Observable<any>{
   return this.http.get(environment.api_url+'userdata')
 }
 getuserDataLogin():Observable<any>{
@@ -58,7 +58,7 @@ changePassword(userId: string, data: any, options: { headers: HttpHeaders }): Ob
   return this.http.put(environment.api_url+(`password/${userId}`), data, options);
 }
 
-setUserDara(user:any){
+setUserData(user:any){
   localStorage.setItem('userData',JSON.stringify(user))
 }
 getUserData(){
