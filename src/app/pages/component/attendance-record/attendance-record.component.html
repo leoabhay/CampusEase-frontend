@@ -1,83 +1,102 @@
-<div id="" class="" *ngIf="userRole == 'student'">
+<!-- Student View: OTP Input and Verification Messages -->
+<div *ngIf="userRole == 'student'">
   <div class="row">
-      <div class="row">
-        <div class="col-lg-12">
-          <label>Enter OTP:</label>
-          <input type="text" class="form-control" placeholder="OTP" [(ngModel)]="otp">
-     
-          <button type="submit" class="btn btn-primary my-2" (click)="verifyOTP()">Verify OTP</button>
-        </div>
-      </div>
-      <p *ngIf="verified">Attendance marked present!</p>
-      <p *ngIf="invalidOtp">Invalid OTP</p>
-      <p *ngIf="error">Error verifying OTP: {{ error }}</p>
-      <!-- end col-10 -->
+    <div class="col-lg-12">
+      <label>Enter OTP:</label>
+      <input type="text" class="form-control" placeholder="OTP" [(ngModel)]="otp" />
+
+      <button type="submit" class="btn btn-primary my-2" (click)="verifyOTP()">Verify OTP</button>
     </div>
   </div>
 
-  <div *ngIf="userRole == 'faculty'">
-    <div>
-      <h1>OTP Attendance System</h1>
-      <div class="table-responsive">
-        <h5>Total Events </h5>
-        <div class="table-responsive">
-          <button class="btn btn-success mb-3" (click)="sendAllOtps()">Send OTPs to All</button>
+  <p *ngIf="verified" class="text-success"> Attendance marked present!</p>
+  <p *ngIf="invalidOtp" class="text-danger"> Invalid OTP</p>
+  <p *ngIf="error" class="text-danger">Error verifying OTP: {{ error }}</p>
+</div>
 
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>SN</th>
-                <th> Name</th>
-                <th>Email</th>
-                <th>Rollno</th>
-                <th>Action</th>
-          
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of enrollmentDatabyEnrolledsubject  let i=index">
-                <td>{{i+1}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.email}}</td>
-                <td>{{item.rollno}}</td>
-                <td>
-                  <button class="btn btn-primary mx-2" (click)="sendOtp(item)">Send OTP</button>
-                </td>
-              </tr>
+<!-- Faculty View: List of Students and Send OTP Buttons -->
+<div *ngIf="userRole == 'faculty'">
+  <h1>Attendance System</h1>
 
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="table-responsive mb-4">
+    <button class="btn btn-success mb-3" (click)="sendAllOtps()">Send OTPs to All</button>
 
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="row"*ngIf="userRole == 'student'">
     <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Rollno</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of enrollmentDatabyEnrolledsubject; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.rollno }}</td>
+          <td>
+            <button class="btn btn-primary mx-2" (click)="sendOtp(item)">Send OTP</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Faculty Attendance Records Table -->
+  <div *ngIf="studentAttendance.length > 0">
+    <h4>All Student Attendance Records:</h4>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>SN</th>
+          <th>Date</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of studentAttendance; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.email }}</td>
+          <td>
+            <span [ngClass]="record.present ? 'text-success' : 'text-danger'">
+              {{ record.present ? 'Present' : 'Absent' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Student Attendance Table: Show Attendance Records -->
+<div class="row" *ngIf="userRole == 'student' && studentAttendance.length > 0">
+  <h4>Your Attendance Records:</h4>
+
+  <table class="table table-bordered table-striped">
+    <thead>
       <tr>
         <th>SN</th>
         <th>Date</th>
         <th>Email</th>
         <th>Status</th>
       </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let student of studentAttendance; let i = index">
-     
-        <td>{{ i+1 }}</td>
+        <td>{{ i + 1 }}</td>
         <td>{{ student.date }}</td>
         <td>{{ student.email }}</td>
-        <!-- <td>{{ student.name }}</td> -->
-        <td>{{ student.present ? 'Present' : 'Absent' }}</td>
-
-        <td>   <input type="checkbox" [checked]="student.present" disabled> {{ student.present }}</td>
+        <td>
+          <span [ngClass]="student.present ? 'text-success' : 'text-danger'">
+            {{ student.present ? 'Present' : 'Absent' }}
+          </span>
+        </td>
       </tr>
-    </table>
-    
-    
-
-  </div>
+    </tbody>
+  </table>
+</div>
