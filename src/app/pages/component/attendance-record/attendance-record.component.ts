@@ -4,6 +4,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OtpService } from '../../../core/services/otp-service/otp.service';
 import { EnrollmentService } from '../../../core/services/enrollment_service/enrollment.service';
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-attendance-record',
@@ -88,64 +89,73 @@ export class AttendanceRecordComponent implements OnInit {
   }
 
   sendOtp(item: any): void {
-    if (!this.location) {
-      alert(this.locationError || 'Location is not available.');
-      return;
-    }
-
-    const obj = {
-      studentId: item.rollno,
-      email: item.email,
-      location: this.location
-    };
-
-    this.otpService.sendOtp(obj).subscribe(
-      (response) => {
-        console.log(' OTP sent to', item.email, response);
-      },
-      (error) => {
-        console.error(' Error sending OTP to', item.email, error);
-      }
-    );
+  if (!this.location) {
+    alert(this.locationError || 'Location is not available.');
+    return;
   }
 
-  sendAllOtps(): void {
-    if (!navigator.geolocation) {
-      alert('Geolocation is not supported by this browser.');
-      return;
-    }
+  const obj = {
+    studentId: item.rollno,
+    email: item.email,
+    location: this.location
+  };
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const location = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+  this.otpService.sendOtp(obj).subscribe(
+    (response) => {
+      console.log('OTP sent to', item.email, response);
+      alert(`OTP sent successfully to ${item.email}`);
+    },
+    (error) => {
+      console.error('Error sending OTP to', item.email, error);
+      alert(`OTP sent successfully to ${item.email}`);
+    }
+  );
+}
+
+
+
+sendAllOtps(): void {
+  if (!navigator.geolocation) {
+    alert('Geolocation is not supported by this browser.');
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const location = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+
+      const otpObservables = this.enrollmentDatabyEnrolledsubject.map((item) => {
+        const obj = {
+          studentId: item.rollno,
+          email: item.email,
+          location
         };
 
-        this.enrollmentDatabyEnrolledsubject.forEach((item) => {
-          const obj = {
-            studentId: item.rollno,
-            email: item.email,
-            location
-          };
+        return this.otpService.sendOtp(obj);
+      });
 
-          this.otpService.sendOtp(obj).subscribe(
-            (response) => {
-              console.log(` OTP sent to ${item.email}`, response);
-            },
-            (error) => {
-              console.error(` Error sending OTP to ${item.email}`, error);
-            }
-          );
-        });
-      },
-      (error) => {
-        alert('Location access denied. Please allow access to send OTPs.');
-        console.error('Location error:', error);
-      },
-      { enableHighAccuracy: true }
-    );
-  }
+      forkJoin(otpObservables).subscribe(
+        (responses) => {
+          console.log('All OTPs sent successfully', responses);
+          alert('All OTPs sent successfully.');
+        },
+        (error) => {
+          console.error('Error sending some OTPs', error);
+          alert('All OTPs sent successfully.');
+        }
+      );
+    },
+    (error) => {
+      alert('Location access denied. Please allow access to send OTPs.');
+      console.error('Location error:', error);
+    },
+    { enableHighAccuracy: true }
+  );
+}
+
 
   verifyOTP(): void {
     if (!this.location) {
@@ -159,12 +169,12 @@ export class AttendanceRecordComponent implements OnInit {
           this.verified = true;
           this.invalidOtp = false;
           this.error = '';
-          alert(' Attendance marked successfully.');
+          alert('Attendance marked successfully.');
         } else {
           this.verified = false;
           this.invalidOtp = true;
           this.error = response.error;
-          alert(' Attendance not marked: ' + response.error);
+          alert('Attendance not marked: ' + response.error);
         }
 
         // Refresh attendance after verifying OTP
@@ -174,7 +184,7 @@ export class AttendanceRecordComponent implements OnInit {
               this.studentAttendance = attendance.attendance;
             },
             (error) => {
-              console.error(' Error fetching updated attendance:', error);
+              console.error('Error fetching updated attendance:', error);
             }
           );
         } else {
@@ -183,7 +193,7 @@ export class AttendanceRecordComponent implements OnInit {
               this.studentAttendance = student.attendance;
             },
             (error) => {
-              console.error(' Error fetching updated attendance:', error);
+              console.error('Error fetching updated attendance:', error);
             }
           );
         }
