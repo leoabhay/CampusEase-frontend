@@ -7,8 +7,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   selector: 'app-student-details',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './student-details.component.html',
-  styleUrl: './student-details.component.css'
+  templateUrl: './user-details.component.html',
+  styleUrl: './user-details.component.css'
 })
 export class StudentDetailsComponent implements OnInit {
   searchTerm: string = '';

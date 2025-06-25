@@ -28,7 +28,7 @@ import { EventsComponent } from '../../../pages/component/events/events.componen
 import { DepartmentComponent } from '../../../pages/component/department/department.component';
 import { OurCourseComponent } from '../../../pages/component/our-course/our-course.component';
 import { HttpClient } from '@angular/common/http';
-import { StudentDetailsComponent } from '../../../pages/component/student-details/student-details.component';
+import { StudentDetailsComponent } from '../../../pages/component/user-details/user-details.component';
 import { PaymentComponent } from '../../../pages/component/payment/payment.component';
 
 @Component({
