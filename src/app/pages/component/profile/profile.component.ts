@@ -74,7 +74,7 @@ export class ProfileComponent implements OnInit {
     if (this.showUserProfileData) {
       this.quickStats = {
         lastLogin: new Date(this.showUserProfileData.lastLogin || new Date()),
-        accountCreated: new Date(this.showUserProfileData.createdAt || new Date()),
+        accountCreated: new Date(this.showUserProfileData.registereddate || new Date()),  // <-- Updated here
         status: this.showUserProfileData.status || 'Active',
         rating: this.showUserProfileData.rating || 4.8,
         coursesCount: this.showUserProfileData.courses?.length || 0
