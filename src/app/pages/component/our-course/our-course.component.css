@@ -1,0 +1,91 @@
+ /* General Page Styling */
+  .container-fluid {
+    padding: 2rem;
+    background-color: #f9fbfd;
+  }
+
+  h5 {
+    font-weight: 600;
+    color: #1a73e8;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Card Styling */
+  .card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-primary {
+    background-color: #1a73e8;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #1558b0;
+  }
+
+  .card-img-top {
+    height: 180px;
+    object-fit: cover;
+  }
+
+  /* Form Section (Faculty Only if needed) */
+  .form-section {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+
+  .form-section h5 {
+    color: #1a73e8;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+    outline: none;
+  }
+
+  .text-center {
+    text-align: center;
+  }

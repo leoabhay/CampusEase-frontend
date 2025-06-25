@@ -1,0 +1,93 @@
+/* Main card styling */
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  padding: 2rem;
+}
+
+/* Title style */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a73e8;
+  margin-bottom: 1.5rem;
+}
+
+/* Form layout */
+form.row {
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Form inputs */
+form input.form-control,
+form select.form-select {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+form input.form-control:focus,
+form select.form-select:focus {
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+/* Form validation message */
+form div.ng-invalid.ng-touched {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Submit button */
+form button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-weight: 600;
+  background-color: #1a73e8;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+  background-color: #1669c1;
+}
+
+/* Table styling */
+.table {
+  margin-top: 1rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #1a73e8;
+  color: white;
+  text-align: center;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Action buttons */
+.btn-primary i,
+.btn-outline-primary i {
+  pointer-events: none;
+}
+
+.btn-outline-primary:hover {
+  background-color: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
