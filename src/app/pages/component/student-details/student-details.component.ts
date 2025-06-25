@@ -1,44 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentService } from '../../../core/services/assignment-service/assignment.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-student-details',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './student-details.component.html',
   styleUrl: './student-details.component.css'
 })
 export class StudentDetailsComponent implements OnInit {
-  studentId: string | null = null; // Initialize with null
-  studentData: any;
-  searchQuery!: string;
-  searchResults: any;
+  searchTerm: string = '';
+  studentData: any = null;
+  errorMessage: string = '';
+  loading: boolean = false;
 
-  constructor(private router: Router,private http: HttpClient) {}
-    ngOnInit(): void {
-  
-}
-searchStudents() {
-  if (!this.searchQuery) {
-    return;
-  }
+  constructor(private http: HttpClient) {}
 
-  const requestBody = { query: { name: this.searchQuery } };
+  ngOnInit(): void {}
 
-  this.http.post<any>('http://localhost:3200/students/search', requestBody)
-    .subscribe(
-      (response) => {
+  searchStudents() {
+    if (!this.searchTerm.trim()) {
+      this.errorMessage = 'Please enter a name, roll number, or email to search.';
+      return;
+    }
+
+    this.loading = true;
+    this.errorMessage = '';
+    this.studentData = null;
+
+    const params = new HttpParams()
+      .set('name', this.searchTerm)
+      .set('rollno', this.searchTerm)
+      .set('email', this.searchTerm);
+
+    this.http.get<any>('http://localhost:3200/students/search', { params }).subscribe({
+      next: (response) => {
         this.studentData = response;
-        console.log('Student Data:lkwiehfweouigheuig', this.studentData);
+        this.loading = false;
       },
-      (error) => {
-        console.error('Error searching students:', error);
-        // Handle error as needed
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'An error occurred while searching.';
+        this.loading = false;
       }
-    );
-}
+    });
+  }
 }
