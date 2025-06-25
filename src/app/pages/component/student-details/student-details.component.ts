@@ -29,7 +29,7 @@ searchStudents() {
 
   const requestBody = { query: { name: this.searchQuery } };
 
-  this.http.post<any>('http://localhost:3200/search-student', requestBody)
+  this.http.post<any>('http://localhost:3200/students/search', requestBody)
     .subscribe(
       (response) => {
         this.studentData = response;
