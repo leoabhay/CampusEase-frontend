@@ -12,7 +12,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class StudentDetailsComponent implements OnInit {
   searchTerm: string = '';
-  studentData: any = null;
+  role: string = 'student'; // default search role
+  userData: any = null;
   errorMessage: string = '';
   loading: boolean = false;
 
@@ -20,24 +21,26 @@ export class StudentDetailsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  searchStudents() {
+  searchUsers() {
     if (!this.searchTerm.trim()) {
-      this.errorMessage = 'Please enter a name, roll number, or email to search.';
+      this.errorMessage = 'Please enter a name or email to search.';
       return;
     }
 
     this.loading = true;
     this.errorMessage = '';
-    this.studentData = null;
+    this.userData = null;
 
     const params = new HttpParams()
       .set('name', this.searchTerm)
       .set('rollno', this.searchTerm)
       .set('email', this.searchTerm);
 
-    this.http.get<any>('http://localhost:3200/students/search', { params }).subscribe({
+    const endpoint = `http://localhost:3200/${this.role}/search`;
+
+    this.http.get<any>(endpoint, { params }).subscribe({
       next: (response) => {
-        this.studentData = response;
+        this.userData = response;
         this.loading = false;
       },
       error: (error) => {

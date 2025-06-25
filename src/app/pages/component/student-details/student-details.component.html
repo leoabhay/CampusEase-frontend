@@ -1,8 +1,17 @@
-<form (ngSubmit)="searchStudents()" #searchForm="ngForm" class="mb-4">
+<form (ngSubmit)="searchUsers()" #searchForm="ngForm" class="mb-4">
+  <div class="form-group mb-2">
+    <label>Select Role:</label>
+    <select class="form-control" [(ngModel)]="role" name="role" required>
+      <option value="student">Student</option>
+      <option value="faculty">Faculty</option>
+      <option value="secretary">Secretary</option>
+    </select>
+  </div>
+
   <div class="form-group mb-2">
     <input
       type="text"
-      placeholder="Enter name, roll number, or email"
+      placeholder="Name or Email"
       class="form-control"
       [(ngModel)]="searchTerm"
       name="searchTerm"
@@ -14,53 +23,64 @@
 </form>
 
 <div *ngIf="loading" class="text-center mt-3">
-  <p>Loading student data...</p>
+  <p>Loading data...</p>
 </div>
 
 <div *ngIf="errorMessage && !loading" class="alert alert-warning mt-3">
   {{ errorMessage }}
 </div>
 
-<div *ngIf="studentData && !loading" class="card mt-4">
+<div *ngIf="userData && !loading" class="card mt-4">
   <div class="card-body text-center">
-    <div *ngIf="studentData.photo" class="mb-3">
+    <div *ngIf="userData.photo" class="mb-3">
       <img
-        [src]="studentData.photo.startsWith('http') ? studentData.photo : ('http://localhost:3200/' + studentData.photo)"
+        [src]="userData.photo.startsWith('http') ? userData.photo : ('http://localhost:3200/' + userData.photo)"
         alt="Profile Photo"
         class="img-thumbnail rounded-circle"
         style="max-width: 150px; max-height: 150px;"
       />
     </div>
 
-    <h2 class="card-title">{{ studentData.name }}</h2>
-    <p class="card-text"><strong>Email:</strong> {{ studentData.email }}</p>
-    <p class="card-text"><strong>Roll No:</strong> {{ studentData.rollno }}</p>
-    <p class="card-text"><strong>Address:</strong> {{ studentData.address }}</p>
-    <p class="card-text"><strong>Registered Date:</strong> {{ studentData.registereddate }}</p>
+    <h2 class="card-title">{{ userData.name }}</h2>
+    <p><strong>Email:</strong> {{ userData.email }}</p>
+    <p><strong>Address:</strong> {{ userData.address }}</p>
+    <p><strong>Registered Date:</strong> {{ userData.registereddate }}</p>
 
-    <h4 class="mt-4">Assignments</h4>
-    <ul class="list-group" *ngIf="studentData.assignments?.length; else noAssignments">
-      <li class="list-group-item" *ngFor="let assignment of studentData.assignments">
-        {{ assignment.title || assignment.assignment || 'Assignment' }} -
-        Submitted: {{ assignment.submitteddate || assignment.submittedDate || 'N/A' }}
-      </li>
-    </ul>
-    <ng-template #noAssignments><p>No assignments found.</p></ng-template>
+    <!-- Student-Specific Data -->
+    <div *ngIf="role === 'student'">
+      <h4 class="mt-4">Assignments</h4>
+      <ul class="list-group" *ngIf="userData.assignments?.length; else noAssignments">
+        <li class="list-group-item" *ngFor="let assignment of userData.assignments">
+          {{ assignment.title || assignment.assignment || 'Assignment' }} -
+          Submitted: {{ assignment.submitteddate || assignment.submittedDate || 'N/A' }}
+        </li>
+      </ul>
+      <ng-template #noAssignments><p>No assignments found.</p></ng-template>
 
-    <h4 class="mt-4">Courses</h4>
-    <ul class="list-group" *ngIf="studentData.courses?.length; else noCourses">
-      <li class="list-group-item" *ngFor="let course of studentData.courses">
-        {{ course.name }} (Code: {{ course.code || course.courseCode || 'N/A' }})
-      </li>
-    </ul>
-    <ng-template #noCourses><p>No courses found.</p></ng-template>
+      <!-- <h4 class="mt-4">Courses</h4>
+      <ul class="list-group" *ngIf="userData.courses?.length; else noCourses"> -->
+        <!-- <li class="list-group-item" *ngFor="let course of userData.courses">
+          {{ course.subjects?.map(s => s.name).join(', ') || 'N/A' }}
+        </li> -->
+      <!-- </ul> -->
+      <!-- <ng-template #noCourses><p>No courses found.</p></ng-template> -->
 
-    <h4 class="mt-4">Attendance</h4>
-    <ul class="list-group" *ngIf="studentData.attendance?.length; else noAttendance">
-      <li class="list-group-item" *ngFor="let att of studentData.attendance">
-        Date: {{ att.date }} - Status: {{ att.status || (att.present ? 'Present' : 'Absent') }}
-      </li>
-    </ul>
-    <ng-template #noAttendance><p>No attendance records found.</p></ng-template>
+      <h4 class="mt-4">Attendance</h4>
+      <ul class="list-group" *ngIf="userData.attendance?.length; else noAttendance">
+        <li class="list-group-item" *ngFor="let att of userData.attendance">
+          Date: {{ att.date }} - Status: {{ att.status || (att.present ? 'Present' : 'Absent') }}
+        </li>
+      </ul>
+      <ng-template #noAttendance><p>No attendance records found.</p></ng-template>
+    </div>
+
+    <!-- Secretary-Specific Club Info -->
+    <div *ngIf="role === 'secretary' && userData.club">
+      <h4 class="mt-4">Club Details</h4>
+      <p><strong>Name:</strong> {{ userData.club.clubName }}</p>
+      <p><strong>Status:</strong> {{ userData.club.clubStatus }}</p>
+      <p><strong>Contact:</strong> {{ userData.club.contactNumber }}</p>
+      <p><strong>Created:</strong> {{ userData.club.createdDate }}</p>
+    </div>
   </div>
 </div>
