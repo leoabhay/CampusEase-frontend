@@ -11,7 +11,7 @@ describe('RegisterPageComponent', () => {
       imports: [RegisterPageComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(RegisterPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
