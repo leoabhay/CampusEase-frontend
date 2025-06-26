@@ -19,20 +19,18 @@ export class JobVacancyComponent implements OnInit {
   isEditMode: boolean = false;
   addVacancyId: string | null = null;
 
-
-
   constructor(private fb: FormBuilder, private http: HttpClient, private jobVacancyService: JobVacancyService,
     private confirmationService: PopUpService
   ) {
     this.vacancyForm = this.fb.group({
-      vacancyPosition: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]], 
+      vacancyPosition: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       vacancyExperience: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/)]],
-      vacancyLevel: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]], 
-      vacancySubject: ['', [Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)]],  
-      vacancyQualification: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]], 
+      vacancyLevel: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      vacancySubject: ['', [Validators.required,Validators.pattern(/^[a-zA-Z ]*$/)]],
+      vacancyQualification: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
       time: ['', Validators.required],
       vacancySalary: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
-    
+
     });
   }
 
@@ -116,15 +114,12 @@ export class JobVacancyComponent implements OnInit {
     );
   }
 
-
-
-
   async deleteVacancy(vacancyId: string) {
     const confirmed = await this.confirmationService.showConfirmationPopup();
     if (confirmed) {
       this.jobVacancyService.delVacancyList(vacancyId).subscribe((res) => {
         console.log(res);
-        this.confirmationService.showSuccessMessage('Delete Sucessfully Done');
+        this.confirmationService.showSuccessMessage('Delete Sucessfully');
         this.showJobVacancy()
       })
     }
