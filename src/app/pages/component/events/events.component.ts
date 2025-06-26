@@ -32,12 +32,12 @@ export class EventsComponent implements OnInit{
 
   }
 ngOnInit(): void {
-  this.userRole = localStorage.getItem('userRole')
+  this.userRole = localStorage.getItem('userRole');
   this.getEventList();
   this.getEventListByEmailFunction();
   const today = new Date();
   const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
-  this.minDate =this.formatDate(minDate)
+  this.minDate =this.formatDate(minDate);
 }
 
   formvalue(){

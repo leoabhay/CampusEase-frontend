@@ -28,12 +28,14 @@ import { UserAuthService } from '../../../core/services/user_auth/user-auth.serv
 import { CommonModule } from '@angular/common';
 import * as alertify from 'alertifyjs';
 import { PasswordService } from '../../../core/services/password.service';
+import { RouterModule } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,FormsModule],
+  imports: [ReactiveFormsModule,CommonModule,FormsModule,RouterModule],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
