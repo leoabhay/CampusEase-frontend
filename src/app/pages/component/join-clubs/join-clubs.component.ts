@@ -65,7 +65,7 @@ export class JoinClubsComponent implements OnInit {
   requestedJoinClub: any[] = []
   isEditMode: boolean = false;
   addClubId: string | null = null;
-  clubListDataForm: any[] = []; 
+  clubListDataForm: any[] = [];
   selectedClub: any = null;
   filteredClubList: any[] | undefined;
   currentSecretaryEmail: string | null = null;
@@ -79,10 +79,10 @@ export class JoinClubsComponent implements OnInit {
     this.showJoinedClubFunction();
     this.createClubForm = this.formBuilder.group({
       clubStatus: ['', Validators.required],
-      clubName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]], 
+      clubName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       contactNumber: ['', [
         Validators.required,
-        Validators.pattern(/^(98|97)\d{8}$/) 
+        Validators.pattern(/^(98|97)\d{8}$/)
       ]],
       contactEmail: ['', Validators.required],
       createdDate: ['']
@@ -176,11 +176,11 @@ createClub() {
     this.clubService.getClubList().subscribe((res) => {
       console.log(res.clubName);
       this.clubListData = res.clubName
-      this.filteredClubList = this.clubListData; 
+      this.filteredClubList = this.clubListData;
 
     })
   }
-  
+
   editClub(clubId: string) {
     console.log(clubId+'hello');
     debugger
@@ -279,14 +279,20 @@ showJoinedClubFunction() {
     })
   }
   updateSponsorship(id: string, decision: string) {
-    this.clubService.updateClubStatus(id, decision).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error('Error updating sponsorship:', error);
-      }
-    );
-  }
+  this.clubService.updateClubStatus(id, decision).subscribe(
+    (response) => {
+      console.log(response);
+      alertify.success(`Club ${decision}ed successfully`);
+
+      // 🔁 Refresh the list
+      this.showJoinedClubbyClubNameFunction();
+    },
+    (error) => {
+      console.error('Error updating sponsorship:', error);
+      alertify.error('Failed to update club decision');
+    }
+  );
+}
+
 
 }

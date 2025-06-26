@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+// Component Imports
 import { SemesterEnrollComponent } from '../../../pages/component/semester-enroll/semester-enroll.component';
 import { AcademicRecordsComponent } from '../../../pages/component/academic-records/academic-records.component';
 import { AttendanceRecordComponent } from '../../../pages/component/attendance-record/attendance-record.component';
@@ -10,7 +13,6 @@ import { DiscussionComponent } from '../../../pages/component/discussion/discuss
 import { FeedbackComponent } from '../../../pages/component/feedback/feedback.component';
 import { IdCardComponent } from '../../../pages/component/id-card/id-card.component';
 import { JoinClubsComponent } from '../../../pages/component/join-clubs/join-clubs.component';
-import { SettingComponent } from '../../../pages/component/setting/setting.component';
 import { SponsorshipComponent } from '../../../pages/component/sponsorship/sponsorship.component';
 import { AssignmentComponent } from '../../../pages/component/assignment/assignment.component';
 import { CourseRecordComponent } from '../../../pages/teacher-component/course-record/course-record.component';
@@ -23,37 +25,62 @@ import { EnrollmentKeyComponent } from '../../../pages/admin-component/enrollmen
 import { ProfileComponent } from '../../../pages/component/profile/profile.component';
 import { JobVacancyComponent } from '../../../pages/admin-component/job-vacancy/job-vacancy.component';
 import { ListCourseComponent } from '../../../pages/admin-component/list-course/list-course.component';
-import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 import { EventsComponent } from '../../../pages/component/events/events.component';
 import { DepartmentComponent } from '../../../pages/component/department/department.component';
 import { OurCourseComponent } from '../../../pages/component/our-course/our-course.component';
-import { HttpClient } from '@angular/common/http';
 import { StudentDetailsComponent } from '../../../pages/component/user-details/user-details.component';
 import { PaymentComponent } from '../../../pages/component/payment/payment.component';
+import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, SemesterEnrollComponent,
-    AcademicRecordsComponent, AttendanceRecordComponent, CourseEnrollComponent,
-    DiscussionComponent, FeedbackComponent, IdCardComponent, JoinClubsComponent,
-    SemesterEnrollComponent, SettingComponent, SponsorshipComponent, AssignmentComponent,
-    AssignmentMaterialsComponent, CourseRecordComponent, FeedbackComponent, InternalRecordsComponent,
-    ModelQuestionComponent, StudentWorkComponent, UserManagementComponent,
-    EnrollmentKeyComponent, ProfileComponent, JobVacancyComponent, ListCourseComponent, EventsComponent
-    , DepartmentComponent, OurCourseComponent,ReactiveFormsModule,StudentDetailsComponent,PaymentComponent
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SemesterEnrollComponent,
+    AcademicRecordsComponent,
+    AttendanceRecordComponent,
+    CourseEnrollComponent,
+    DiscussionComponent,
+    FeedbackComponent,
+    IdCardComponent,
+    JoinClubsComponent,
+    SponsorshipComponent,
+    AssignmentComponent,
+    AssignmentMaterialsComponent,
+    CourseRecordComponent,
+    InternalRecordsComponent,
+    ModelQuestionComponent,
+    StudentWorkComponent,
+    UserManagementComponent,
+    EnrollmentKeyComponent,
+    ProfileComponent,
+    JobVacancyComponent,
+    ListCourseComponent,
+    EventsComponent,
+    DepartmentComponent,
+    OurCourseComponent,
+    StudentDetailsComponent,
+    PaymentComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  currentSection: string = 'basic'
+  currentSection: string = 'basic';
   showUserProfileData: any = null;
   userRole: string | null | undefined;
   searchQuery!: string;
   searchResults: any;
+  isDarkTheme: boolean = false;
 
-  constructor(private router: Router, private userService: UserAuthService, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private userService: UserAuthService,
+    private http: HttpClient
+  ) {
     this.userService.getuserDataLogin().subscribe((res) => {
       this.showUserProfileData = res.data;
     });
@@ -62,49 +89,41 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
 
-    // Load currentSection from localStorage, fallback to 'attendance'
+    // Load currentSection
     const savedSection = localStorage.getItem('currentSection');
     if (savedSection) {
       this.currentSection = savedSection;
     } else {
-       // Default section based on user role
-    if (this.userRole === 'admin') {
-      this.currentSection = 'user-management';
-    } else {
-      this.currentSection = 'profile';
+      this.currentSection = this.userRole === 'admin' ? 'user-management' : 'profile';
     }
+
+    // Load theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.isDarkTheme = true;
+      document.body.classList.add('dark-mode');
     }
   }
 
   showSection(section: string): void {
     this.currentSection = section;
-    // Save to localStorage on section change
     localStorage.setItem('currentSection', section);
   }
 
-  LogoutButton() {
+  toggleTheme(event: any): void {
+    this.isDarkTheme = event.target.checked;
+
+    if (this.isDarkTheme) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  LogoutButton(): void {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
-
-  // searchStudents() {
-  //   if (!this.searchQuery) return;
-
-  //   const requestBody = { query: { name: this.searchQuery } };
-
-  //   this.http.post<any>('http://localhost:3200/search-student', requestBody).subscribe(
-  //     (response) => {
-  //       this.searchResults = response;
-  //       if (this.searchResults && this.searchResults.length > 0) {
-  //         const studentId = this.searchResults[0]._id;
-  //         this.router.navigate(['/student', studentId]);
-  //       } else {
-  //         console.log('No student found.');
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Error searching students:', error);
-  //     }
-  //   );
-  // }
 }
