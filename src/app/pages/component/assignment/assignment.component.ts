@@ -24,7 +24,7 @@ export class AssignmentComponent {
   uniqueSubjects: string[] = [];
   showassignmentsbyemail: any[] = [];
 
-  p1: number = 1; 
+  p1: number = 1;
   p2: number = 1;
 
 
@@ -58,7 +58,7 @@ export class AssignmentComponent {
       formData.append('assignment', this.assignmentForm.get('assignment')!.value);
       formData.append('assignmentFile', this.assignmentForm.get('assignmentFile')!.value);
       formData.append('submitteddate', this.assignmentForm.get('submitteddate')!.value);
-      
+
       this.assigmentService.postAnswerAssignment(formData).subscribe(
         res => {
           console.log('Assignment submitted successfully:', res);
@@ -72,13 +72,13 @@ export class AssignmentComponent {
           this.getassignmentsbyemailFunction();
           if (error.error && error.error.message) {
             this.conformationService.showErrorMessage(error.error.message);
-            this.assignmentForm.reset(); 
+            this.assignmentForm.reset();
             this.clearFileInput();
 
           } else {
             this.conformationService.showErrorMessage('Error submitting assignment');
             this.assignmentForm.reset();
-            this.clearFileInput(); 
+            this.clearFileInput();
           }
 
         }
@@ -90,7 +90,7 @@ export class AssignmentComponent {
     if (fileInput) {
       fileInput.value = '';
     }
-  
+
   }
   calculateStatusForAssignments(): void {
     // Example logic to determine status (you can adjust this based on your criteria)
@@ -169,7 +169,7 @@ export class AssignmentComponent {
       console.error('Error retrieving assignments:', error);
     });
   }
-  
+
 }
 function clearFileInput() {
   throw new Error('Function not implemented.');

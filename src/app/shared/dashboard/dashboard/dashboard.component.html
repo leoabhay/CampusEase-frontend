@@ -19,22 +19,22 @@
             <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
           </div>
         </form>
-        
+
       </li> -->
       <!-- <ng-container *ngIf="searchResults.length > 0">
         <li *ngFor="let result of searchResults" class="nav-item">
           <a class="nav-link" [routerLink]="['/student', result.id]" (click)="clearSearchForm()">{{ result.name }}</a>
         </li>
       </ng-container> -->
-    
+
       <!-- Show a message if no results -->
       <!-- <li *ngIf="searchResults.length === 0 && searchQuery.trim().length > 0" class="nav-item">
         <span class="nav-link">No results found.</span>
       </li>
        -->
-    
-      
-      
+
+
+
       <!-- <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle f-s-14">
           <i class="fa fa-bell"></i>
@@ -105,15 +105,15 @@
             <!-- <b class="caret"></b> -->
         </a>
         <div class="dropdown-menu dropdown-menu-right bg-dark">
-          
+
             <!-- <a (click)="showSection('profile')" class="dropdown-item text-light">Edit Profile</a> -->
             <!-- <a (click)="showSection('setting')" class="dropdown-item text-light">Setting</a> -->
             <div class="dropdown-divider"></div>
             <!-- <a (click)="LogoutButton()" class="dropdown-item text-light">Log Out</a> -->
         </div>
     </li>
-    
-    
+
+
     </ul>
   </div>
   <div id="sidebar" class="sidebar" style="height: 100vh; overflow-y: auto;">
@@ -167,14 +167,14 @@
               <span>Semester Enroll</span>
             </a>
           </li>
-       
+
           <li class="active cursor">
             <a (click)="showSection('our-courses')">
               <i class="fas fa-book-open"></i>
               <span>Our Courses</span>
             </a>
           </li>
-        
+
           <li class="active cursor">
             <a (click)="showSection('join-club')">
               <i class="fas fa-users"></i>
@@ -187,12 +187,12 @@
               <span>ID Card Renew</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('sponsorship')">
               <i class="fas fa-hand-holding-usd"></i>
               <span>Sponsorship</span>
             </a>
-          </li>
+          </li> -->
           <li class="active cursor">
             <a (click)="showSection('assignment')">
               <i class="fas fa-tasks"></i>
@@ -220,7 +220,7 @@
           <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
-              <span>Discussion</span>
+              <span>Notice</span>
             </a>
           </li>
           <!-- <li class="active cursor">
@@ -229,13 +229,15 @@
               <span>Setting</span>
             </a>
           </li> -->
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
               <span>Academic Record</span>
             </a>
-          </li>
+          </li> -->
         </ng-container>
+
+
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-header">Admin</li>
           <li class="active cursor">
@@ -246,7 +248,7 @@
           </li>
           <li class="active cursor">
             <a (click)="showSection('search-data')">
-              <i class="fas fa-users-cog"></i>
+              <i class="fas fa-user"></i>
               <span>Search Data</span>
             </a>
           </li>
@@ -277,7 +279,7 @@
           <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
-              <span>Academic Record (Admin)</span>
+              <span>Routine / Result</span>
             </a>
           </li>
           <li class="active cursor">
@@ -298,19 +300,19 @@
               <span>Job Vacancy Management</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('sponsorship')">
               <i class="fas fa-hand-holding-usd"></i>
               <span>Sponsorship</span>
             </a>
-          </li>
+          </li> -->
           <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
-              <span>Discussion (Admin)</span>
+              <span>Notice</span>
             </a>
           </li>
-          
+
           <li class="active cursor">
             <a (click)="showSection('profile')">
               <i class="fas fa-user"></i>
@@ -329,7 +331,7 @@
           <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
-              <span>Discussion</span>
+              <span>Notice</span>
             </a>
           </li>
           <li class="active cursor">
@@ -338,12 +340,12 @@
               <span>Club</span>
             </a>
           </li>
-          <li class="active cursor">
+          <!-- <li class="active cursor">
             <a (click)="showSection('events')">
               <i class="fas fa-calendar-check"></i>
               <span>Events</span>
             </a>
-          </li>
+          </li> -->
         </ng-container>
         <ng-container *ngIf="userRole === 'faculty'">
           <li class="nav-header">Faculty/Teacher</li>
@@ -368,7 +370,7 @@
           <li class="active cursor">
             <a (click)="showSection('assignment-record')">
               <i class="fas fa-file-alt"></i>
-              <span>Assignment / Materials</span>
+              <span>Assignment</span>
             </a>
           </li>
           <li class="active cursor">
@@ -389,7 +391,7 @@
               <span>Internal Valuations</span>
             </a>
           </li>
-         
+
           <li class="active cursor">
             <a (click)="showSection('student-work-record')">
               <i class="fas fa-book-open"></i>
@@ -399,7 +401,7 @@
           <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
-              <span>Discussion</span>
+              <span>Notice</span>
             </a>
           </li>
         </ng-container>

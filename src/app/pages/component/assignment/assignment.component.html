@@ -24,7 +24,7 @@
             <button type="submit" class="btn btn-primary mb-4" [disabled]="assignmentForm.invalid">Apply</button>
           </div>
         </form>
-        
+
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
             <tr>
               <th scope="col">S.N</th>
               <th scope="col">Subject</th>
-            
+
               <th scope="col">Assignment Name</th>
               <th scope="col">File</th>
               <th scope="col">Remarks</th>
@@ -52,7 +52,7 @@
             <tr
             *ngFor="let item of showAssignmentsByEnrolledSubjects | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
               <!-- <td>{{ (p1 - 1) * 5 + showAssignmentsByEnrolledSubjects.indexOf(item) + 1 }}</td> -->
-              <th scope="row">{{ i + 1 + (p1 - 1) * 5 }}</th> 
+              <th scope="row">{{ i + 1 + (p1 - 1) * 5 }}</th>
 
               <td>{{item.subject}}</td>
               <td>{{item.assignmentName}}</td>
@@ -82,7 +82,7 @@
       <div class="card-header">
         <h5>Assignment Submitted</h5>
       </div>
-  
+
       <div class="card-body">
         <div class="table-responsive">
           <table class="table">
@@ -115,6 +115,6 @@
       </div>
     </div>
   </div>
-  
-</div> 
+
+</div>
 </div>
