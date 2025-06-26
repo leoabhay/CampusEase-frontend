@@ -1,67 +1,101 @@
-<!-- src/app/enrollment-form/enrollment-form.component.html -->
-<div class="container-fluid">
-  <form [formGroup]="enrollmentForm" (ngSubmit)="submitForm()">
-    <div class="row">
-      <div class="col-4 mb-3">
-        <input type="text" class="form-control" formControlName="enrollmentKey" placeholder="Enter Enrollment Key">
-        <div *ngIf="enrollmentForm.get('enrollmentKey')?.invalid && enrollmentForm.get('enrollmentKey')?.touched" class="text-danger">
-          Enrollment Key is required
-        </div>
-      </div>
-      <div class="col-4 mb-3">
-        <input type="text" class="form-control" formControlName="semester" placeholder="Enter Semester">
-        <div *ngIf="enrollmentForm.get('semester')?.invalid && enrollmentForm.get('semester')?.touched" class="text-danger">
-          Semester is required and must contain only digits
-        </div>
-      </div>
-      <div class="col-4 mb-3">
-        <select class="form-control" formControlName="department">
-          <option value="">Select Department</option>
-          <option *ngFor="let dept of departmentData" [value]="dept.createFaculty">{{ dept.createFaculty }}</option>
-        </select>
-        <div *ngIf="enrollmentForm.get('department')?.invalid && enrollmentForm.get('department')?.touched" class="text-danger">
-          Department is required
-        </div>
-      </div>
-    </div>
+<div class="container-fluid enrollment-form-container">
+  <form [formGroup]="enrollmentForm" (ngSubmit)="submitForm()" class="enrollment-form">
+    <h2 class="form-title mb-4">Course Enrollment</h2>
 
-    <div formArrayName="subjects">
-      <div *ngFor="let subject of subjects.controls; let i = index" [formGroupName]="i" class="row align-items-center mb-2">
-        <div class="col-12 col-md-3 mb-2 mb-md-0">
-          <input type="text" class="form-control" formControlName="name" placeholder="Enter Subject Name">
-          <div *ngIf="getSubjectControl(i, 'name')?.invalid && getSubjectControl(i, 'name')?.touched" class="text-danger">
-            Subject Name is required and must contain only letters and spaces
+    <!-- Basic Information Section -->
+    <div class="card form-section mb-4">
+      <div class="card-header">
+        <h5 class="section-title">Basic Information</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="enrollmentKey" class="form-label">Enrollment Key</label>
+            <input type="text" class="form-control" id="enrollmentKey" formControlName="enrollmentKey" placeholder="Enter Enrollment Key">
+            <div *ngIf="enrollmentForm.get('enrollmentKey')?.invalid && enrollmentForm.get('enrollmentKey')?.touched" class="invalid-feedback">
+              Enrollment Key is required
+            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-3 mb-2 mb-md-0">
-          <input type="text" class="form-control" formControlName="credit" placeholder="Enter Subject Credit">
-          <div *ngIf="getSubjectControl(i, 'credit')?.invalid && getSubjectControl(i, 'credit')?.touched" class="text-danger">
-            Subject Credit is required and must contain only digits
+          <div class="col-md-4">
+            <label for="semester" class="form-label">Semester</label>
+            <input type="text" class="form-control" id="semester" formControlName="semester" placeholder="Enter Semester">
+            <div *ngIf="enrollmentForm.get('semester')?.invalid && enrollmentForm.get('semester')?.touched" class="invalid-feedback">
+              Semester is required and must contain only digits
+            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-3 mb-2 mb-md-0">
-          <input type="text" class="form-control" formControlName="code" placeholder="Enter Subject Code">
-          <div *ngIf="getSubjectControl(i, 'code')?.invalid && getSubjectControl(i, 'code')?.touched" class="text-danger">
-            Subject Code is required and must contain only alphanumeric characters
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <select class="form-select" formControlName="teacher">
-            <option value="" disabled selected>Select Teacher Name</option>
-            <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
-          </select>
-          <div *ngIf="getSubjectControl(i, 'teacher')?.invalid && getSubjectControl(i, 'teacher')?.touched" class="text-danger">
-            Teacher Name is required
+          <div class="col-md-4">
+            <label for="department" class="form-label">Department</label>
+            <select class="form-select" id="department" formControlName="department">
+              <option value="">Select Department</option>
+              <option *ngFor="let dept of departmentData" [value]="dept.createFaculty">{{ dept.createFaculty }}</option>
+            </select>
+            <div *ngIf="enrollmentForm.get('department')?.invalid && enrollmentForm.get('department')?.touched" class="invalid-feedback">
+              Department is required
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-12 d-flex justify-content-between">
-        <button type="button" class="btn btn-primary" (click)="addSubject()">Add Subject</button>
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+    <!-- Subjects Section -->
+    <div class="card form-section">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="section-title">Subjects</h5>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSubject()">
+          <i class="bi bi-plus-circle"></i> Add Subject
+        </button>
       </div>
+      <div class="card-body">
+        <div formArrayName="subjects">
+          <div *ngFor="let subject of subjects.controls; let i = index" [formGroupName]="i" class="subject-row mb-3 p-3 bg-light rounded">
+            <div class="row g-3 align-items-end">
+              <div class="col-md-3">
+                <label [for]="'name'+i" class="form-label">Subject Name</label>
+                <input type="text" class="form-control" [id]="'name'+i" formControlName="name" placeholder="Enter Subject Name">
+                <div *ngIf="getSubjectControl(i, 'name')?.invalid && getSubjectControl(i, 'name')?.touched" class="invalid-feedback">
+                  Subject Name is required and must contain only letters and spaces
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label [for]="'credit'+i" class="form-label">Credit</label>
+                <input type="text" class="form-control" [id]="'credit'+i" formControlName="credit" placeholder="Credit">
+                <div *ngIf="getSubjectControl(i, 'credit')?.invalid && getSubjectControl(i, 'credit')?.touched" class="invalid-feedback">
+                  Subject Credit is required and must contain only digits
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label [for]="'code'+i" class="form-label">Subject Code</label>
+                <input type="text" class="form-control" [id]="'code'+i" formControlName="code" placeholder="Code">
+                <div *ngIf="getSubjectControl(i, 'code')?.invalid && getSubjectControl(i, 'code')?.touched" class="invalid-feedback">
+                  Subject Code is required and must contain only alphanumeric characters
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label [for]="'teacher'+i" class="form-label">Teacher</label>
+                <select class="form-select" [id]="'teacher'+i" formControlName="teacher">
+                  <option value="" disabled selected>Select Teacher</option>
+                  <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
+                </select>
+                <div *ngIf="getSubjectControl(i, 'teacher')?.invalid && getSubjectControl(i, 'teacher')?.touched" class="invalid-feedback">
+                  Teacher Name is required
+                </div>
+              </div>
+              <div class="col-md-1 text-end">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeSubject(i)" *ngIf="subjects.controls.length > 1">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions mt-4 text-end">
+      <button type="submit" class="btn btn-primary px-4" [disabled]="enrollmentForm.invalid">
+        <i class="bi bi-check-circle"></i> Submit
+      </button>
     </div>
   </form>
 </div>

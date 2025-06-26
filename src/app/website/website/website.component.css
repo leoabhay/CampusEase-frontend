@@ -89,6 +89,80 @@
 }
 
 #navbar ul li a:hover {
-  color: #007bff;
+  color:#aad8f3;;
 }
+
+#about ul li i {
+  color: #aad8f3; /* optional icon color */
+}
+
+#footer {
+  color: white;
+}
+
+#footer h3,
+#footer h4,
+#footer p,
+#footer a,
+#footer li,
+#footer strong {
+  color: white;
+}
+
+#footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+#footer ul li i {
+  margin-right: 8px;
+  color: #aad8f3; /* optional icon color */
+}
+
+#footer .footer-top {
+  padding: 40px 0;
+}
+
+#footer .footer-newsletter input[type="email"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+#footer .footer-newsletter input[type="submit"] {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background-color: #ffffff;
+  color: rgb(23, 107, 135);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#footer .footer-newsletter input[type="submit"]:hover {
+  background-color: #ddd;
+}
+.custom-footer-bg {
+  background-color: rgb(23, 107, 135);
+}
+#footer ul li a {
+  color: white;
+}
+
+.why-us .box:hover {
+    background-color: rgb(93, 136, 174);
+}
+.glass-effect {
+  background: rgb(93, 136, 174);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
 

@@ -23,43 +23,44 @@ export class ListCourseComponent {
     this.getEnrollmentList();
   }
 
+  // Fetch all enrollment data
   getEnrollmentList() {
     this.courseListService.getEnrollmentData().subscribe((res) => {
-      console.log(res);
+      console.log('Fetched enrollments:', res);
       this.listData = res;
-      console.log(this.listData);
-      debugger;
     });
   }
 
+  // Delete full enrollment
   async deleteEnrollData(enrollId: string) {
     const confirmed = await this.showConfirmationPopup();
     if (confirmed) {
-      this.courseListService.delEnrollmentList(enrollId).subscribe((res) => {
-        console.log(res);
-        this.getEnrollmentList();
-        this.confirmationService.showSuccessMessage('Enrollment deleted successfully');
-      }, () => {
-        this.confirmationService.showErrorMessage('Failed to delete enrollment');
-      });
+      this.courseListService.delEnrollmentList(enrollId).subscribe(
+        (res) => {
+          console.log('Deleted enrollment:', res);
+          this.getEnrollmentList();
+          this.confirmationService.showSuccessMessage('Enrollment deleted successfully');
+        },
+        () => {
+          this.confirmationService.showErrorMessage('Failed to delete enrollment');
+        }
+      );
     }
   }
 
+  // Confirmation dialog using alertify
   showConfirmationPopup(): Promise<boolean> {
     return new Promise((resolve) => {
       alertify.confirm(
         'Confirmation',
         'Are you sure you want to delete this enrollment?',
-        () => {
-          resolve(true);
-        },
-        () => {
-          resolve(false);
-        }
+        () => resolve(true),
+        () => resolve(false)
       );
     });
   }
 
+  // Delete a single subject or full enrollment if it's the last subject
   async deleteSubject(enrollmentId: string, subjectCode: string): Promise<void> {
     const confirmed = await this.showConfirmationPopup();
     if (!confirmed) {
@@ -67,7 +68,6 @@ export class ListCourseComponent {
       return;
     }
 
-    // Find the enrollment in the listData
     const enrollment = this.listData.find(enroll => enroll._id === enrollmentId);
 
     if (!enrollment) {
@@ -75,10 +75,9 @@ export class ListCourseComponent {
       return;
     }
 
-    const subjectCount = enrollment.subjects.length;
+    const subjectCount = enrollment.subjects?.length || 0;
 
     if (subjectCount === 1) {
-      // Only one subject, delete the whole enrollment
       this.courseListService.delEnrollmentList(enrollmentId).subscribe(
         () => {
           this.getEnrollmentList();
@@ -89,7 +88,6 @@ export class ListCourseComponent {
         }
       );
     } else {
-      // More than one subject, delete only the subject
       this.courseListService.deleteSubjectFromEnrollment(enrollmentId, subjectCode).subscribe(
         () => {
           this.getEnrollmentList();
@@ -101,4 +99,25 @@ export class ListCourseComponent {
       );
     }
   }
+
+  // Update enrollment by ID with dummy data (replace this with form-based values)
+  // updateEnrollment(enrollmentId: string): void {
+  //   const updatedData = {
+  //     semester: 6,
+  //     section: 'B',
+  //     subjects: ['CS101', 'MA201', 'PHY303']
+  //   };
+
+  //   this.courseListService.UpdateEnrollmentData(enrollmentId, updatedData).subscribe(
+  //     (res) => {
+  //       console.log('Enrollment updated:', res);
+  //       this.getEnrollmentList();
+  //       this.confirmationService.showSuccessMessage('Enrollment updated successfully');
+  //     },
+  //     (err) => {
+  //       console.error('Update failed:', err);
+  //       this.confirmationService.showErrorMessage('Failed to update enrollment');
+  //     }
+  //   );
+  // }
 }

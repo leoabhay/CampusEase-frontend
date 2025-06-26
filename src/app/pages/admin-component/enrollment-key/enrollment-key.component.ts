@@ -35,14 +35,8 @@ export class EnrollmentKeyComponent implements OnInit {
   ngOnInit(): void {
     this.teacherData();
     this.departmentService.getDepartmentsList().subscribe((res) => {
-      this.departmentData = res; // Assuming res is an array received from the service
+      this.departmentData = res;
     });
-  }
-
-  getSubjectControl(index: number, controlName: string): any {
-    const subjectsArray = this.enrollmentForm.get('subjects') as FormArray;
-    const subjectGroup = subjectsArray.at(index) as FormGroup;
-    return subjectGroup.get(controlName);
   }
 
   createSubject(): FormGroup {
@@ -62,15 +56,47 @@ export class EnrollmentKeyComponent implements OnInit {
     this.subjects.push(this.createSubject());
   }
 
+  removeSubject(index: number): void {
+    if (this.subjects.length > 1) {
+      const subjectCode = this.subjects.at(index).get('code')?.value;
+      const enrollmentKey = this.enrollmentForm.get('enrollmentKey')?.value;
+
+      // Only call API if both values exist
+      if (subjectCode && enrollmentKey) {
+        this.enrollmentService.deleteSubjectFromEnrollment(enrollmentKey, subjectCode).subscribe(
+          (res) => {
+            alertify.success('Subject deleted successfully from enrollment');
+            this.subjects.removeAt(index);
+          },
+          (error) => {
+            console.error('Failed to delete subject:', error);
+            alertify.error('Failed to delete subject');
+          }
+        );
+      } else {
+        // Just remove from form without hitting API (unsaved subject)
+        this.subjects.removeAt(index);
+      }
+    } else {
+      alertify.error('At least one subject is required.');
+    }
+  }
+
+  getSubjectControl(index: number, controlName: string): any {
+    const subjectsArray = this.enrollmentForm.get('subjects') as FormArray;
+    const subjectGroup = subjectsArray.at(index) as FormGroup;
+    return subjectGroup.get(controlName);
+  }
+
   submitForm(): void {
     if (this.enrollmentForm.valid) {
-      console.log(this.enrollmentForm.value);
       this.enrollmentService.postEnrollment(this.enrollmentForm.value).subscribe(
         (res) => {
           if (res) {
-            console.log(res);
             alertify.success('Enrollment is added');
             this.enrollmentForm.reset();
+            this.subjects.clear();
+            this.subjects.push(this.createSubject()); // reset with one subject
           } else {
             alertify.error('Response is empty');
           }
@@ -88,7 +114,7 @@ export class EnrollmentKeyComponent implements OnInit {
   teacherData(): void {
     this.userService.getTeacherData().subscribe(
       (res) => {
-        this.showTeacherData = res.faculty; // Assuming res is an object with faculty array
+        this.showTeacherData = res.faculty;
       },
       (error) => {
         console.error('Error fetching teacher data:', error);

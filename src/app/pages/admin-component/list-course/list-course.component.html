@@ -1,126 +1,63 @@
-<div class="row">
-    <h5 class="text-center">List Course</h5>
+<div class="course-table-container">
+  <h3 class="table-title">Course List</h3>
 
-    <div class="col-lg-12">
-        <div class="carda">
+  <div class="table-wrapper">
+    <table class="course-data-table">
+      <thead>
+        <tr>
+          <th class="serial-col">SN</th>
+          <th class="key-col">Enrollment Key</th>
+          <th class="semester-col">Semester</th>
+          <th class="subject-col">Subject</th>
+          <th class="code-col">Course Code</th>
+          <th class="credit-col">Credit</th>
+          <th class="teacher-col">Teacher</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listData; let i = index">
+          <td class="serial-col">{{ i + 1 }}</td>
+          <td class="key-col">
+            <span class="enrollment-key">{{ item.enrollment_key }}</span>
+          </td>
+          <td class="semester-col">{{ item.semester }}</td>
 
-
-            <div class="cards-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th>SN</th>
-                          <th>Enrollment Key</th>
-                            <th>Semester</th>
-                          <th>Subject</th>
-                          <th>Course Code</th>
-                          <th>Course Credit</th>
-                          <th>Teacher</th>
-                          <th>Action</th>
-                          <!-- <th>Delete</th> -->
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="odd gradeX" *ngFor="let item of listData let i =index">
-                          <td class="f-s-600 text-inverse">{{ i + 1 }}</td>
-                          <td>{{ item.enrollment_key }}</td>
-                          <td>{{ item.semester }}</td>
-                          <td>
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subject of item.subjects" class="mb-2">{{ subject.name }}</li></ul>
-                          </td>
-                          <td>
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subject of item.subjects"  class="mb-2">{{ subject.code }}</li></ul>
-                          </td>
-                          <td>
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subject of item.subjects" class="mb-2" >{{ subject.credit }}</li></ul>
-                          </td>
-                          <td>
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subject of item.subjects" class="mb-2">{{ subject.teacher }}</li></ul>
-                          </td>
-                          <td>
-                            <ul class="list-unstyled">
-                                <li *ngFor="let subject of item.subjects">
-
-                                    <button class="btn btn-outline-danger btn-sm"
-                                        (click)="deleteSubject(item._id,subject.code)"><i class="fas fa-trash-alt"></i></button>
-                                </li>
-                            </ul>
-                        </td>
-                          <!-- <td>
-                            <button class="btn btn-danger" (click)="deleteEnrollData(item._id)">Delete Enrollment</button>
-                       
-                          </td> -->
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                <!-- <table class="table table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>SN</th>
-                            <th>Enrollment Key</th>
-                            <th>Subject</th>
-                            <th>Course Code</th>
-                            <th>Course Credit</th>
-                            <th>Teacher</th>
-                            <th></th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd gradeX" *ngFor="let item of listData let i =index">
-                            <td class="f-s-600 text-inverse">1</td>
-                            <td>{{item.enrollment_key}}</td>
-
-                            <td>
-                                <ul>
-                                    <li *ngFor="let subject of item.subjects">{{ subject.name }}</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li *ngFor="let subject of item.subjects">{{ subject.code }}
-
-
-                                    </li>
-                                </ul>
-                            </td>
-                            <td>
-                                <dl>
-                                    <li *ngFor="let subject of item.subjects">{{ subject.credit }}</li>
-                                </dl>
-                            </td>
-                            <td>
-                                <dl>
-                                    <li *ngFor="let subject of item.subjects">{{ subject.teacher }}</li>
-                                </dl>
-                            </td>
-                            <td>
-                                <dl>
-                                    <li *ngFor="let subject of item.subjects">
-
-                                        <button class="btn btn-outline-secondary"
-                                            (click)="deleteSubject(item._id,subject.code)">Delete</button>
-                                    </li>
-                                </dl>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-secondary"
-                                    (click)="deleteEnrollData(item._id)">Delete</button>
-                            </td>
-
-                        </tr>
-
-
-                    </tbody>
-                </table> -->
+          <td class="subject-col">
+            <div class="subject-cell" *ngFor="let subject of item.subjects">
+              {{ subject.name }}
             </div>
-        </div>
-    </div>
+          </td>
+
+          <td class="code-col">
+            <div class="code-cell" *ngFor="let subject of item.subjects">
+              {{ subject.code }}
+            </div>
+          </td>
+
+          <td class="credit-col">
+            <div class="credit-cell" *ngFor="let subject of item.subjects">
+              {{ subject.credit }}
+            </div>
+          </td>
+
+          <td class="teacher-col">
+            <div class="teacher-cell" *ngFor="let subject of item.subjects">
+              {{ subject.teacher }}
+            </div>
+          </td>
+
+          <td class="actions-col">
+            <div class="action-cell" *ngFor="let subject of item.subjects">
+              <button class="delete-btn"
+                      (click)="deleteSubject(item._id, subject.code)"
+                      title="Delete subject">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

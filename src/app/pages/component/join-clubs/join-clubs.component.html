@@ -73,7 +73,7 @@
     <div class="card">
       <div class="container mt-4">
         <h2 class="mb-4">Joined Club Information</h2>
-        <button class="btn btn-primary mb-3">Print Table</button>
+        <!-- <button class="btn btn-primary mb-3">Print Table</button> -->
         <div class="table-responsive">
           <table class="table table-bordered table-striped" id="clubTable">
             <thead class="thead-dark">
@@ -99,7 +99,7 @@
           </table>
         </div>
         <pagination-controls (pageChange)="page = $event"></pagination-controls>
-      
+
       </div>
 
     </div>
@@ -125,7 +125,7 @@
                 <small class="text-danger" *ngIf="createClubForm.get('clubStatus')?.errors?.['required']">Club Status is required.</small>
               </div>
             </div>
-          
+
             <div class="col-lg-3 mb-4">
               <input type="text" formControlName="clubName" class="form-control" placeholder="Club Name">
               <div *ngIf="createClubForm.get('clubName')?.invalid && (createClubForm.get('clubName')?.dirty || createClubForm.get('clubName')?.touched)">
@@ -133,7 +133,7 @@
                 <small class="text-danger" *ngIf="createClubForm.get('clubName')?.errors?.['pattern']">Club Name should only contain alpha characters and spaces.</small>
               </div>
             </div>
-          
+
             <div class="col-lg-3 mb-4">
               <input type="text" formControlName="contactNumber" class="form-control" placeholder="Club Contact Number">
               <div *ngIf="createClubForm.get('contactNumber')?.invalid && (createClubForm.get('contactNumber')?.dirty || createClubForm.get('contactNumber')?.touched)">
@@ -141,7 +141,7 @@
                 <small class="text-danger" *ngIf="createClubForm.get('contactNumber')?.errors?.['pattern']">Contact Number must be exactly 10 digits.</small>
               </div>
             </div>
-          
+
             <div class="col-lg-3 mb-4">
               <select class="form-select" formControlName="contactEmail">
                 <option value="" disabled selected>Select Secretary Email</option>
@@ -152,20 +152,20 @@
                 <small class="text-danger" *ngIf="createClubForm.get('contactEmail')?.errors?.['email']">Invalid Secretary Email.</small>
               </div>
             </div>
-          
-            <div class="col-lg-2 mb-4">
+
+            <div class="col-lg-2 mb-4 text-start">
               <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
             </div>
           </form>
-          
-          
+
+
         </div>
       </div>
 
     </div>
     <div class="container mt-4">
       <h2 class="mb-4">Club Information</h2>
-      <button class="btn btn-primary mb-3">Print Table</button>
+      <!-- <button class="btn btn-primary mb-3">Print Table</button> -->
       <table class="table table-bordered table-striped" id="clubTable">
         <thead class="thead-dark">
           <tr>
@@ -243,7 +243,7 @@
                   </button>
                 </td>
               </tr>
-        
+
               <tr *ngFor="let item of JoinedClubbyClubName.Accepted_Clubs; let i = index"
                   [ngClass]="{
                     'table-success': item.decision === 'Accepted',
@@ -258,7 +258,7 @@
                 <td>
                 </td>
               </tr>
-        
+
               <tr *ngFor="let item of JoinedClubbyClubName.Rejected_Clubs; let i = index"
                   [ngClass]="{
                     'table-success': item.decision === 'Accepted',

@@ -1,93 +1,192 @@
-/* Main card styling */
+/* Base Styles */
+.container-fluid {
+  padding: 20px;
+}
+
 .card {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   border: none;
-  border-radius: 1rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  background: #ffffff;
-  padding: 2rem;
+  margin-bottom: 20px;
 }
 
-/* Title style */
-.card-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1a73e8;
-  margin-bottom: 1.5rem;
+.card-header, .card-title {
+  color: #2c3e50;
 }
 
-/* Form layout */
-form.row {
-  justify-content: center;
-  gap: 1rem;
+/* Form Styles */
+.form-control, .form-select {
+  border-radius: 4px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  transition: all 0.3s;
 }
 
-/* Form inputs */
-form input.form-control,
-form select.form-select {
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s;
+.form-control:focus, .form-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
-form input.form-control:focus,
-form select.form-select:focus {
-  border-color: #1a73e8;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+.input-group-text {
+  background-color: #f8f9fa;
+  border-right: none;
 }
 
-/* Form validation message */
-form div.ng-invalid.ng-touched {
-  color: #dc3545;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+.input-group .form-control {
+  border-left: none;
 }
 
-/* Submit button */
-form button[type="submit"] {
-  width: 100%;
-  padding: 0.75rem;
-  font-weight: 600;
-  background-color: #1a73e8;
-  border: none;
-  border-radius: 0.5rem;
-  transition: background-color 0.3s;
+/* Button Styles */
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
-form button[type="submit"]:hover {
-  background-color: #1669c1;
+.btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
 }
 
-/* Table styling */
-.table {
-  margin-top: 1rem;
-  background-color: white;
-  border-radius: 0.75rem;
-  overflow: hidden;
+.btn-primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
 }
 
-.table th {
-  background-color: #1a73e8;
-  color: white;
-  text-align: center;
-}
-
-.table td,
-.table th {
-  vertical-align: middle;
-  text-align: center;
-}
-
-/* Action buttons */
-.btn-primary i,
-.btn-outline-primary i {
-  pointer-events: none;
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
 }
 
 .btn-outline-primary:hover {
-  background-color: #1a73e8;
+  background-color: #3498db;
   color: white;
-  border-color: #1a73e8;
 }
+
+.btn-outline-secondary {
+  color: #7f8c8d;
+  border-color: #95a5a6;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #ecf0f1;
+}
+/* Add this to your existing CSS */
+.btn-outline-primary.mx-2 {
+  color: #dc3545; /* Red color */
+  border-color: #dc3545;
+}
+
+.btn-outline-primary.mx-2:hover {
+  background-color: #dc3545; /* Red color on hover */
+  color: white;
+}
+
+/* Table Styles */
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #3498db;
+  color: white;
+  border-bottom: none;
+  font-weight: 500;
+  padding: 12px 15px;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table td, .table th {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 4px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.alert-dismissible .btn-close {
+  padding: 12px 20px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Pagination Styles */
+.pagination {
+  margin: 0;
+}
+
+.page-item.active .page-link {
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.page-link {
+  color: #3498db;
+  border: 1px solid #dee2e6;
+  margin: 0 5px;
+  border-radius: 4px;
+}
+
+.page-link:hover {
+  color: #2980b9;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 15px;
+  }
+
+  .table td, .table th {
+    padding: 8px;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+  }
+
+  .form-control, .form-select {
+    padding: 8px 12px;
+  }
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Icon Styles */
+.fas {
+  margin-right: 5px;
+}
+

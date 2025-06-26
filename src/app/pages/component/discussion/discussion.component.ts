@@ -5,8 +5,6 @@ import * as alertify from 'alertifyjs';
 import { CommonModule } from '@angular/common';
 import { NgZone } from '@angular/core';
 import { PopUpService } from '../../../core/popup/pop-up.service';
-// import * as $ from 'jquery';
-
 
 @Component({
   selector: 'app-discussion',
@@ -62,7 +60,7 @@ export class DiscussionComponent implements OnInit {
           console.error('Error updating discussion:', error);
           alertify.error("Error updating discussion");
         });
-      } 
+      }
       else {
         const formData = this.discussionTable.value;
         console.log(formData);
@@ -75,8 +73,6 @@ export class DiscussionComponent implements OnInit {
             this.closeModal();
           })
       }
-
-
     }
   }
 
@@ -111,8 +107,6 @@ export class DiscussionComponent implements OnInit {
       console.error('Error fetching discussion data:', error);
     });
   }
-
-
 
   async deleteDiscussion(discussinId: string) {
     debugger
