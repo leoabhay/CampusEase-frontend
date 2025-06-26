@@ -72,6 +72,16 @@
 .btn-outline-secondary:hover {
   background-color: #ecf0f1;
 }
+/* Add this to your existing CSS */
+.btn-outline-primary.mx-2 {
+  color: #dc3545; /* Red color */
+  border-color: #dc3545;
+}
+
+.btn-outline-primary.mx-2:hover {
+  background-color: #dc3545; /* Red color on hover */
+  color: white;
+}
 
 /* Table Styles */
 .table {

@@ -56,10 +56,13 @@
                             <td>{{item.createFaculty}}</td>
                             <td>{{item.hod}}</td>
                             <td>
-                                <button class="btn btn-primary" (click)="editDepartment(item._id)"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-outline-primary mx-2"
-                                    (click)="deleteDepartment(item._id)"><i class="fas fa-trash-alt"></i></button>
-                            </td>
+    <button class="btn btn-outline-primary edit-btn" (click)="editDepartment(item._id)">
+        <i class="fas fa-edit"></i>
+    </button>
+    <button class="btn btn-outline-danger delete-btn mx-2" (click)="deleteDepartment(item._id)">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+</td>
 
                         </tr>
 
