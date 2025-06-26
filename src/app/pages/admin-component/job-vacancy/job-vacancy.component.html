@@ -14,14 +14,17 @@
                class="invalid-feedback">
             <div *ngIf="vacancyForm.get('vacancyPosition')?.errors?.['required']">
               Position is required
+
             </div>
             <div *ngIf="vacancyForm.get('vacancyPosition')?.errors?.['pattern']">
               Position must contain only alphabetic characters and spaces
+
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
+
           <label for="vacancyExperience" class="form-label">Experience</label>
           <input type="text" id="vacancyExperience" formControlName="vacancyExperience" class="form-control"
                  placeholder="e.g. 3-5 years" [ngClass]="{'is-invalid': vacancyForm.get('vacancyExperience')?.invalid && (vacancyForm.get('vacancyExperience')?.dirty || vacancyForm.get('vacancyExperience')?.touched)}">
@@ -91,6 +94,8 @@
           </div>
         </div>
 
+
+         
         <!-- Salary & Submit -->
         <div class="col-md-6">
           <label for="vacancySalary" class="form-label">Salary</label>
@@ -119,6 +124,7 @@
               {{ isEditMode ? 'Update Vacancy' : 'Create Vacancy' }}
             </button>
           </div>
+
 <div class="vacancy-management-container">
   <div class="card form-card mb-4">
     <div class="card-header bg-primary text-white">
@@ -242,6 +248,7 @@
           </div>
         </div>
       </form>
+
       </form>
     </div>
   </div>
@@ -251,6 +258,7 @@
       <h5>Job Vacancies</h5>
     </div>
     <div class="card-body">
+
 
   <div class="card">
     <div class="card-header bg-primary text-white">
@@ -262,6 +270,7 @@
           <thead class="table-light">
         <table class="table table-hover align-middle">
           <thead class="table-light">
+
             <tr>
               <th scope="col" width="50">#</th>
               <th scope="col">Position</th>
@@ -272,6 +281,7 @@
               <th scope="col">Qualification</th>
               <th scope="col">Salary</th>
               <th scope="col" width="120">Actions</th>
+
               <th scope="col" width="50">#</th>
               <th scope="col">Position</th>
               <th scope="col">Experience</th>
@@ -281,13 +291,16 @@
               <th scope="col">Qualification</th>
               <th scope="col">Salary</th>
               <th scope="col" width="120">Actions</th>
+
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of jobVacancyList; let i = index">
               <th scope="row">{{i+1}}</th>
+
             <tr *ngFor="let item of jobVacancyList; let i = index">
               <th scope="row">{{i+1}}</th>
+
               <td>{{item.vacancyPosition}}</td>
               <td>{{item.vacancyExperience}}</td>
               <td>{{item.vacancyLevel}}</td>
@@ -297,6 +310,7 @@
                   {{item.time === 'fullTime' ? 'Full Time' : 'Part Time'}}
                 </span>
               </td>
+
               <td>
                 <span class="badge" [ngClass]="{'bg-primary': item.time === 'fullTime', 'bg-secondary': item.time === 'partTime'}">
                   {{item.time === 'fullTime' ? 'Full Time' : 'Part Time'}}
@@ -313,6 +327,7 @@
                   </button>
                   <button class="btn btn-sm btn-outline-danger" (click)="deleteVacancy(item._id)" title="Delete">
                   <button class="btn btn-sm btn-outline-danger" (click)="deleteVacancy(item._id)" title="Delete">
+
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
@@ -320,9 +335,11 @@
             </tr>
             <tr *ngIf="jobVacancyList.length === 0">
               <td colspan="9" class="text-center text-muted py-4">No vacancies found. Create your first vacancy above.</td>
+
             </tr>
             <tr *ngIf="jobVacancyList.length === 0">
               <td colspan="9" class="text-center text-muted py-4">No vacancies found. Create your first vacancy above.</td>
+
             </tr>
           </tbody>
         </table>
