@@ -11,27 +11,7 @@
       </button>
     </div>
     <ul class="navbar-nav navbar-right">
-      <!-- Search -->
-      <!-- <li class="navbar-form">
-        <form (ngSubmit)="searchStudents()" #searchForm="ngForm">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter keyword" name="searchQuery" [(ngModel)]="searchQuery" required>
-            <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
-          </div>
-        </form>
 
-      </li> -->
-      <!-- <ng-container *ngIf="searchResults.length > 0">
-        <li *ngFor="let result of searchResults" class="nav-item">
-          <a class="nav-link" [routerLink]="['/student', result.id]" (click)="clearSearchForm()">{{ result.name }}</a>
-        </li>
-      </ng-container> -->
-
-      <!-- Show a message if no results -->
-      <!-- <li *ngIf="searchResults.length === 0 && searchQuery.trim().length > 0" class="nav-item">
-        <span class="nav-link">No results found.</span>
-      </li>
-       -->
 
 
 
@@ -187,12 +167,12 @@
               <span>ID Card Renew</span>
             </a>
           </li>
-          <!-- <li class="active cursor">
+          <li class="active cursor">
             <a (click)="showSection('sponsorship')">
               <i class="fas fa-hand-holding-usd"></i>
-              <span>Sponsorship</span>
+              <span>Sponsorship / Scholarship</span>
             </a>
-          </li> -->
+          </li>
           <li class="active cursor">
             <a (click)="showSection('assignment')">
               <i class="fas fa-tasks"></i>
@@ -300,12 +280,12 @@
               <span>Job Vacancy Management</span>
             </a>
           </li>
-          <!-- <li class="active cursor">
+          <li class="active cursor">
             <a (click)="showSection('sponsorship')">
               <i class="fas fa-hand-holding-usd"></i>
-              <span>Sponsorship</span>
+              <span>Sponsorship / Scholarship</span>
             </a>
-          </li> -->
+          </li>
           <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
