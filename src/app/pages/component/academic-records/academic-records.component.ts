@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-academic-records',
@@ -12,78 +11,48 @@ import { UserAuthService } from '../../../core/services/user_auth/user-auth.serv
   styleUrls: ['./academic-records.component.css']
 })
 export class AcademicRecordsComponent implements OnInit {
-  itemsPerPage = 5;
-  currentPage = 1;
-  totalItems = 0;
-  totalPages: number[] = [];
-  paginatedItems: any[] = [];
+  uploadForm!: FormGroup;
+  selectedFile: File | null = null;
 
   userRole: string | null = null;
-  selectedFile: File | null = null;
-  uploadForm!: FormGroup;
-
   showUserProfileData: any = null;
-  userData: any = null;
 
+  // Sample data (replace with real backend data later)
   items = [
-    { clubName: 'Mark', position: 'Otto', joinedDate: '2022-01-01' },
-    { clubName: 'Jacob', position: 'Thornton', joinedDate: '2022-01-02' },
-    { clubName: 'Larry', position: 'the Bird', joinedDate: '2022-01-03' },
-    { clubName: 'John', position: 'Doe', joinedDate: '2022-01-04' },
-    { clubName: 'Jane', position: 'Doe', joinedDate: '2022-01-05' },
-    { clubName: 'Smith', position: 'Jones', joinedDate: '2022-01-06' },
-    { clubName: 'Emily', position: 'Johnson', joinedDate: '2022-01-07' },
-    { clubName: 'Michael', position: 'Brown', joinedDate: '2022-01-08' },
-    { clubName: 'Sarah', position: 'Davis', joinedDate: '2022-01-09' },
-    { clubName: 'David', position: 'Miller', joinedDate: '2022-01-10' }
+    { clubName: 'Math', position: 'A+', joinedDate: 3 },
+    { clubName: 'Physics', position: 'A', joinedDate: 4 },
+    { clubName: 'Chemistry', position: 'B+', joinedDate: 3 },
+    { clubName: 'Biology', position: 'A-', joinedDate: 4 },
+    { clubName: 'Computer', position: 'A+', joinedDate: 3 }
   ];
+  paginatedItems: any[] = [];
+  itemsPerPage = 5;
+  currentPage = 1;
+  totalPages: number[] = [];
 
-  constructor(
-    private http: HttpClient,
-    private formBuilder: FormBuilder,
-    private userService: UserAuthService // ✅ Injected properly
-  ) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // 1. Set up pagination
-    this.totalItems = this.items.length;
-    this.totalPages = Array(Math.ceil(this.totalItems / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
-    this.setPage(1);
-
-    // 2. Get role and form
     this.userRole = localStorage.getItem('userRole');
-    this.uploadForm = this.formBuilder.group({
+    this.showUserProfileData = {
+      name: localStorage.getItem('userName') || 'Student',
+      role: this.userRole
+    };
+
+    this.uploadForm = this.fb.group({
       file: [null, Validators.required],
-      type: ['', Validators.required],
+      type: ['', Validators.required]
     });
 
-    // 3. Fetch user data
-    this.userService.getuserDataLogin().subscribe((res) => {
-      console.log('getuserDataLogin:', res);
-      this.showUserProfileData = res.data;
-    });
-
-    this.userService.getProfile().subscribe((res) => {
-      console.log('getProfile:', res);
-      this.userData = res;
-    });
-  }
-
-  setPage(page: number): void {
-    if (page < 1 || page > this.totalPages.length) return;
-    this.currentPage = page;
-    const startIndex = (page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedItems = this.items.slice(startIndex, endIndex);
+    this.totalPages = Array(Math.ceil(this.items.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+    this.setPage(1);
   }
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       this.selectedFile = input.files[0];
-      this.uploadForm.patchValue({
-        file: this.selectedFile
-      });
+      this.uploadForm.patchValue({ file: this.selectedFile });
     }
   }
 
@@ -93,14 +62,33 @@ export class AcademicRecordsComponent implements OnInit {
       formData.append('file', this.selectedFile);
       formData.append('type', this.uploadForm.get('type')!.value);
 
-      this.http.post('http://localhost:3200/upload', formData).subscribe(
-        response => {
-          console.log('File uploaded successfully:', response);
-        },
-        error => {
-          console.error('Error uploading file:', error);
-        }
-      );
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      });
+
+      this.http.post('http://localhost:3200/upload', formData, { headers })
+        .subscribe(
+          res => {
+            alert('File uploaded and emailed to all students.');
+            this.uploadForm.reset();
+            this.selectedFile = null;
+            // Optionally, refresh the page or update the UI to reflect the new data
+            window.location.reload();
+          },
+          err => {
+            console.error(err);
+            alert('Upload failed. Check console for error.');
+          }
+        );
     }
+  }
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.totalPages.length) return;
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedItems = this.items.slice(startIndex, endIndex);
   }
 }

@@ -36,10 +36,10 @@
             <div class="alert alert-info" role="alert">
               You are not enrolled in any subjects yet.
             </div>
-        
+
           </ng-template>
-          <button  *ngIf="!subjectNotFound" class="btn btn-outline-danger" (click)="deleteEnrollment()">Complete Semester</button>
-   
+          <!-- <button  *ngIf="!subjectNotFound" class="btn btn-outline-danger" (click)="deleteEnrollment()">Complete Semester</button> -->
+
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
           </div>
         </form>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" (click)="saveTarget()">Save changes</button>
