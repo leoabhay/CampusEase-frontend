@@ -10,16 +10,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-model-question',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,NgxPaginationModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxPaginationModule, FormsModule],
   templateUrl: './model-question.component.html',
-  styleUrl: './model-question.component.css'
+  styleUrls: ['./model-question.component.css']  // fix typo here: styleUrls instead of styleUrl
 })
 export class ModelQuestionComponent implements OnInit {
   userRole: string | null | undefined;
-  modelQuestionList:any[]=[]
+  modelQuestionList: any[] = [];
   modelQuestionForm!: FormGroup;
   subjectList: any[] = [];
-  assignmentList:any[]=[]
+  assignmentList: any[] = [];
   currentPage = 1;
 
   searchTerm: string = '';
@@ -27,45 +27,52 @@ export class ModelQuestionComponent implements OnInit {
   getQuestionsByEnrolledSubjectData: any[] = [];
   filteredQuestions: any[] = [];
 
-  // getQuestionsByEnrolledSubjectData:any[]=[]
-constructor(private modelService:ModelQuestionService, private confirmationService: PopUpService,
-  private enrollmentService: EnrollmentService,private assignmentService: AssignmentService,private formBuilder: FormBuilder
+  constructor(
+    private modelService: ModelQuestionService,
+    private confirmationService: PopUpService,
+    private enrollmentService: EnrollmentService,
+    private assignmentService: AssignmentService,
+    private formBuilder: FormBuilder
+  ) {
+    this.userRole = localStorage.getItem('userRole');
+    this.getQuestionsByEnrolledSubjectFunction();
+  }
 
-){
-  this.userRole = localStorage.getItem('userRole')
-  this.getQuestionsByEnrolledSubjectFunction()
-}
   ngOnInit(): void {
-
     this.modelQuestionForm = this.formBuilder.group({
       subject: ['', Validators.required],
       model_question: ['', Validators.required],
-      file:  ['', Validators.required],
+      file: [null, Validators.required],  // file should start as null, not empty string
     });
 
     this.getSubjectList();
     this.showAssignmentList();
     this.showModelQuestionList();
   }
-  getQuestionsByEnrolledSubjectFunction(){
-    this.modelService.getQuestionsByEnrolledSubjectAPI().subscribe((res)=>{
-      console.log(res);
-      this.getQuestionsByEnrolledSubjectData=res.Model_Questions
-      this.filteredQuestions = res.Model_Questions;
 
-    })
+  getQuestionsByEnrolledSubjectFunction() {
+    this.modelService.getQuestionsByEnrolledSubjectAPI().subscribe((res) => {
+      console.log(res);
+      this.getQuestionsByEnrolledSubjectData = res.Model_Questions;
+      this.filteredQuestions = res.Model_Questions;
+    });
   }
+
   searchQuestions() {
     this.filteredQuestions = this.getQuestionsByEnrolledSubjectData.filter(item =>
       item.subject.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+
   onSubmitQuestion(): void {
     if (this.modelQuestionForm.valid) {
       const formData = new FormData();
       formData.append('subject', this.modelQuestionForm.get('subject')!.value);
       formData.append('model_question', this.modelQuestionForm.get('model_question')!.value);
-      formData.append('file', this.modelQuestionForm.get('file')!.value);
+
+      // Append the file (File object)
+      const file = this.modelQuestionForm.get('file')!.value;
+      formData.append('file', file);
 
       this.modelService.postModelQuestion(formData).subscribe(
         (res) => {
@@ -73,21 +80,19 @@ constructor(private modelService:ModelQuestionService, private confirmationServi
           this.modelQuestionForm.reset();
           this.confirmationService.showSuccessMessage('Model question added successfully');
           this.showModelQuestionList();
-
         },
         (err) => {
           console.error(err);
-          this.confirmationService.showErrorMessage('Cannot add model assignment');
+          this.confirmationService.showErrorMessage('Cannot add model question');
           this.showModelQuestionList();
-
         }
       );
     } else {
       this.confirmationService.showErrorMessage('Please fill all required fields');
       this.showModelQuestionList();
-
     }
   }
+
   onFileChangeQuestion(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -96,23 +101,25 @@ constructor(private modelService:ModelQuestionService, private confirmationServi
       });
     }
   }
+
   showModelQuestionList() {
     this.modelService.getModelQuestion().subscribe((res) => {
       console.log(res);
-      this.modelQuestionList=res;
-    })
+      this.modelQuestionList = res;
+    });
   }
+
   getSubjectList() {
     this.enrollmentService.getSubjectDataList().subscribe((res) => {
       console.log(res);
       this.subjectList = res.subjects;
-      debugger
-    })
+    });
   }
+
   showAssignmentList() {
     this.assignmentService.getGiveAssignment().subscribe((res) => {
       console.log(res);
-      this.assignmentList=res
-    })
+      this.assignmentList = res;
+    });
   }
 }

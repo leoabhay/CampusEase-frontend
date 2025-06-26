@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment.development';
   providedIn: 'root'
 })
 export class ModelQuestionService {
+  private baseUrl = environment.api_url;
   constructor(private http:HttpClient) { }
 
 
