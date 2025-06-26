@@ -13,7 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './events.component.css'
 })
 export class EventsComponent implements OnInit{
-  
+
   eventForm!:FormGroup;
   eventList:any[]=[];
   eventEmailList:any[]=[];
@@ -29,7 +29,7 @@ export class EventsComponent implements OnInit{
   constructor(private formBuilder:FormBuilder,private eventService:EventService,
     private confirmationService:PopUpService){
     this.formvalue();
-   
+
   }
 ngOnInit(): void {
   this.userRole = localStorage.getItem('userRole')
@@ -134,8 +134,6 @@ ngOnInit(): void {
   async deleteEvent(eventId:string){
     const confirm = await this.confirmationService.showConfirmationPopup()
     if(confirm){
-
-
     this.eventService.delEventList(eventId).subscribe((res)=>{
       this.getEventListByEmailFunction()
       this.getEventList()
