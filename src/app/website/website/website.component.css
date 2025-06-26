@@ -81,40 +81,14 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Make the navbar smaller */
-#header {
-  height: 70px;
-  padding: 5px 0;
-  background-color: rgba(255, 255, 255, 0.95);
-  transition: all 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
 
-/* Adjust the inner container */
-#header .container {
-  height: 100%;
-  align-items: center;
-}
-
-/* Make nav links smaller and tighter */
-#navbar ul li a {
-  padding: 12px 14px;
-  font-size: 15px;
-  color: white;
-}
-
-/* Adjust Get Started button */
-.getstarted {
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 4px;
-}
-
-#header h1 {
-  font-size: 24px;
-  margin: 0;
-}
 
 #navbar ul li a {
   font-weight: bold;
+  color: white;
 }
+
+#navbar ul li a:hover {
+  color: #007bff;
+}
+
