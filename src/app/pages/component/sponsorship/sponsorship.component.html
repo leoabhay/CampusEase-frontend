@@ -4,7 +4,7 @@
       <div class="col-lg-12">
         <div class="card my-4">
           <div class="card-header">
-            <h5>Sponsorship</h5>
+            <h5>Sponsorship / Scholarship</h5>
           </div>
           <div class="card-body  text-center">
 
@@ -56,8 +56,8 @@
     <div class="row">
       <div class="card">
         <div class="container mt-4">
-          <h2 class="mb-4">SponsorShip List</h2>
-          <button class="btn btn-primary mb-3">Print Table</button>
+          <h2 class="mb-4">SponsorShip / Scholarship List</h2>
+          <!-- <button class="btn btn-primary mb-3">Print Table</button> -->
           <div class="table-responsive">
             <table class="table table-bordered table-striped" id="">
               <thead class="thead-dark">
@@ -91,7 +91,7 @@
             </table>
             <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
           </div>
-          
+
         </div>
 
       </div>
@@ -109,7 +109,7 @@
 
 
       <div class="table-responsive">
-        <h5>Sponsor List </h5>
+        <h5>Sponsor / Scholarship Request List </h5>
         <div class="table-responsive">
           <table class="table table-bordered table-striped">
             <thead>
@@ -144,15 +144,15 @@
                   <div class="d-flex flex-column flex-md-row align-items-center">
                     <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-secondary mb-2 mb-md-0 mr-md-4"
                       (click)="updateSponsorship(item._id, 'accepted')">
-                      <i class="fas fa-check-circle"></i> 
+                      <i class="fas fa-check-circle"></i>
                     </button>
                     <button *ngIf="item.decision === 'Pending'" class="btn btn-outline-danger"
                       (click)="updateSponsorship(item._id, 'rejected')">
-                      <i class="fas fa-times-circle"></i> 
+                      <i class="fas fa-times-circle"></i>
                     </button>
                   </div>
                 </td>
-                
+
               </tr>
 
             </tbody>
