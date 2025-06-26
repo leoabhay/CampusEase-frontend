@@ -41,7 +41,7 @@ export class DepartmentComponent implements OnInit {
     this.createFacultyForm = this.formBuilder.group({
       createFaculty: ['', [
         Validators.required,
-        Validators.pattern('^[a-zA-Z ]+$') 
+        Validators.pattern('^[a-zA-Z ]+$')
       ]],
       hod: ['', Validators.required]
     })
