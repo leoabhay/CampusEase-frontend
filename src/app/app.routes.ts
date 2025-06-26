@@ -7,6 +7,7 @@ import { authGuard } from './auth.guard';
 import { StudentDetailsComponent } from './pages/component/user-details/user-details.component';
 import { UserManagementComponent } from './pages/admin-component/user-management/user-management.component';
 import { ProfileComponent } from './pages/component/profile/profile.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
      {
          path:'registration-page',
          component:RegisterPageComponent
+     },
+     {
+        path: 'reset-password',
+        component: ResetPasswordComponent
      },
     {
         path:'dashboard',

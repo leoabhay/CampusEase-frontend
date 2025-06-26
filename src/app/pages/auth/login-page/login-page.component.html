@@ -25,7 +25,14 @@
       </div>
 
       <button type="submit" class="btn btn-success w-100 py-2" (click)="loginButton()">Sign me in</button>
-    </form>
+      </form>
+
+        <div class="text-end mb-3">
+          <a [routerLink]="['/reset-password']" class="text-info" style="text-decoration: none;">
+           Forgot Password?
+          </a>
+          </div>
+
 
     <div class="text-center text-white mt-3">
       Want to be a new member? <a href="/registration-page" class="text-info" style="text-decoration: none;">Click here</a>
@@ -33,6 +40,6 @@
 
     <hr class="bg-light" />
 
-    <p class="text-center text-white-50 mt-3 mb-0">"Ease your academic journey"</p>
+    <p class="text-center text-white-50 mt-3 mb-0">&copy; CampusEase All Rights Reserved 2025</p>
   </div>
 </div>
