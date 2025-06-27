@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h3 class="text-center mb-3">Chat</h3>
+
+  <div class="row">
+    <!-- User list -->
+    <div class="col-md-4 border-end">
+      <h5>Users</h5>
+      <ul class="list-group">
+        <li
+          *ngFor="let user of users"
+          class="list-group-item d-flex justify-content-between align-items-center"
+          [class.active]="selectedUser?._id === user._id"
+          (click)="selectUser(user)"
+        >
+          {{ user.name }}
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-success': onlineUsers.includes(user._id),
+              'bg-secondary': !onlineUsers.includes(user._id)
+            }"
+          >
+            {{ onlineUsers.includes(user._id) ? 'Online' : 'Offline' }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Chat section -->
+    <div class="col-md-8">
+      <div class="chat-box border rounded p-3 mb-2" style="height: 400px; overflow-y: scroll;">
+        <div *ngFor="let msg of messages" [ngClass]="{ 'text-end': msg.senderId === currentUser._id }">
+          <div class="message bg-light p-2 rounded mb-1 d-inline-block">
+            {{ msg.message }}
+            <small *ngIf="msg.senderId === currentUser._id">
+              <span [ngClass]="{ 'text-success': msg.isRead, 'text-muted': !msg.isRead }">
+                {{ msg.isRead ? 'seen' : 'sent' }}
+              </span>
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="newMessage"
+          (keydown.enter)="sendMessage()"
+          placeholder="Type your message"
+        />
+        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+      </div>
+      <button class="btn btn-danger" (click)="deleteConversation()" *ngIf="selectedUser">
+  Delete Conversation
+</button>
+
+    </div>
+  </div>
+</div>

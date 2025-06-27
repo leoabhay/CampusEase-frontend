@@ -130,9 +130,9 @@
             </a>
           </li>
           <li class="active cursor">
-            <a (click)="showSection('course-enroll')">
-              <i class="fas fa-book"></i>
-              <span>Course Enroll</span>
+            <a (click)="showSection('chat')">
+              <i class="fas fa-comment"></i>
+              <span>Chat</span>
             </a>
           </li>
           <li class="active cursor">
@@ -203,12 +203,6 @@
               <span>Notice</span>
             </a>
           </li>
-          <!-- <li class="active cursor">
-            <a (click)="showSection('setting')">
-              <i class="fas fa-cog"></i>
-              <span>Setting</span>
-            </a>
-          </li> -->
           <!-- <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
@@ -336,6 +330,12 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('chat')">
+              <i class="fas fa-comment"></i>
+              <span>Chat</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('our-courses')">
               <i class="fas fa-book"></i>
               <span>My Course</span>
@@ -419,9 +419,9 @@
       <div *ngIf="currentSection === 'our-courses'">
         <app-our-course></app-our-course>
       </div>
-      <!-- <div *ngIf="currentSection === 'setting'">
-        <app-setting></app-setting>
-      </div> -->
+      <div *ngIf="currentSection === 'chat'">
+        <app-chat></app-chat>
+      </div>
       <div *ngIf="currentSection === 'join-club'">
         <app-join-clubs></app-join-clubs>
       </div>
