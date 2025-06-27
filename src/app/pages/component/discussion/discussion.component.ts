@@ -52,13 +52,13 @@ export class DiscussionComponent implements OnInit {
     if (this.discussionTable.valid) {
       if (this.isEditMode && this.discussionResultId) {
         this.discussionService.updateDiscussion(this.discussionResultId, this.discussionTable.value).subscribe(res => {
-          alertify.success("Discussion updated");
+          alertify.success("Notice updated");
           this.getDiscissionTable();
           this.discussionTable.reset();
           this.closeModal();
         }, error => {
-          console.error('Error updating discussion:', error);
-          alertify.error("Error updating discussion");
+          console.error('Error updating notice:', error);
+          alertify.error("Error updating notice");
         });
       }
       else {
@@ -67,7 +67,7 @@ export class DiscussionComponent implements OnInit {
         this.discussionService.postDiscussion(formData).subscribe(
           (res) => {
             console.log(res);
-            alertify.success('Discussion Added');
+            alertify.success('Notice Added');
             this.getDiscissionTable();
             this.discussionTable.reset()
             this.closeModal();
@@ -86,7 +86,7 @@ export class DiscussionComponent implements OnInit {
   editDiscussion(discussionId: string) {
     this.discussionService.getdiscussionDataById(discussionId).subscribe((res) => {
       if (!res) {
-        console.error('Discussion not found');
+        console.error('Notice not found');
         return;
       }
 
@@ -104,7 +104,7 @@ export class DiscussionComponent implements OnInit {
         this.editModal.nativeElement.style.display = 'block';
       }
     }, error => {
-      console.error('Error fetching discussion data:', error);
+      console.error('Error fetching notice data:', error);
     });
   }
 
@@ -115,7 +115,7 @@ export class DiscussionComponent implements OnInit {
 
       this.discussionService.deleteDiscussion(discussinId).subscribe((res) => {
         debugger
-        this.confirmationService.showSuccessMessage('discussion is deleted')
+        this.confirmationService.showSuccessMessage('notice is deleted')
         this.getDiscissionTable()
       })
     }
