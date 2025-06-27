@@ -115,22 +115,12 @@
                     {{ isEditMode ? 'Update' : 'Create' }}
                   </button>
                 </div>
-              </form>
               
         </div>
     </div>
     <div class="card my-4">
         <div class="card-body">
 
-
-    <!-- Student View -->
-    <div *ngIf="userRole == 'student'" class="student-view">
-        <div class="card">
-            <div class="card-header">
-                <h2 class="mb-0">Upcoming Events</h2>
-                <!-- <p class="subtitle">Browse upcoming events</p> -->
-            </div>
-            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -171,35 +161,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div *ngIf="userRole == 'student'">
-  <h2>All Events</h2>
-  <div class="table-responsive">
-    <table class="table table-bordered" id="clubTable">
-      <thead class="thead-dark">
-        <tr>
-          <th>SN</th>
-          <th>Event Name</th>
-          <th>Event Date</th>
-          <th>Location</th>
-          <th>Description</th>
-          <th>Created Date</th>
-          <th>Created By</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of eventList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
-          <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
-          <td>{{ item.eventName }}</td>
-          <td>{{ item.eventDate }}</td>
-          <td>{{ item.location }}</td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.createdDate }}</td>
-          <td>{{ item.createdBy }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 </div>
