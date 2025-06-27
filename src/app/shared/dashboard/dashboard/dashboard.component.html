@@ -121,6 +121,8 @@
         </li>
       </ul>
       <ul class="nav">
+
+        <!-- Student Section -->
         <ng-container *ngIf="userRole === 'student'">
           <li class="nav-header">Student</li>
           <li class="active cursor">
@@ -211,7 +213,7 @@
           </li> -->
         </ng-container>
 
-
+        <!-- Admin Section -->
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-header">Admin</li>
           <li class="active cursor">
@@ -294,6 +296,8 @@
             </a>
           </li>
         </ng-container>
+
+        <!-- Secretary Section -->
         <ng-container *ngIf="userRole === 'secretary'">
           <li class="nav-header">Club/Secretary</li>
           <li class="active cursor">
@@ -303,24 +307,26 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('join-club')">
+              <i class="fas fa-comments"></i>
+              <span>Club</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
               <span>Notice</span>
             </a>
           </li>
           <li class="active cursor">
-            <a (click)="showSection('join-club')">
-              <i class="fas fa-comments"></i>
-              <span>Club</span>
-            </a>
-          </li>
-          <!-- <li class="active cursor">
             <a (click)="showSection('events')">
               <i class="fas fa-calendar-check"></i>
               <span>Events</span>
             </a>
-          </li> -->
+          </li>
         </ng-container>
+
+        <!-- Faculty/Teacher Section -->
         <ng-container *ngIf="userRole === 'faculty'">
           <li class="nav-header">Faculty/Teacher</li>
           <li class="active cursor">
@@ -357,6 +363,12 @@
             <a (click)="showSection('model-question')">
               <i class="fas fa-question-circle"></i>
               <span>Model Question</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('events')">
+              <i class="fas fa-calendar-check"></i>
+              <span>Events</span>
             </a>
           </li>
           <li class="active cursor">
