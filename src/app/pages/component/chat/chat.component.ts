@@ -9,6 +9,7 @@ import io from 'socket.io-client';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
   http = inject(HttpClient);
@@ -19,6 +20,8 @@ export class ChatComponent implements OnInit {
   newMessage = '';
   currentUser: any;
   onlineUsers: string[] = [];
+  messageCounts: { [userId: string]: number } = {};
+  showOptions = false;
 
   API_BASE = 'http://localhost:3200';
 
@@ -48,19 +51,26 @@ export class ChatComponent implements OnInit {
       });
 
       this.socket.on('private-message', (data: any) => {
-        if (
-          this.selectedUser &&
-          (
-            this.getId(data.senderId) === this.selectedUser._id ||
-            this.getId(data.receiverId) === this.selectedUser._id
-          )
-        ) {
+        const senderId = this.getId(data.senderId);
+        const receiverId = this.getId(data.receiverId);
+
+        const isCurrentChat = this.selectedUser &&
+          (senderId === this.selectedUser._id || receiverId === this.selectedUser._id);
+
+        if (!isCurrentChat) {
+          const otherUserId = senderId === this.currentUser._id ? receiverId : senderId;
+          if (otherUserId) {
+            this.messageCounts[otherUserId] = (this.messageCounts[otherUserId] || 0) + 1;
+          }
+        }
+
+        if (isCurrentChat) {
           const exists = this.messages.some(m => m._id === data._id);
           if (!exists) {
             this.messages.push(data);
           }
 
-          if (this.getId(data.receiverId) === this.currentUser._id) {
+          if (receiverId === this.currentUser._id) {
             this.socket.emit('message-read', { messageId: data._id });
             data.isRead = true;
           }
@@ -95,6 +105,8 @@ export class ChatComponent implements OnInit {
   selectUser(user: any) {
     this.selectedUser = user;
     this.messages = [];
+    this.messageCounts[user._id] = 0;
+    this.showOptions = false;
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('userToken')}`);
     this.http.get<any[]>(`${this.API_BASE}/conversation/${user._id}`, { headers }).subscribe(res => {
@@ -127,11 +139,19 @@ export class ChatComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('userToken')}`);
 
-    // Hit the soft-delete route
     this.http.put(`${this.API_BASE}/conversation/${this.selectedUser._id}/delete`, {}, { headers })
       .subscribe(() => {
         this.messages = [];
         alert('Conversation deleted for you.');
       });
+  }
+
+  getLastUserMessage() {
+    const reversed = [...this.messages].reverse();
+    return reversed.find(m => m.senderId === this.currentUser._id);
+  }
+
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
   }
 }

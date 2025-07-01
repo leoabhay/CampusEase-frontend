@@ -1,61 +1,46 @@
-<div class="container mt-4">
-  <h3 class="text-center mb-3">Chat</h3>
-
-  <div class="row">
-    <!-- User list -->
-    <div class="col-md-4 border-end">
-      <h5>Users</h5>
-      <ul class="list-group">
-        <li
-          *ngFor="let user of users"
-          class="list-group-item d-flex justify-content-between align-items-center"
-          [class.active]="selectedUser?._id === user._id"
-          (click)="selectUser(user)"
-        >
-          {{ user.name }}
-          <span
-            class="badge"
-            [ngClass]="{
-              'bg-success': onlineUsers.includes(user._id),
-              'bg-secondary': !onlineUsers.includes(user._id)
-            }"
-          >
+<div class="chat-container">
+  <div class="user-list">
+    <h5>{{ currentUser?.role === 'student' ? 'Teachers' : 'Students' }}</h5>
+    <ul>
+      <li *ngFor="let user of users" [class.active]="selectedUser?._id === user._id" (click)="selectUser(user)">
+        <span>{{ user.name }}</span>
+        <div class="badges">
+          <span class="badge" [ngClass]="onlineUsers.includes(user._id) ? 'online' : 'offline'">
             {{ onlineUsers.includes(user._id) ? 'Online' : 'Offline' }}
           </span>
-        </li>
-      </ul>
+          <span class="badge count" *ngIf="messageCounts[user._id]">
+            {{ messageCounts[user._id] }}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="chat-box">
+    <div class="chat-header" *ngIf="selectedUser">
+      <h5>{{ selectedUser.name }}</h5>
+      <div class="dots" (click)="toggleOptions()">&#8942;</div>
+      <div class="dropdown-options" *ngIf="showOptions">
+        <button class="delete-option" (click)="deleteConversation()">Delete Conversation</button>
+      </div>
     </div>
 
-    <!-- Chat section -->
-    <div class="col-md-8">
-      <div class="chat-box border rounded p-3 mb-2" style="height: 400px; overflow-y: scroll;">
-        <div *ngFor="let msg of messages" [ngClass]="{ 'text-end': msg.senderId === currentUser._id }">
-          <div class="message bg-light p-2 rounded mb-1 d-inline-block">
-            {{ msg.message }}
-            <small *ngIf="msg.senderId === currentUser._id">
-              <span [ngClass]="{ 'text-success': msg.isRead, 'text-muted': !msg.isRead }">
-                {{ msg.isRead ? 'seen' : 'sent' }}
-              </span>
-            </small>
-          </div>
+    <div class="messages">
+      <div *ngFor="let msg of messages" [class.own]="msg.senderId === currentUser._id">
+        <div class="bubble">
+          {{ msg.message }}
+          <ng-container *ngIf="msg.senderId === currentUser._id && msg === getLastUserMessage()">
+            <span class="status" [ngClass]="msg.isRead ? 'seen' : 'sent'">
+              {{ msg.isRead ? 'seen' : 'sent' }}
+            </span>
+          </ng-container>
         </div>
       </div>
+    </div>
 
-      <!-- Input -->
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="newMessage"
-          (keydown.enter)="sendMessage()"
-          placeholder="Type your message"
-        />
-        <button class="btn btn-primary" (click)="sendMessage()">Send</button>
-      </div>
-      <button class="btn btn-danger" (click)="deleteConversation()" *ngIf="selectedUser">
-  Delete Conversation
-</button>
-
+    <div class="input-area">
+      <input type="text" [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" placeholder="Type your message...">
+      <button (click)="sendMessage()">Send</button>
     </div>
   </div>
 </div>
