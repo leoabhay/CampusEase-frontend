@@ -1,35 +1,29 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white text-center">
-          <h4>Internal Valuation and Marks Submission</h4>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="valuationForm">
-            <div class="form-group">
-              <label for="valuationType">Select Type</label>
-              <select class="form-control" id="valuationType" formControlName="type">
-                <option value="marks">Internal Marks</option>
-                <option value="valuation">Internal Exam Valuation</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="valuationType">Select Type</label>
-              <select class="form-control" id="valuationType" formControlName="subject">
-                <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
-              </select>
-            </div>
+  <h2>Internal Marks Record</h2>
 
-            <div class="form-group">
-              <label for="fileUpload">Upload Document</label>
-              <input type="file" class="form-control-file" id="fileUpload" (change)="onFileSelected($event)">
-            </div>
+  <!-- Recalculate Button -->
+  <button (click)="recalculateInternalMarks()" [disabled]="isCalculating" class="btn btn-primary mb-3">
+    {{ isCalculating ? 'Calculating...' : 'Recalculate Internal Marks' }}
+  </button>
 
-            <button type="button" class="btn btn-primary btn-block" (click)="onUpload()">Upload</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Subject</th>
+        <th>Assignment Marks</th>
+        <th>Attendance Marks</th>
+        <th>Total Marks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mark of internalMarks">
+        <td>{{ mark.rollno }}</td>
+        <td>{{ mark.subject }}</td>
+        <td>{{ mark.assignmentMarks }}</td>
+        <td>{{ mark.attendanceMarks }}</td>
+        <td>{{ calculateTotal(mark.assignmentMarks, mark.attendanceMarks) }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
