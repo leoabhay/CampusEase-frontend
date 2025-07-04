@@ -1,26 +1,187 @@
-/* .fixed-height-table {
-    height: 400px; 
-    overflow-y: auto;
+:root {
+  --primary-color: #43a047;         /* Green */
+  --secondary-color: #1de9b6;       /* Light teal */
+  --accent-color: #e8f5e9;          /* Light green bg */
+  --error-color: #e53935;
+  --text-color: #333;
+  --bg-color: #f4f6f8;
+  --border-color: #e0e0e0;
+  --radius: 10px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --transition: 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Card styling */
+.card {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background-color: #fff;
+  margin-bottom: 2rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card h5 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Form elements */
+.form-control,
+.form-select {
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  outline: none;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius);
+  padding: 10px 24px;
+  transition: background-color var(--transition);
+}
+
+.btn-primary:hover {
+  background-color: #388e3c;
+}
+
+.btn-outline-danger {
+  border-color: var(--error-color);
+  color: var(--error-color);
+  border-radius: var(--radius);
+}
+
+.btn-outline-danger:hover {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+/* Error Messages */
+.text-danger {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Table styling */
+.table {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f8e9;
+  transition: background-color var(--transition);
+}
+
+/* File icon */
+i.fas.fa-file-download {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  transition: color var(--transition);
+}
+
+i.fas.fa-file-download:hover {
+  color: var(--primary-color);
+}
+
+/* Pagination */
+pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination .page-link {
+  color: var(--primary-color);
+  border: none;
+  margin: 0 4px;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: var(--radius);
+}
+
+.pagination .page-link:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+/* Scrollable table */
+.fixed-height-table {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.2rem;
   }
-  
-  .table {
-    height: 100%;
-    display: block;
+
+  .form-control,
+  .form-select {
+    font-size: 0.9rem;
   }
-  
-  .table thead, .table tbody {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+
+  .btn {
+    font-size: 0.9rem;
   }
-  
-  .table tbody {
-    height: 100%;
-    overflow-y: auto;
-    display: block;
+
+  h5 {
+    font-size: 1.1rem;
   }
-  
-  .table-responsive {
-    overflow: hidden;
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 10px;
   }
-   */
+}

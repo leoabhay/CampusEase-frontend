@@ -1,0 +1,191 @@
+:root {
+  --green: #4CAF50;
+  --green-dark: #388E3C;
+  --green-light: #A5D6A7;
+  --white: #ffffff;
+  --gray-light: #f8f9fa;
+  --gray-border: #ddd;
+  --text-color: #333;
+  --radius: 10px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --transition: 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f9;
+  color: var(--text-color);
+}
+
+/* Headings */
+h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--green);
+}
+
+/* Card Styling */
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.card-header {
+  background-color: var(--green);
+  color: var(--white);
+  padding: 1rem 1.25rem;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Form Controls */
+.form-select,
+input.form-control {
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-border);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+
+.form-select:focus,
+input.form-control:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  font-weight: 600;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+  transition: background-color var(--transition), transform 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--green);
+  border: none;
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--green-dark);
+}
+
+/* Table Styling */
+.table {
+  background-color: var(--white);
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--green-light);
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.table thead th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--gray-border);
+}
+
+.table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid var(--gray-border);
+  font-size: 0.95rem;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f8e9;
+  transition: background-color var(--transition);
+}
+
+/* File Download Icon */
+.fas.fa-file-download {
+  color: var(--green);
+  font-size: 1.2rem;
+  transition: color var(--transition);
+}
+
+.fas.fa-file-download:hover {
+  color: var(--green-dark);
+}
+
+/* Pagination */
+pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination {
+  border-radius: var(--radius);
+}
+
+.pagination .page-link {
+  color: var(--green);
+  border: none;
+  margin: 0 4px;
+  transition: background-color var(--transition);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--green);
+  color: var(--white);
+  border-radius: var(--radius);
+}
+
+.pagination .page-link:hover {
+  background-color: var(--green-light);
+  color: var(--green-dark);
+}
+
+/* Responsive Utilities */
+.table-responsive {
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  .form-select,
+  input.form-control {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 20px;
+  }
+
+  .table thead {
+    font-size: 0.9rem;
+  }
+
+  .table tbody td {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,188 @@
+:root {
+  --green: #4CAF50;
+  --green-dark: #388E3C;
+  --green-light: #A5D6A7;
+  --red: #EF5350;
+  --blue: #42A5F5;
+  --light-gray: #f5f5f5;
+  --gray: #9e9e9e;
+  --white: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --radius: 10px;
+  --transition: 0.3s all ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--light-gray);
+  color: #333;
+}
+
+/* Headings */
+h1, h4 {
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Container */
+.row {
+  margin-bottom: 2rem;
+}
+
+/* Input Field */
+input.form-control {
+  max-width: 300px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+}
+
+input.form-control:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+  outline: none;
+}
+
+/* Buttons */
+button.btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+button.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary */
+.btn-primary {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #1e88e5;
+}
+
+/* Success */
+.btn-success {
+  background-color: var(--green);
+  color: var(--white);
+}
+
+.btn-success:hover {
+  background-color: var(--green-dark);
+}
+
+/* Danger */
+.btn-danger {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Table Design */
+.table {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.table thead {
+  background-color: var(--green-light);
+  color: #2e7d32;
+}
+
+.table thead th {
+  padding: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f8e9;
+  transition: background 0.3s ease;
+}
+
+/* Message Feedback */
+.text-success,
+.text-danger {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.text-success {
+  color: var(--green);
+}
+
+.text-danger {
+  color: var(--red);
+}
+
+/* Attendance Status Styling */
+span.text-success,
+span.text-danger {
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+span.text-success {
+  background-color: #e8f5e9;
+  color: var(--green-dark);
+}
+
+span.text-danger {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Table Wrapper */
+.table-responsive {
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  background-color: var(--white);
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+/* Spacing Utilities */
+.my-2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}

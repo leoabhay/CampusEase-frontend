@@ -1,0 +1,131 @@
+:root {
+  --primary-color: #2e7d32;         /* Green */
+  --accent-color: #e8f5e9;          /* Light green background */
+  --text-color: #333;
+  --bg-color: #f9f9f9;
+  --border-color: #ddd;
+  --hover-color: #dcedc8;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --transition: 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Card Styling */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: none;
+  margin-top: 1.5rem;
+  transition: box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card h5 {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Table Styling */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.table thead th {
+  border-bottom: 2px solid var(--primary-color);
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.table tbody td,
+.table tbody th {
+  padding: 12px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.table tbody tr:hover {
+  background-color: var(--hover-color);
+  transition: background-color var(--transition);
+}
+
+.table-bordered {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* File download icon */
+i.fas.fa-file-download {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  transition: color var(--transition);
+}
+
+i.fas.fa-file-download:hover {
+  color: #1b5e20;
+}
+
+/* Pagination Controls */
+pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination .page-link {
+  color: var(--primary-color);
+  border: none;
+  background-color: transparent;
+  font-weight: 500;
+  margin: 0 4px;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: var(--radius);
+}
+
+.pagination .page-link:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.2rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .card h5 {
+    font-size: 1.1rem;
+  }
+}

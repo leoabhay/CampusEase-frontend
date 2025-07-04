@@ -1,0 +1,172 @@
+:root {
+  --green: #4CAF50;
+  --green-dark: #388E3C;
+  --green-light: #E8F5E9;
+  --white: #ffffff;
+  --gray-light: #f8f9fa;
+  --gray-border: #e0e0e0;
+  --text-dark: #333;
+  --radius: 10px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --transition: 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: var(--text-dark);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background-color: var(--green);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem 1.25rem;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+
+/* Titles */
+h2, h5 {
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 1rem;
+}
+
+/* Form Controls */
+.form-select,
+textarea.form-control {
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-border);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.form-select:focus,
+textarea.form-control:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  outline: none;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--green);
+  border: none;
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 10px 24px;
+  font-weight: 600;
+  transition: background-color var(--transition), transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--green-dark);
+}
+
+.btn-outline-danger {
+  border-color: #e57373;
+  color: #e53935;
+  border-radius: var(--radius);
+}
+
+.btn-outline-danger:hover {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+/* Table Styles */
+.table {
+  background-color: var(--white);
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--green-light);
+  color: var(--green-dark);
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--gray-border);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f8e9;
+  transition: background-color var(--transition);
+}
+
+/* Pagination */
+pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.pagination .page-link {
+  color: var(--green);
+  border: none;
+  margin: 0 4px;
+  transition: background-color var(--transition);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--green);
+  color: var(--white);
+  border-radius: var(--radius);
+}
+
+.pagination .page-link:hover {
+  background-color: var(--green-light);
+  color: var(--green-dark);
+}
+
+/* Responsive Utilities */
+.table-responsive {
+  border-radius: var(--radius);
+  overflow-x: auto;
+  background-color: var(--white);
+  padding: 8px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 768px) {
+  h5, h2 {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+
+  .form-select,
+  textarea.form-control {
+    font-size: 0.9rem;
+  }
+}
