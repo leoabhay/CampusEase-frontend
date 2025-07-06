@@ -1,120 +1,124 @@
-<h5>Assignment</h5>
-
-<div class="row">
-  <div class="col-lg-4">
-    <div class="card mb-4">
-      <div class="card-body text-center">
-        <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
-          <div class="col-lg-12 mb-4">
-            <select class="form-select" formControlName="subject">
-              <option value="" disabled selected>Select Subject</option>
-              <option *ngFor="let subject of uniqueSubjects" [value]="subject">{{ subject }}</option>
-            </select>
-          </div>
-          <div class="col-lg-12 mb-4">
-            <select class="form-select" formControlName="assignment">
-              <option value="" disabled selected>Select Assignment Name</option>
-      <option *ngFor="let item of filteredAssignments" [value]="item.assignmentName">{{ item.assignmentName }}</option>
-            </select>
-          </div>
-          <div class="col-lg-12 mb-4">
-            <input type="file" class="form-control" (change)="onFileChange($event)" />
-          </div>
-          <div class="col-lg-12 mb-4">
-            <button type="submit" class="btn btn-primary mb-4" [disabled]="assignmentForm.invalid">Apply</button>
-          </div>
-        </form>
-
+<div class="assignment-container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card assignment-card mb-4">
+        <div class="card-header">
+          <h5>Submit Assignment</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-4">
+              <label for="subjectSelect" class="form-label">Subject</label>
+              <select class="form-select" id="subjectSelect" formControlName="subject">
+                <option value="" disabled selected>Select Subject</option>
+                <option *ngFor="let subject of uniqueSubjects" [value]="subject">{{ subject }}</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label for="assignmentSelect" class="form-label">Assignment</label>
+              <select class="form-select" id="assignmentSelect" formControlName="assignment">
+                <option value="" disabled selected>Select Assignment Name</option>
+                <option *ngFor="let item of filteredAssignments" [value]="item.assignmentName">{{ item.assignmentName }}</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label for="fileInput" class="form-label">Upload File</label>
+              <input type="file" class="form-control" id="fileInput" (change)="onFileChange($event)" />
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-submit" [disabled]="assignmentForm.invalid">
+                <i class="fas fa-paper-plane me-2"></i>Submit Assignment
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-8">
-    <div class="card mb-4">
-      <div class="card-header">
-        <h5>Assignment List</h5>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-        <table class="table ">
-          <thead class="thead-dark">
-
-            <tr>
-              <th scope="col">S.N</th>
-              <th scope="col">Subject</th>
-
-              <th scope="col">Assignment Name</th>
-              <th scope="col">File</th>
-              <th scope="col">Remarks</th>
-              <th scope="col">Due Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-            *ngFor="let item of showAssignmentsByEnrolledSubjects | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
-              <!-- <td>{{ (p1 - 1) * 5 + showAssignmentsByEnrolledSubjects.indexOf(item) + 1 }}</td> -->
-              <th scope="row">{{ i + 1 + (p1 - 1) * 5 }}</th>
-
-              <td>{{item.subject}}</td>
-              <td>{{item.assignmentName}}</td>
-              <td>
-                <!-- {{item.assignmentFile}} -->
-
-                <a [href]="item.assignmentFile" target="_blank" download>
-                  <i class="fas fa-file-download"></i>
-                </a>
-
-              </td>
-              <td>{{item.remarks}}</td>
-              <td>{{item.dueDate}}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="col-lg-8">
+      <div class="card assignment-card mb-4">
+        <div class="card-header">
+          <h5>Assignment List</h5>
         </div>
-        <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
-
-      </div>
-    </div>
-</div>
- <div class="row">
-
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-header">
-        <h5>Assignment Submitted</h5>
-      </div>
-
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">S.N</th>
-                <th scope="col">Subject</th>
-                <th scope="col">Assignment</th>
-                <th scope="col">File</th>
-                <th scope="col">Rollno</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of showassignmentsbyemail; let i=index">
-                <td>{{i+1}}</td>
-                <td>{{ item.subject }}</td>
-                <td>{{ item.assignment }}</td>
-                <td>
-                  <a [href]="item.assignmentFile" target="_blank" download>
-                    <i class="fas fa-file-download"></i>
-                  </a>
-                </td>
-                <td>{{ item.rollno || 'N/A' }}</td>
-                <td>{{ item.status }}</td>
-            </tbody>
-          </table>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table assignment-table">
+              <thead>
+                <tr>
+                  <th scope="col">S.N</th>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Assignment Name</th>
+                  <th scope="col">File</th>
+                  <th scope="col">Remarks</th>
+                  <th scope="col">Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of showAssignmentsByEnrolledSubjects | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
+                  <th scope="row">{{ i + 1 + (p1 - 1) * 5 }}</th>
+                  <td>{{item.subject}}</td>
+                  <td>{{item.assignmentName}}</td>
+                  <td>
+                    <a [href]="item.assignmentFile" target="_blank" download class="file-download">
+                      <i class="fas fa-file-download"></i> Download
+                    </a>
+                  </td>
+                  <td>{{item.remarks}}</td>
+                  <td>{{item.dueDate | date:'mediumDate'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-container">
+            <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
 
-</div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card assignment-card">
+        <div class="card-header">
+          <h5>Submitted Assignments</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table assignment-table">
+              <thead>
+                <tr>
+                  <th scope="col">SN</th>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Assignment</th>
+                  <th scope="col">File</th>
+                  <th scope="col">Rollno</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of showassignmentsbyemail; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{ item.subject }}</td>
+                  <td>{{ item.assignment }}</td>
+                  <td>
+                    <a [href]="item.assignmentFile" target="_blank" download class="file-download">
+                      <i class="fas fa-file-download"></i> Download
+                    </a>
+                  </td>
+                  <td>{{ item.rollno || 'N/A' }}</td>
+                  <td>
+                    <span class="status-badge" [class.status-pending]="item.status === 'Pending'"
+                      [class.status-approved]="item.status === 'Approved'"
+                      [class.status-rejected]="item.status === 'Rejected'">
+                      {{ item.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

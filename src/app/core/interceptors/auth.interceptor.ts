@@ -1,8 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  
- 
+
+
   if(req.headers.get('No-Auth')== 'True'){
     return next(req);
   }
@@ -20,8 +20,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(authReq)
   }
-return next(req) 
- 
+return next(req)
+
 };
 
 
@@ -42,7 +42,7 @@ return next(req)
 //     next: HttpHandler
 //   ): Observable<HttpEvent<any>> {
 //     const authToken = localStorage.getItem('userToken');
-// 
+//
 
 //     if (req.headers.get('No-Auth') === 'True') {
 //       return next.handle(req);

@@ -31,6 +31,7 @@ import { OurCourseComponent } from '../../../pages/component/our-course/our-cour
 import { StudentDetailsComponent } from '../../../pages/component/user-details/user-details.component';
 import { PaymentComponent } from '../../../pages/component/payment/payment.component';
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
+import { ChatComponent } from '../../../pages/component/chat/chat.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,6 +40,7 @@ import { UserAuthService } from '../../../core/services/user_auth/user-auth.serv
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ChatComponent,
     SemesterEnrollComponent,
     AcademicRecordsComponent,
     AttendanceRecordComponent,

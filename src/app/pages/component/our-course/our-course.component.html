@@ -1,26 +1,30 @@
-<div class="container-fluid" *ngIf="userRole == 'student'">
-  <div class="container-fluid">
-    <h5>Courses</h5>
-    <div class="row">
-      <div class="col-12">
-        <!-- <h5 class="text-center"> Courses list</h5> -->
-        <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-            <div class="card">
-              <div class="card-body " *ngFor="let data of listData">
-                <h5 class="card-title">{{ data.enrollment_key }}</h5>
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 col-sm-4 my-2" *ngFor="let item of data.subjects">
-                    <div class="card">
-                      <img class="card-img-top" src="../../../../assets/img/book1.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.code }}</p>
-                        <a  class="btn btn-primary">{{ item.credit }} Credits</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+<div class="courses-container">
+  <!-- Student View -->
+  <div class="student-courses" *ngIf="userRole == 'student'">
+    <div class="section-header">
+      <h2>Available Courses</h2>
+      <p>View all available courses and subjects</p>
+    </div>
+
+    <div class="enrollment-cards">
+      <div class="enrollment-group" *ngFor="let data of listData">
+        <div class="enrollment-header">
+          <h3><i class="fas fa-key"></i> Enrollment: {{ data.enrollment_key }}</h3>
+        </div>
+
+        <div class="subject-grid">
+          <div class="subject-card" *ngFor="let item of data.subjects">
+            <div class="subject-image">
+              <img src="../../../../assets/img/book1.jpg" alt="{{ item.name }}">
+            </div>
+            <div class="subject-details">
+              <h4>{{ item.name }}</h4>
+              <p class="subject-code">{{ item.code }}</p>
+              <div class="subject-footer">
+                <span class="credits-badge">{{ item.credit }} Credits</span>
+                <button class="btn-view">
+                  View Details
+                </button>
               </div>
             </div>
           </div>
@@ -28,20 +32,36 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="container-fluid" *ngIf="userRole == 'faculty'">
-  <div class="row">
-    <div class="col-12">
-      <h5 class="text-center">My Courses List</h5>
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 my-3" *ngFor="let item of subjectList">
-          <div class="card">
-            <img class="card-img-top" src="../../../../assets/img/card.jpg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{ item.name }}</h5>
-              <p class="card-text">{{ item.code }}</p>
-              <a  class="btn btn-primary">{{ item.credit }} Credits</a>
+  <!-- Faculty View -->
+  <div class="faculty-courses" *ngIf="userRole == 'faculty'">
+    <div class="section-header">
+      <h2>My Courses</h2>
+      <!-- <p>Manage your teaching subjects and materials</p> -->
+    </div>
+
+    <div class="subject-grid">
+      <div class="faculty-subject-card" *ngFor="let item of subjectList">
+        <div class="subject-image">
+          <img src="../../../../assets/img/card.jpg" alt="{{ item.name }}">
+          <!-- <div class="subject-overlay">
+            <button class="btn-manage">
+              <i class="fas fa-cog"></i> Manage
+            </button>
+          </div> -->
+        </div>
+        <div class="subject-details">
+          <h4>{{ item.name }}</h4>
+          <p class="subject-code">{{ item.code }}</p>
+          <div class="subject-meta">
+            <span class="credits-badge">{{ item.credit }} Credits</span>
+            <div class="subject-actions">
+              <!-- <button class="btn-action">
+                <i class="fas fa-users"></i> Students
+              </button>
+              <button class="btn-action">
+                <i class="fas fa-tasks"></i> Materials
+              </button> -->
             </div>
           </div>
         </div>
@@ -49,5 +69,3 @@
     </div>
   </div>
 </div>
-
-

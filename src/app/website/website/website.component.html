@@ -10,11 +10,11 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#events">Events</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a  class="getstarted scrollto" href="/login" style="text-decoration: none;" >Get Started</a></li>
+          <li><a class="nav-link scrollto active" href="#hero"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a class="nav-link scrollto" href="#about"><i class="fa-solid fa-address-card"></i> About</a></li>
+          <li><a class="nav-link scrollto" href="#events"><i class="fa-solid fa-calendar"></i> Events</a></li>
+          <li><a class="nav-link scrollto" href="#contact"><i class="fa-solid fa-phone"></i> Contact</a></li>
+          <li><a  class="nav-link scrollto" href="/login" style="text-decoration: none;"><i class="fa-solid fa-play"></i> Get Started</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -27,7 +27,7 @@
 
   <div class="container position-relative z-2">
     <div class="row">
-      <div class="col-lg-8 hero-glass">
+      <div class="col-lg-8 hero-glass" id="about">
         <h1 class="mb-4 fw-bold text-white">Streamline Your College Operations</h1>
         <ul class="mb-4 fw-bold">
           <li><i class="fas fa-check"></i> Simplify administrative tasks with automated workflows</li>
@@ -35,7 +35,7 @@
           <li><i class="fas fa-check"></i> Improve efficiency in course management and scheduling</li>
         </ul>
         <div>
-          <a href="#about" class="btn-get-started scrollto" style="text-decoration: none;"><i class="fas fa-book-open me-1"></i> Learn More</a>
+          <a href="#about" class="btn-get-started scrollto text-decoration-none" style="background-color: rgb(23, 107, 135);"><i class="fas fa-book-open me-1"></i> Learn More</a>
         </div>
       </div>
     </div>
@@ -48,27 +48,27 @@
 
   <main id="main">
 
-    <section id="about" class="about">
+    <section id="about" class="about" style="background-color: rgb(236, 240, 244);">
       <div class="container">
 
         <div class="row content">
           <div class="col-lg-6 ">
-            <h2>College Automation Project Overview</h2>
-            <h3>Enhancing Connectivity and Learning Experience</h3>
+            <h2 style="color: rgb(23, 107, 135);">CampusEase Overview</h2>
+            <h3>A College Automation System</h3>
           </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <p>
-              The college automation project aims to revolutionize communication and learning within the institution. It
+          <div id="content-one" class="col-lg-6 pt-4 pt-lg-0 glass-effect">
+
+            <!-- <p>
+              CampusEase aims to revolutionize communication and learning within the institution. It
               provides streamlined solutions for students and teachers alike, addressing the challenges outlined in the
               project statement.
-            </p>
+            </p> -->
             <ul>
-              <li><i class="fas fa-check"></i> Develop web applications for seamless interaction and feedback.</li>
-              <li><i class="fas fa-check"></i> Facilitate easy upload and download of assignments and study materials.
-              </li>
-              <li><i class="fas fa-check"></i> Create an intuitive, user-friendly interface for enhanced navigation and
-                search capabilities.</li>
-              <li><i class="fas fa-check"></i> Enable students to monitor their performance and access assignment
+              <li><i class="fas fa-chevron-right"></i> Facilitate easy upload and download of assignments and study materials.</li>
+              <li><i class="fas fa-chevron-right"></i> Streamline course management and scheduling.</li>
+              <li><i class="fas fa-chevron-right"></i> Enhance student-teacher interaction through a user-friendly interface.</li>
+              <li><i class="fas fa-chevron-right"></i> Provide a secure environment for teachers and users.</li>
+              <li><i class="fas fa-chevron-right"></i> Enable students to monitor their performance and access assignment
                 details.</li>
             </ul>
           </div>
@@ -80,7 +80,7 @@
 
 
     <section id="why-us" class="why-us">
-      <div class="container">
+      <div class="container" >
 
         <div class="row">
 
@@ -116,59 +116,49 @@
       </div>
     </section>
 
-    <section id="counts" class="counts section-bg">
+    <section id="counts" class="counts" style="background-color: rgb(236, 240, 244);">
       <div class="container">
-    
+
         <div class="row">
-    
+
           <div class="col-lg-4 col-md-6">
             <div class="count-box">
-              <i class="fas fa-user-graduate"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter">{{showStudentCount}}</span>
+              <i class="fas fa-user-graduate" style="background-color: rgb(23, 107, 135);"></i>
+              <span style="color: rgb(23, 107, 135);" data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter">{{showStudentCount}}</span>
               <p>Student</p>
             </div>
           </div>
-    
+
           <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
             <div class="count-box">
-              <i class="fas fa-chalkboard-teacher"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter">{{showTeacherCount}}</span>
+              <i class="fas fa-chalkboard-teacher" style="background-color: rgb(23, 107, 135);"></i>
+              <span style="color: rgb(23, 107, 135);" data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter">{{showTeacherCount}}</span>
               <p>Teacher</p>
             </div>
           </div>
-    
+
           <div class="col-lg-4 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
-              <i class="fas fa-users"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter">{{showSecretaryCount}}</span>
+              <i class="fas fa-users" style="background-color: rgb(23, 107, 135);"></i>
+              <span style="color: rgb(23, 107, 135);" data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter">{{showSecretaryCount}}</span>
               <p>Club</p>
             </div>
           </div>
-    
-          <!-- <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="fas fa-book"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter">{{subjectListCount}}</span>
-              <p>Subject</p>
-            </div>
-          </div> -->
-    
+
+
         </div>
-    
+
       </div>
     </section>
-    <section id="events" class="bg-light">
+    <section id="events">
       <div class="container">
         <div class="section-title">
-          <h2>Events</h2>
-          <!-- Link to view all events if needed -->
-          <a href="/login" class="btn btn-outline-primary">View All</a>
+          <h2 style="color: rgb(23, 107, 135);">Events</h2>
         </div>
         <div class="row">
           <div class="col-lg-6" *ngFor="let event of eventList">
             <div class="card mb-4">
               <div class="card-img-top">
-                <!-- You can add an image if available -->
               </div>
               <div class="card-body">
                 <h5 class="card-title">{{ event.eventName }}</h5>
@@ -178,54 +168,76 @@
                 <p class="card-text">Location: {{ event.location }}</p>
               </div>
             </div>
-            
+
           </div>
         </div>
-        <a href="/login" class="btn btn-outline-primary">View All</a>
       </div>
     </section>
-    
 
- 
-    <section id="contact" class="contact section-bg">
-      <div class="container">
-    
-        <div class="section-title border-bottom">
-          <h2>Contact</h2>
-          <p>Have a question, project idea, or just want to say hello?
-          We’d love to hear from you! Whether you're looking for support, collaboration, or more information about our services, feel free to reach out using the form below or through our contact details.</p>
+<section id="vacancies" class="vacancies-section" style="background-color: rgb(236, 240, 244); padding: 20px;">
+  <div class="container">
+    <div class="section-title">
+      <h2 style="color: rgb(23, 107, 135);">Job Vacancies</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-6" *ngFor="let vacancy of jobVacancyList">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ vacancy.vacancyPosition }}</h5>
+            <p><strong>Experience:</strong> {{ vacancy.vacancyExperience }}</p>
+            <p><strong>Level:</strong> {{ vacancy.vacancyLevel }}</p>
+            <p><strong>Subject:</strong> {{ vacancy.vacancySubject }}</p>
+            <p><strong>Qualification:</strong> {{ vacancy.vacancyQualification }}</p>
+            <p><strong>Time:</strong> {{ vacancy.time }}</p>
+            <p><strong>Salary:</strong> {{ vacancy.vacancySalary }}</p>
+          </div>
         </div>
-    
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+    <section id="contact" class="contact" style="background-color: rgb(236, 240, 244);">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 style="color: rgb(23, 107, 135);">Contact</h2>
+          <p>Want to contact us? Please use the contact info provided below:</p>
+        </div>
+
         <div class="row">
-    
+
           <div class="col-lg-6">
-    
+
             <div class="row">
               <div class="col-md-12">
                 <div class="info-box">
-                  <i class="fas fa-map-marker-alt"></i>
+                  <i class="fas fa-map-marker-alt" style="color: rgb(23, 107, 135);"></i>
                   <h3>Our Address</h3>
                   <p>Balkumari, Lalitpur, Nepal</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
-                  <i class="fas fa-envelope"></i>
+                  <i class="fas fa-envelope" style="color: rgb(23, 107, 135);"></i>
                   <h3>Email Us</h3>
-                  <p>infoexample.com<br>contactexample.com</p>
+                  <p>campusease&#64;gmail.com<br>majorproject&#64;gmail.com</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box mt-4">
-                  <i class="fas fa-phone"></i>
+                  <i class="fas fa-phone" style="color: rgb(23, 107, 135);"></i>
                   <h3>Call Us</h3>
-                  <p>+9779898989898<br>+9779898989898</p>
+                  <p>+977 9898989898<br>+977 9898989898</p>
                 </div>
               </div>
             </div>
-    
+
           </div>
-    
+
           <div class="col-lg-6 mt-4 mt-lg-0">
             <form  role="form" class="php-email-form">
               <div class="row">
@@ -247,22 +259,22 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><button type="submit" style="background-color: rgb(23, 107, 135);">Send Message</button></div>
             </form>
           </div>
-    
+
         </div>
-    
+
       </div>
     </section><!-- End Contact Section -->
-    
+
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
-    <div class="footer-top">
+    <div class="footer-top custom-footer-bg text-white" style="background-color:rgb(23, 107, 135);">
       <div class="container">
         <div class="row">
 
@@ -272,8 +284,8 @@
               Balkumari <br>
               Lalitpur<br>
               Nepal <br><br>
-              <strong>Phone:</strong> +977-9898989898<br>
-              <strong>Email:</strong> info&#64;CampusEase.com<br>
+              <strong>Phone:</strong> +977 9898989898<br>
+              <strong>Email:</strong> campusease&#64;gmail.com<br>
             </p>
           </div>
 
@@ -283,7 +295,9 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#hero" style="text-decoration: none;">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#about" style="text-decoration: none;">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#events" style="text-decoration: none;">Events</a></li>
-              <li><a class="getstarted scrollto" href="/login" style="text-decoration: none;">Get Started</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#contact" style="text-decoration: none;">Contact</a></li>
+
+              <!-- <li><a class="getstarted scrollto" href="/login" style="text-decoration: none;">Get Started</a></li> -->
 
             </ul>
           </div>
@@ -298,10 +312,10 @@
               <li><i class="fas fa-chevron-right"></i> <a >Campus Events</a></li>
             </ul>
           </div>
-          
+
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Suggestion</h4>
+            <!-- <h4>Suggestion</h4> -->
             <p>Got something on your mind? Just drop us a message — whether it’s a question, suggestion, or even a quick hello. We’re always happy to chat!</p>
             <form action="" method="post">
               <input type="email" name="email"><input type="submit" value="Subscribe">
@@ -312,7 +326,7 @@
       </div>
     </div>
 
-   
+
   </footer>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

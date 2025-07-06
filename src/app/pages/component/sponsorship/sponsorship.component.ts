@@ -50,6 +50,7 @@ export class SponsorshipComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
+    this.getSponsorshipByAdminList()
   }
 
   onSubmit() {
@@ -87,19 +88,34 @@ export class SponsorshipComponent implements OnInit {
     });
   }
 
+  // getSponsorshipByAdminList() {
+  //   this.sponsorshipService.getSponsorshipByAdmin().subscribe({
+  //     next: (res) => {
+  //       console.log(res);
+  //       this.sponsorshipByAdminList = res.sponsorship || res.sponsorships || [];
+  //     },
+  //     error: (err) => {
+  //       console.error('Error fetching sponsorships by admin:', err);
+  //       this.sponsorshipByAdminList = [];
+  //     }
+  //   });
+  // }
   getSponsorshipByAdminList() {
-    this.sponsorshipService.getSponsorshipByAdmin().subscribe({
+
+  this.sponsorshipService.getSponsorshipRequest().subscribe({
       next: (res) => {
         console.log(res);
-        this.sponsorshipByAdminList = res.sponsorship || res.sponsorships || [];
+        // this.sponsorshipByAdminList = res.sponsorship || res.Sponsorship || [];
+       this.sponsorshipByAdminList = res || []; // Adjusted to handle the response correctly
+        debugger
       },
-      error: (err) => {
+         error: (err) => {
         console.error('Error fetching sponsorships by admin:', err);
         this.sponsorshipByAdminList = [];
       }
     });
-  }
 
+  }
   getDepartmentList() {
     this.departmentService.getDepartmentsList().subscribe({
       next: (res) => {

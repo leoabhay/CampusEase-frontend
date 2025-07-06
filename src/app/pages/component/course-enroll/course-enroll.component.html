@@ -1,174 +1,165 @@
-
-<div class="container-fluid" *ngIf="userRole == 'student'">
-
-    <h5>Courses</h5>
-    <div class="row">
-      <div class="col-12">
-
-        <div class="row">
-          <div class="col-12">
-            <!-- <h5 class="text-center">Course Enrolls</h5> -->
-            <div class="row">
-              <div *ngIf="showCourseList && showCourseList.subjects && showCourseList.subjects.length > 0; else noCourses">
-                <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-lg-3 col-md-4 col-sm-4 my-2" *ngFor="let item of showCourseList.subjects">
-                          <div class="card">
-                            <img class="card-img-top" src="../../../../assets/img/book1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title">{{ item.name }}</h5>
-                              <p class="card-text">{{ item.code }}</p>
-                              <a class="btn btn-outline-primary btn-sm">Credit: {{ item.credit }}</a>
-                              <button type="button" class="btn btn-outline-secondary btn-sm mx-1 mt-2 mt-sm-0"
-                                      data-toggle="modal" data-target="#exampleModal" (click)="openDetailsModal(item._id)">
-                                View More
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <ng-template #noCourses>
-                <div class="col-lg-12 col-md-12 col-sm-12 my-3">
-                  <div class="alert alert-info" role="alert">
-                    You are not enrolled in any courses yet.
-                  </div>
-                </div>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Subject Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div *ngIf="selectedSubject">
-                  <h4><strong>Name:</strong> {{ selectedSubject.name }}</h4>
-                  <h5><strong>Code:</strong> {{ selectedSubject.code }}</h5>
-                  <h5><strong>Credit:</strong> {{ selectedSubject.credit }}</h5>
-                  <h5><strong>Teacher:</strong> {{ selectedSubject.teacher }}</h5>
-                </div>
-                <div *ngIf="!selectedSubject">
-                  <h5>Loading...</h5>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-<!-- //teacher -->
-
-
-
-<div class="container-fluid" *ngIf="userRole !== 'student'">
-  <div class=" mt-5">
-    <h3>Join Course and Upload Syllabus</h3>
-    <form enctype="multipart/form-data">
-      <!-- Select Course -->
-      <div class="form-group">
-        <label for="courseSelect">Select Course:</label>
-        <select class="form-control" id="courseSelect">
-          <option>Course 1</option>
-          <option>Course 2</option>
-          <option>Course 3</option>
-        </select>
-      </div>
-      <!-- Request to Join Course -->
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="joinCourseCheckbox">
-        <label class="form-check-label" for="joinCourseCheckbox">Request to Join Course</label>
-      </div>
-      <!-- Upload Syllabus -->
-      <div class="form-group">
-        <label for="syllabusFile">Upload Syllabus:</label>
-        <input type="file" class="form-control-file" id="syllabusFile">
-      </div>
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<div class="container-fluid course-management" *ngIf="userRole == 'student'">
+  <div class="header-section">
+    <h2 class="page-title">My Courses</h2>
+    <p class="page-subtitle">View and manage your enrolled courses</p>
   </div>
-  <div class="card">
-    <div class="card-header">
-      <h5>Course Details</h5>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table text-center"  *ngFor="let item of showCourseList">
-          <thead>
-            <tr>
-              <th scope="col">SN</th>
-              <th scope="col">Subject</th>
-              <th scope="col">Credit</th>
-              <th scope="col">Code</th>
-              <th scope="col">Teacher</th>
-              <!-- <th scope="col">Syllabus</th>
-              <th scope="col">Model Question</th> -->
-            </tr>
-          </thead>
-          <tbody *ngFor="let subject of item.subjects let i=index">
-            <!-- Data rows will be dynamically added here -->
-            <tr >
-              <td>{{i+1}}</td>
-              <td>{{ subject.name }}</td>
-              <td>{{ subject.credit }}</td>
-              <td>{{ subject.code }}</td>
-              <td>{{ subject.teacher }}</td>
-              <td class="text-center"><i class="fas fa-eye"></i></td>
-              <!-- <td class="text-center"><i class="fas fa-eye align-middle">{{data.model_question}}</i></td> -->
-            </tr>
-            <!-- <tr *ngFor="let item of allListCourseData; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.department || 'N/A' }}</td>
-              <td>{{ item.subject.name || item.subject }}</td>
-              <td>{{ item.credit || 'N/A' }}</td>
-              <td>{{ item.code || 'N/A' }}</td>
-              <td>{{ item.syllabus || 'N/A' }}</td>
-              <td>{{ item.model_question || 'N/A' }}</td>
-            </tr> -->
-          </tbody>
-        </table>
-      </div>
 
+  <div class="course-container">
+    <div *ngIf="showCourseList && showCourseList.subjects && showCourseList.subjects.length > 0; else noCourses">
+      <div class="course-grid">
+        <div class="course-card" *ngFor="let item of showCourseList.subjects">
+          <div class="course-card-header">
+            <img class="course-image" src="../../../../assets/img/book1.jpg" alt="Course Image">
+            <div class="course-badge">Credit: {{ item.credit }}</div>
+          </div>
+          <div class="course-card-body">
+            <h3 class="course-title">{{ item.name }}</h3>
+            <p class="course-code">{{ item.code }}</p>
+            <div class="course-actions">
+              <button class="btn view-details-btn" data-toggle="modal" data-target="#exampleModal"
+                      (click)="openDetailsModal(item._id)">
+                View Details <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noCourses>
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h3>No Courses Enrolled</h3>
+        <p>You are not enrolled in any courses yet.</p>
+        <button class="btn btn-primary">Browse Courses</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Course Details Modal -->
+  <div class="modal fade course-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Course Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="selectedSubject" class="course-details">
+            <div class="detail-item">
+              <span class="detail-label">Course Name:</span>
+              <span class="detail-value">{{ selectedSubject.name }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Course Code:</span>
+              <span class="detail-value">{{ selectedSubject.code }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Credit Hours:</span>
+              <span class="detail-value">{{ selectedSubject.credit }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Instructor:</span>
+              <span class="detail-value">{{ selectedSubject.teacher }}</span>
+            </div>
+          </div>
+          <div *ngIf="!selectedSubject" class="loading-state">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<!--
 
-<ng-template #detailsModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Subject Details</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+<!-- Teacher View -->
+<div class="container-fluid teacher-dashboard" *ngIf="userRole !== 'student'">
+  <div class="header-section">
+    <h2 class="page-title">Course Management</h2>
+    <p class="page-subtitle">Manage courses and syllabus</p>
   </div>
-  <div class="modal-body">
-    <div *ngIf="selectedSubject">
-      <p><strong>Name:</strong> {{ selectedSubject.name }}</p>
-      <p><strong>Code:</strong> {{ selectedSubject.code }}</p>
-      <p><strong>Credit:</strong> {{ selectedSubject.credit }}</p>
-      <p><strong>Teacher:</strong> {{ selectedSubject.teacher }}</p>
+
+  <div class="teacher-actions-card">
+    <div class="card">
+      <div class="card-header">
+        <h3>Course Administration</h3>
+      </div>
+      <div class="card-body">
+        <form class="course-form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="courseSelect">Select Course</label>
+            <select class="form-control" id="courseSelect">
+              <option>Select a course...</option>
+              <option>Course 1</option>
+              <option>Course 2</option>
+              <option>Course 3</option>
+            </select>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="joinCourseCheckbox">
+            <label class="form-check-label" for="joinCourseCheckbox">Request to Join Course</label>
+          </div>
+
+          <div class="form-group file-upload">
+            <label for="syllabusFile">Upload Syllabus</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="syllabusFile">
+              <label class="custom-file-label" for="syllabusFile">Choose file</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary submit-btn">
+            <i class="fas fa-paper-plane"></i> Submit
+          </button>
+        </form>
+      </div>
     </div>
-    <div *ngIf="!selectedSubject">
-      <p>Loading...</p>
+  </div>
+
+  <div class="course-table-section">
+    <div class="card">
+      <div class="card-header">
+        <h3>Course Details</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Credit</th>
+                <th scope="col">Code</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of showCourseList">
+              <tr *ngFor="let subject of item.subjects; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{ subject.name }}</td>
+                <td><span class="badge badge-pill badge-primary">{{ subject.credit }}</span></td>
+                <td>{{ subject.code }}</td>
+                <td>{{ subject.teacher }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-eye"></i> View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template> -->
+</div>

@@ -1,156 +1,105 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5>Assignment Add</h5>
-                    <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
-                      <div class="col-lg-12 mb-4">
-                        <select class="form-select" formControlName="subject">
-                          <option value="" disabled selected>Select subject</option>
-                          <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-12 mb-4">
-                        <input type="text" class="form-control" formControlName="assignmentName" placeholder="Enter Assignment name" />
-                        <div *ngIf="assignmentForm.controls['assignmentName'].invalid && (assignmentForm.controls['assignmentName'].dirty || assignmentForm.controls['assignmentName'].touched)">
-                          <small class="text-danger" *ngIf="assignmentForm.controls['assignmentName'].errors?.['required']">Assignment name is required.</small>
-                          <small class="text-danger" *ngIf="assignmentForm.controls['assignmentName'].errors?.['pattern']">Invalid assignment name. Only alphanumeric characters and spaces are allowed.</small>
-                        </div>
-                      </div>
-                      <div class="col-lg-12 mb-4">
-                        <input type="file" class="form-control" (change)="onFileChange($event)" />
-                        <div *ngIf="assignmentForm.controls['assignmentFile'].invalid && (assignmentForm.controls['assignmentFile'].dirty || assignmentForm.controls['assignmentFile'].touched)">
-                          <small class="text-danger">Assignment file is required.</small>
-                        </div>
-                      </div>
-                      <div class="col-lg-12 mb-4">
-                        <input type="date" class="form-control" formControlName="dueDate" placeholder="Due Date" />
-                        <div *ngIf="assignmentForm.controls['dueDate'].invalid && (assignmentForm.controls['dueDate'].dirty || assignmentForm.controls['dueDate'].touched)">
-                          <small class="text-danger" *ngIf="assignmentForm.controls['dueDate'].errors?.['required']">Due date is required.</small>
-                          <small class="text-danger" *ngIf="assignmentForm.controls['dueDate'].errors?.['dueDateInvalid']">Due date must be at least 7 days from today.</small>
-                        </div>
-                      </div>
-                      <div class="col-lg-12 mb-4">
-                        <input type="text" class="form-control" formControlName="remarks" placeholder="Remarks" />
-                        <div *ngIf="assignmentForm.controls['remarks'].invalid && (assignmentForm.controls['remarks'].dirty || assignmentForm.controls['remarks'].touched)">
-                          <small class="text-danger" *ngIf="assignmentForm.controls['remarks'].errors?.['required']">Remarks are required.</small>
-                          <small class="text-danger" *ngIf="assignmentForm.controls['remarks'].errors?.['pattern']">Invalid remarks. Only alphanumeric characters, spaces, and punctuation are allowed.</small>
-                        </div>
-                      </div>
-                      <div class="col-lg-12 mb-4">
-                        <button type="submit" class="btn btn-primary mb-4" [disabled]="assignmentForm.invalid">Apply</button>
-                      </div>
-                    </form>
-                    
-                      
-
-                </div>
-            </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="my-4">
-                        Assignment List
-                    </h5>
-                    <div class="table-responsive fixed-height-table">
-                        <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th scope="col">S.N</th>
-                              <th scope="col">Subject Name</th>
-                              <th scope="col">Assignment</th>
-                              <th scope="col">File</th>
-                              <th scope="col">Remarks</th>
-                              <th scope="col">Due Date</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr
-                              *ngFor="let item of assignmentList | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                              <th scope="row">{{ i + 1 + (p - 1) * 5 }}</th>
-                              <td>{{ item.subject }}</td>
-                              <td>{{ item.assignmentName }}</td>
-                              <td>
-                                <a [href]="item.assignmentFile" target="_blank" download>
-                                  <i class="fas fa-file-download"></i>
-                                </a>
-                              </td>
-                              <td>{{ item.remarks }}</td>
-                              <td>{{ item.dueDate }}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                    </div>
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
-                </div>
-            </div>
+<div class="assignment-management-container">
+  <h2 class="page-title">Assignments</h2>
+  <div class="row">
+    <div class="col-lg-12">
+      <!-- Assignment Add Card -->
+      <div class="card assignment-form-card">
+        <div class="card-header">
+          <h5>Add New Assignment</h5>
         </div>
-        <!-- <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5>Model Question</h5>
-                    <form [formGroup]="modelQuestionForm" (ngSubmit)="onSubmitQuestion()">
-                        <div class="col-lg-12 mb-4">
-                            <select class="form-select" formControlName="subject">
-                                <option value="" disabled selected>Select subject</option>
-                                <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-12 mb-4">
-                            <input type="text" class="form-control" formControlName="model_question"
-                                placeholder="Model Question" />
-                        </div>
-                        <div class="col-lg-12 mb-4">
-                            <input type="file" class="form-control" (change)="onFileChangeQuestion($event)" />
-                        </div>
-                        <div class="col-lg-12 mb-4">
-                            <button type="submit" class="btn btn-primary mb-4"
-                                [disabled]="!modelQuestionForm.valid">Submit</button>
-                        </div>
-                    </form>
-
-
-                </div>
+        <div class="card-body">
+          <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-4">
+              <label for="subjectSelect" class="form-label">Subject</label>
+              <select class="form-select" id="subjectSelect" formControlName="subject">
+                <option value="" disabled selected>Select subject</option>
+                <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
+              </select>
             </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="my-4">
-                        Model Question
-                    </h5>
-                    <div class="table-responsive fixed-height-table">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.N</th>
-                                    <th scope="col">Subject Name</th>
-                                    <th scope="col">Question</th>
-                                    <th scope="col">File</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    *ngFor="let item of modelQuestionList; let i = index">
-                                    <th scope="row">{{ i + 1  }}</th>
-                                    <td>{{ item.subject }}</td>
-                                    <td>{{ item.model_question }}</td>
-                                    <td>
-                                        <a [href]="item.file" target="_blank" download>
-                                            <i class="fas fa-file-download"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
+            <div class="form-group mb-4">
+              <label for="assignmentName" class="form-label">Assignment Name</label>
+              <input type="text" class="form-control" id="assignmentName" formControlName="assignmentName" placeholder="Enter Assignment name" />
+              <div *ngIf="assignmentForm.controls['assignmentName'].invalid && (assignmentForm.controls['assignmentName'].dirty || assignmentForm.controls['assignmentName'].touched)" class="validation-errors">
+                <small class="text-danger" *ngIf="assignmentForm.controls['assignmentName'].errors?.['required']">Assignment name is required.</small>
+                <small class="text-danger" *ngIf="assignmentForm.controls['assignmentName'].errors?.['pattern']">Invalid assignment name. Only alphanumeric characters and spaces are allowed.</small>
+              </div>
             </div>
-        </div> -->
-    </div>
 
-    <div class="row">
-        <div class="col-lg-12">
+            <div class="form-group mb-4">
+              <label for="assignmentFile" class="form-label">Assignment File</label>
+              <input type="file" class="form-control" id="assignmentFile" (change)="onFileChange($event)" />
+              <div *ngIf="assignmentForm.controls['assignmentFile'].invalid && (assignmentForm.controls['assignmentFile'].dirty || assignmentForm.controls['assignmentFile'].touched)" class="validation-errors">
+                <small class="text-danger">Assignment file is required.</small>
+              </div>
+            </div>
 
+            <div class="form-group mb-4">
+              <label for="dueDate" class="form-label">Due Date</label>
+              <input type="date" class="form-control" id="dueDate" formControlName="dueDate" placeholder="Due Date" />
+              <div *ngIf="assignmentForm.controls['dueDate'].invalid && (assignmentForm.controls['dueDate'].dirty || assignmentForm.controls['dueDate'].touched)" class="validation-errors">
+                <small class="text-danger" *ngIf="assignmentForm.controls['dueDate'].errors?.['required']">Due date is required.</small>
+                <small class="text-danger" *ngIf="assignmentForm.controls['dueDate'].errors?.['dueDateInvalid']">Due date must be at least 7 days from today.</small>
+              </div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="remarks" class="form-label">Remarks</label>
+              <input type="text" class="form-control" id="remarks" formControlName="remarks" placeholder="Remarks" />
+              <div *ngIf="assignmentForm.controls['remarks'].invalid && (assignmentForm.controls['remarks'].dirty || assignmentForm.controls['remarks'].touched)" class="validation-errors">
+                <small class="text-danger" *ngIf="assignmentForm.controls['remarks'].errors?.['required']">Remarks are required.</small>
+                <small class="text-danger" *ngIf="assignmentForm.controls['remarks'].errors?.['pattern']">Invalid remarks. Only alphanumeric characters, spaces, and punctuation are allowed.</small>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-submit" [disabled]="assignmentForm.invalid">
+                <i class="fas fa-plus-circle me-2"></i>Add Assignment
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
+
+      <!-- Assignment List Card -->
+      <div class="card assignment-list-card mt-4">
+        <div class="card-header">
+          <h5>Assignment List</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table assignment-table">
+              <thead>
+                <tr>
+                  <th scope="col">S.N</th>
+                  <th scope="col">Subject Name</th>
+                  <th scope="col">Assignment</th>
+                  <th scope="col">File</th>
+                  <th scope="col">Remarks</th>
+                  <th scope="col">Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of assignmentList | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                  <th scope="row">{{ i + 1 + (p - 1) * 5 }}</th>
+                  <td>{{ item.subject }}</td>
+                  <td>{{ item.assignmentName }}</td>
+                  <td>
+                    <a [href]="item.assignmentFile" target="_blank" download class="file-download">
+                      <i class="fas fa-file-download me-1"></i>Download
+                    </a>
+                  </td>
+                  <td>{{ item.remarks }}</td>
+                  <td>{{ item.dueDate | date:'mediumDate' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-container mt-3">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

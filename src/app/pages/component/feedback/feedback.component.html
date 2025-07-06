@@ -1,102 +1,122 @@
-<div>
+<div class="feedback-container">
+  <h2 class="feedback-title">Feedback</h2>
   <div class="row">
     <div class="col-lg-6">
-      <div class="card my-4">
-        <div class="card-body  text-center">
-          <h5 class="card-title">
-            Feedback
+      <div class="feedback-card">
+        <div class="card-header">
+          <h5>
+            <i></i> Send Feedback
           </h5>
-          <form class="row" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
-            <div class="col-lg-6 mb-4">
-              <select class="form-select" id="feedback-group" formControlName="feedbackGroup">
-                <option selected value="Admin">Admin</option>
-                <option value="Teacher">Teacher</option>
-              </select>
+        </div>
+        <div class="card-body">
+          <form class="feedback-form" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <div class="form-group col-lg-6">
+                <label for="feedback-group">Feedback Group</label>
+                <select class="form-control" id="feedback-group" formControlName="feedbackGroup">
+                  <option selected value="Admin">Admin</option>
+                  <option value="Teacher">Teacher</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6" *ngIf="feedbackForm.get('feedbackGroup')?.value === 'Teacher'">
+                <label for="feedback-for">Teacher Name</label>
+                <select class="form-control" id="feedback-for" formControlName="feedbackFor">
+                  <option value="" disabled selected>Select Teacher</option>
+                  <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
+                </select>
+              </div>
             </div>
-            <div class="col-lg-6 mb-4">
-              <select class="form-select" id="feedback-group" *ngIf="feedbackForm.get('feedbackGroup')?.value === 'Teacher'" formControlName="feedbackFor">
-                <option value="" disabled selected>Select Teacher Name</option>
-                <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
 
-              </select>
+            <div class="form-group">
+              <label for="feedback_about">Your Feedback</label>
+              <textarea class="form-control" placeholder="Write your feedback here..." id="feedback_about"
+                formControlName="feedbackAbout" rows="4"></textarea>
             </div>
 
-            <div class="col-lg-12 mb-4">
-              <textarea class="form-control" placeholder="Feedback" id="feedback_about" formControlName="feedbackAbout"
-                rows="3"></textarea>
-            </div>
-            <div class="col-lg-12 mb-4">
-              <button type="submit" class="btn btn-primary mb-4" [disabled]="feedbackForm.invalid">Apply</button>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid">
+                <i class="fas fa-paper-plane"></i> Submit Feedback
+              </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="row">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Feedback Data</h5>
-          </div>
 
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table ">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">SN</th>
-                      <th scope="col">For</th>
-                      <th scope="col">Feedback</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of feedbackTableRoleData; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ item.feedbackFor }}</td>
-                      <td>{{ item.feedbackAbout }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+    <div class="col-lg-6">
+      <div class="feedback-card">
+        <div class="card-header">
+          <h5>
+            <i class="fas fa-clipboard-list"></i> Recent Feedback
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="feedback-table">
+              <thead>
+                <tr>
+                  <th>S.N</th>
+                  <th>For</th>
+                  <th>Feedback</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of feedbackTableRoleData; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.feedbackFor }}</td>
+                  <td class="feedback-text">{{ item.feedbackAbout }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="card">
-      <div class="container mt-4">
-        <h2 class="mb-4">Feedback Given</h2>
-        <!-- <button class="btn btn-primary mb-3">Print Table</button> -->
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped" id="clubTable">
-            <thead class="thead-dark">
-              <tr>
-                <th>SN</th>
-                <th>Role</th>
-                <th>Feedback For</th>
-                <th>Feedback</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of FeedbackByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
-                <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
-                <td>{{ item.feedbackGroup }}</td>
-                <td>{{ item.feedbackFor }}</td>
-                <td>{{ item.feedbackAbout }}</td>
-                <td>
-                  <button type="button" class="btn btn-outline-danger mx-2" (click)="deleteFeedback(item._id)">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
+  <div class="feedback-card mt-4">
+    <div class="card-header">
+      <h5>
+        <i class="fas fa-history"></i> Feedback History
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="table-actions">
+        <!-- <button class="btn btn-print">
+          <i class="fas fa-print"></i> Print Table
+        </button> -->
+      </div>
+
+      <div class="table-responsive">
+        <table class="feedback-history-table">
+          <thead>
+            <tr>
+              <th>S.N</th>
+              <th>Role</th>
+              <th>Feedback For</th>
+              <th>Feedback</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of FeedbackByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
+              <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
+              <td>{{ item.feedbackGroup }}</td>
+              <td>{{ item.feedbackFor }}</td>
+              <td class="feedback-text">{{ item.feedbackAbout }}</td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="deleteFeedback(item._id)">
+                  <i class="fas fa-trash-alt"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-container">
         <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
       </div>
     </div>
   </div>
-
 </div>

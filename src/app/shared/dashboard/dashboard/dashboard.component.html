@@ -121,6 +121,8 @@
         </li>
       </ul>
       <ul class="nav">
+
+        <!-- Student Section -->
         <ng-container *ngIf="userRole === 'student'">
           <li class="nav-header">Student</li>
           <li class="active cursor">
@@ -130,9 +132,9 @@
             </a>
           </li>
           <li class="active cursor">
-            <a (click)="showSection('course-enroll')">
-              <i class="fas fa-book"></i>
-              <span>Course Enroll</span>
+            <a (click)="showSection('chat')">
+              <i class="fas fa-comment"></i>
+              <span>Chat</span>
             </a>
           </li>
           <li class="active cursor">
@@ -204,12 +206,6 @@
             </a>
           </li>
           <!-- <li class="active cursor">
-            <a (click)="showSection('setting')">
-              <i class="fas fa-cog"></i>
-              <span>Setting</span>
-            </a>
-          </li> -->
-          <!-- <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
               <span>Academic Record</span>
@@ -217,7 +213,7 @@
           </li> -->
         </ng-container>
 
-
+        <!-- Admin Section -->
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-header">Admin</li>
           <li class="active cursor">
@@ -300,6 +296,8 @@
             </a>
           </li>
         </ng-container>
+
+        <!-- Secretary Section -->
         <ng-container *ngIf="userRole === 'secretary'">
           <li class="nav-header">Club/Secretary</li>
           <li class="active cursor">
@@ -309,30 +307,38 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('join-club')">
+              <i class="fas fa-comments"></i>
+              <span>Club</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('discussion')">
               <i class="fas fa-comments"></i>
               <span>Notice</span>
             </a>
           </li>
           <li class="active cursor">
-            <a (click)="showSection('join-club')">
-              <i class="fas fa-comments"></i>
-              <span>Club</span>
-            </a>
-          </li>
-          <!-- <li class="active cursor">
             <a (click)="showSection('events')">
               <i class="fas fa-calendar-check"></i>
               <span>Events</span>
             </a>
-          </li> -->
+          </li>
         </ng-container>
+
+        <!-- Faculty/Teacher Section -->
         <ng-container *ngIf="userRole === 'faculty'">
           <li class="nav-header">Faculty/Teacher</li>
           <li class="active cursor">
             <a (click)="showSection('profile')">
               <i class="fas fa-user"></i>
               <span>Profile</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('chat')">
+              <i class="fas fa-comment"></i>
+              <span>Chat</span>
             </a>
           </li>
           <li class="active cursor">
@@ -357,6 +363,12 @@
             <a (click)="showSection('model-question')">
               <i class="fas fa-question-circle"></i>
               <span>Model Question</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('events')">
+              <i class="fas fa-calendar-check"></i>
+              <span>Events</span>
             </a>
           </li>
           <li class="active cursor">
@@ -419,9 +431,9 @@
       <div *ngIf="currentSection === 'our-courses'">
         <app-our-course></app-our-course>
       </div>
-      <!-- <div *ngIf="currentSection === 'setting'">
-        <app-setting></app-setting>
-      </div> -->
+      <div *ngIf="currentSection === 'chat'">
+        <app-chat></app-chat>
+      </div>
       <div *ngIf="currentSection === 'join-club'">
         <app-join-clubs></app-join-clubs>
       </div>

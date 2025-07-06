@@ -41,7 +41,7 @@ export class IdCardComponent {
   showUserProfile() {
     this.userService.getIdCardData().subscribe((res) => {
       console.log(res);
-      // this.showUserProfileData = res.data; 
+      // this.showUserProfileData = res.data;
       // console.log(this.showUserProfileData);
       this.showUserProfileData = res;
       debugger

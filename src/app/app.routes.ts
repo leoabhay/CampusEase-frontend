@@ -8,6 +8,7 @@ import { StudentDetailsComponent } from './pages/component/user-details/user-det
 import { UserManagementComponent } from './pages/admin-component/user-management/user-management.component';
 import { ProfileComponent } from './pages/component/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
+// import { ChatComponent } from './pages/component/chat/chat.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
         path: 'reset-password',
         component: ResetPasswordComponent
      },
+    //  {
+    //   path: 'chat',
+    //   component: ChatComponent,
+    //  },
     {
         path:'dashboard',
         component:DashboardComponent,
