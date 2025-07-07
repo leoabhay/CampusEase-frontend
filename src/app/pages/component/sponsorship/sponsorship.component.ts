@@ -101,7 +101,6 @@ export class SponsorshipComponent implements OnInit {
   //   });
   // }
   getSponsorshipByAdminList() {
-
   this.sponsorshipService.getSponsorshipRequest().subscribe({
       next: (res) => {
         console.log(res);
