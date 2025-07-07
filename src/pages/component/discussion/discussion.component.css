@@ -1,0 +1,267 @@
+/* Main Container */
+.discussion-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
+}
+
+/* Header Styles */
+.discussion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+.discussion-header h1 {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Button Styles */
+.btn {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #4361ee;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3a56d4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f3f4f6;
+}
+
+.btn-edit, .btn-delete {
+  padding: 5px 10px;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.btn-edit {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.btn-edit:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.btn-delete {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.btn-delete:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #e5e7eb;
+  padding: 15px 20px;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+  outline: none;
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #374151;
+}
+
+.validation-error small {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Timeline Styles */
+.timeline-container {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e0e6ed;
+  left: 50px;
+  margin-left: -1px;
+}
+
+.timeline-item {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.timeline-badge {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 30px;
+  background-color: #4361ee;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+  z-index: 1;
+}
+
+.timeline-badge i {
+  font-size: 16px;
+}
+
+.timeline-panel {
+  margin-left: 80px;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.timeline-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-heading {
+  margin-bottom: 15px;
+}
+
+.timeline-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 5px 0;
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.timeline-meta .date {
+  margin-right: 15px;
+  color: #4361ee;
+  font-weight: 500;
+}
+
+.timeline-meta .decision-by {
+  margin-right: auto;
+}
+
+.timeline-body p {
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .discussion-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-discussion-btn {
+    margin-top: 15px;
+  }
+
+  .timeline:before {
+    left: 40px;
+  }
+
+  .timeline-badge {
+    left: 20px;
+  }
+
+  .timeline-panel {
+    margin-left: 60px;
+  }
+}

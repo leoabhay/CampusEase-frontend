@@ -1,0 +1,76 @@
+/* src/app/enrollment-form/enrollment-form.component.css */
+
+.enrollment-form-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.enrollment-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 2px solid #f8f9fa;
+  padding-bottom: 0.5rem;
+}
+
+.form-section {
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  color: #3498db;
+  font-weight: 500;
+  margin: 0;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.subject-row {
+  transition: all 0.3s ease;
+  /* border-left: 3px solid #3498db; */
+  /* border-right: 3px solid #3498db; */
+}
+
+.subject-row:hover {
+  background-color: #f8f9fa !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.invalid-feedback {
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .enrollment-form {
+    padding: 1rem;
+  }
+
+  .subject-row {
+    padding: 1rem !important;
+  }
+}

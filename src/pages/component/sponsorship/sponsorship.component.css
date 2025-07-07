@@ -1,0 +1,178 @@
+/* General Styling */
+.sponsorship-section, .admin-section {
+  padding: 20px 0;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #3498db;
+  color: white;
+  border-radius: 10px 10px 0 0 !important;
+  padding: 15px 20px;
+}
+
+.card-header h5 {
+  font-weight: 600;
+  margin: 0;
+}
+
+.card-header i {
+  font-size: 1.1rem;
+}
+
+/* Form Styling */
+.application-card .form-label {
+  font-weight: 500;
+  color: #5a5c69;
+}
+
+.form-control, .form-select {
+  border: 1px solid #d1d3e2;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #bac8f3;
+  box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+}
+
+.btn-apply {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-apply:hover {
+  background-color: #3498db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-apply:disabled {
+  background-color: #b7c4f0;
+  cursor: not-allowed;
+}
+
+/* Table Styling */
+.table {
+  color: #5a5c69;
+}
+
+.table thead th {
+  font-weight: 600;
+  border-bottom: 2px solid #e3e6f0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(78, 115, 223, 0.05);
+}
+
+.truncate-text {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status Badges */
+.badge {
+  padding: 6px 10px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-radius: 20px;
+}
+
+.bg-success {
+  background-color: #1cc88a !important;
+}
+
+.bg-danger {
+  background-color: #e74a3b !important;
+}
+
+.bg-warning {
+  background-color: #f6c23e !important;
+  color: #000;
+}
+
+/* Action Buttons */
+.btn-edit {
+  background-color: #f6c23e;
+  color: #000;
+}
+
+.btn-edit:hover {
+  background-color: #dda20a;
+  color: #000;
+}
+
+.btn-delete {
+  background-color: #e74a3b;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #be2617;
+  color: white;
+}
+
+/* Pagination Styling */
+/* .my-pagination /deep/ .ngx-pagination {
+  padding: 0;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #4e73df;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-pagination /deep/ .ngx-pagination a,
+.my-pagination /deep/ .ngx-pagination button {
+  color: #5a5c69;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+}
+
+.my-pagination /deep/ .ngx-pagination a:hover,
+.my-pagination /deep/ .ngx-pagination button:hover {
+  background: #f8f9fc;
+  color: #4e73df;
+} */
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .truncate-text {
+    max-width: 150px;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn-group .btn {
+    margin-bottom: 5px;
+    margin-left: 0 !important;
+    width: 100%;
+  }
+}

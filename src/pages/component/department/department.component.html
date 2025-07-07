@@ -1,0 +1,75 @@
+<section class="container-fluid">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card my-4">
+            <div class="card-body  text-center">
+                <h5 class="card-title">
+                    Create Department
+                </h5>
+                <form [formGroup]="createFacultyForm" class="row" (ngSubmit)="createFaculty()">
+                    <div class="col-lg-5 mb-4">
+                      <input type="text" formControlName="createFaculty" class="form-control" placeholder="Create Department">
+                      <div *ngIf="createFacultyForm.get('createFaculty')?.invalid && (createFacultyForm.get('createFaculty')?.dirty || createFacultyForm.get('createFaculty')?.touched)">
+                        <div *ngIf="createFacultyForm.get('createFaculty')?.errors?.['required']">Department name is required.</div>
+                        <div *ngIf="createFacultyForm.get('createFaculty')?.errors?.['pattern']">Department name must contain only letters, numbers, and spaces.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-5 mb-4">
+                      <select class="form-select" formControlName="hod">
+                        <option value="" disabled selected>Select Teacher Name</option>
+                        <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
+                      </select>
+                      <div *ngIf="createFacultyForm.get('hod')?.invalid && (createFacultyForm.get('hod')?.dirty || createFacultyForm.get('hod')?.touched)">
+                        <div *ngIf="createFacultyForm.get('hod')?.errors?.['required']">Teacher is required.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-2 mb-4">
+                      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }}</button>
+                    </div>
+                  </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered">
+
+                    <thead class="thead-dark" >
+                        <tr>
+                            <th>SN</th>
+                            <th>Department</th>
+                            <th>Head Of Department</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of departmentList; let i= index">
+                            <th >{{i+1}}</th>
+                            <td>{{item.createFaculty}}</td>
+                            <td>{{item.hod}}</td>
+                            <td>
+    <button class="btn btn-outline-primary edit-btn" (click)="editDepartment(item._id)">
+        <i class="fas fa-edit"></i>
+    </button>
+    <button class="btn btn-outline-danger delete-btn mx-2" (click)="deleteDepartment(item._id)">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

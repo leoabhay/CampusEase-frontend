@@ -1,0 +1,83 @@
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+thead {
+  background-color: #3498DB;
+  color: #fff;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover effect for table rows */
+tbody tr:hover {
+  background-color: #e6f2ff; /* Light blue hover */
+  transition: background-color 0.2s ease;
+}
+
+/* Button styling with hover effects */
+.btn-primary {
+  background-color: #3498DB;
+  border-color: #3498DB;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2980B9; /* Darker blue on hover */
+  border-color: #2980B9;
+}
+
+.btn-primary:disabled {
+  background-color: #bdc3c7;
+  border-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Optional: Hover effect for clickable table cells (if needed) */
+/* td.clickable:hover {
+  background-color: #d4e6ff;
+  cursor: pointer;
+} */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}
