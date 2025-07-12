@@ -1,0 +1,68 @@
+<div class="register-wrapper">
+  <div class="background-image"></div>
+
+  <div class="glass-card">
+    <div class="text-center mb-4">
+      <a href="/" style="text-decoration: none;">
+        <h1 class="fw-bold text-white">CampusEase</h1>
+        <p class="text-white-50">A College Automation System</p>
+      </a>
+    </div>
+
+    <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+      <label class="text-white">Name <span class="text-danger">*</span></label>
+      <div class="mb-3">
+          <input type="text" formControlName="name" class="form-control" placeholder="Full Name" required />
+          <div *ngIf="adminForm.get('name')?.touched && adminForm.get('name')?.invalid" class="text-danger">
+            Name is required.
+          </div>
+        </div>
+
+      <label class="text-white">Email <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="email" formControlName="email" class="form-control" placeholder="Email address" required />
+        <div *ngIf="adminForm.get('email')?.touched && adminForm.get('email')?.invalid" class="text-danger">
+          Valid email is required.
+        </div>
+      </div>
+
+      <label class="text-white">Address <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="text" formControlName="address" class="form-control" placeholder="Address" required />
+        <div *ngIf="adminForm.get('address')?.touched && adminForm.get('address')?.invalid" class="text-danger">
+          Address is required.
+        </div>
+      </div>
+
+      <label class="text-white">Password <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="password" formControlName="password" class="form-control" placeholder="Password" required />
+        <div *ngIf="adminForm.get('password')?.touched && adminForm.get('password')?.invalid" class="text-danger">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <label class="text-white">Confirm Password <span class="text-danger">*</span></label>
+      <div class="mb-3">
+        <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm Password" required />
+        <div *ngIf="adminForm.get('confirmPassword')?.touched && adminForm.get('confirmPassword')?.invalid" class="text-danger">
+          Confirm password is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 py-2">Sign Up</button>
+
+      <div class="text-white mt-3 text-center">
+        Already a member?
+        <a href="/login" class="text-info" style="text-decoration: none;">Click here</a> to login.
+      </div>
+
+      <div class="alert mt-3" [ngClass]="{ 'alert-success': !isError, 'alert-danger': isError }" *ngIf="message">
+        {{ message }}
+      </div>
+
+      <hr class="bg-light" />
+      <p class="text-center text-white-50 mb-0">&copy; CampusEase All Rights Reserved 2025</p>
+    </form>
+  </div>
+</div>

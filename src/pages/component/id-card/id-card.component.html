@@ -1,0 +1,41 @@
+<div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12" *ngIf="showUserProfileData" >
+            <div class="card border ">
+                <div class="id-card text-center my-4">
+                    <img [src]="showUserProfileData.data[0].Photo" alt="User Photo" style="height: 200px; width: 200px; object-fit: contain;" class="img-fluid mb-3">
+                    <h5>{{showUserProfileData.message}}</h5>
+                    <div class="info">
+                      <p><strong>Name:</strong> {{showUserProfileData.data[0].Name}}</p>
+                      <p><strong>Roll No:</strong> {{showUserProfileData.data[0].Rollno}}</p>
+                      <p><strong>Semester:</strong> {{showUserProfileData.data[0].Semester}}</p>
+                      <p><strong>Department:</strong> {{showUserProfileData.data[0].Department}}</p>
+                      <p><strong>Valid Until:</strong> {{showUserProfileData.data[0].ValidUntil}}</p>
+                    </div>
+                  </div>
+            </div>
+
+        </div>
+        <div class="col-lg-9">
+            <h2 class="mb-4">Request for New ID Card</h2>
+            <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()">
+
+
+              <div class="form-group">
+                <label for="reason">Reason for Request</label>
+                <textarea class="form-control" id="reason" formControlName="reason" rows="3" placeholder="Explain why you need a new ID card"></textarea>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" class="form-control" id="contactNo" formControlName="contactNo" placeholder="Enter your contact number">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+
+        </div>
+    </div>
+</div>

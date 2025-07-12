@@ -1,0 +1,161 @@
+.vacancy-management-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-title{
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #3498DB;
+  color: white;
+  padding: 15px 20px;
+  border-bottom: none;
+}
+
+.card-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 10px 15px;
+  transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #4a6fdc;
+  box-shadow: 0 0 0 0.25rem rgba(74, 111, 220, 0.25);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.invalid-feedback {
+  font-size: 0.85rem;
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #3498DB;
+  border-color: #3498DB;
+}
+
+.btn-primary:hover {
+  background-color: #3a5bc7;
+  border-color: #3a5bc7;
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-edit {
+  background-color: #f8f9fa;
+  color: #4a6fdc;
+  border: 1px solid #e0e0e0;
+}
+
+.btn-edit:hover {
+  background-color: #4a6fdc;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #f8f9fa;
+  color: #dc3545;
+  border: 1px solid #e0e0e0;
+}
+
+.btn-delete:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.table td, .table th {
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.badge-full-time {
+  background-color: rgba(74, 111, 220, 0.1);
+  color: #4a6fdc;
+}
+
+.badge-part-time {
+  background-color: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+}
+
+.no-vacancies {
+  color: #6c757d;
+  font-style: italic;
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 15px;
+  }
+
+  .table-responsive {
+    border: none;
+  }
+}

@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminCvListComponent } from './admin-cv-list.component';
 
-describe('AdminCvListComponent', () => {
-  let component: AdminCvListComponent;
-  let fixture: ComponentFixture<AdminCvListComponent>;
+import { CourseEnrollComponent } from './course-enroll.component';
+
+describe('CourseEnrollComponent', () => {
+  let component: CourseEnrollComponent;
+  let fixture: ComponentFixture<CourseEnrollComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminCvListComponent]
+      imports: [CourseEnrollComponent]
     })
     .compileComponents();
-
-    fixture = TestBed.createComponent(AdminCvListComponent);
+    
+    fixture = TestBed.createComponent(CourseEnrollComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
