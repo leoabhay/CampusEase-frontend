@@ -1,73 +1,113 @@
 <!-- STUDENT VIEW -->
-<div class="row" *ngIf="userRole === 'student'">
-  <div class="col-lg-6">
-    <div class="card mb-4 text-center">
-      <div class="card-body">
-        <h5 class="my-3">Overall Performance</h5>
-        <h5 class="my-3">Hi, {{ showUserProfileData.name }}</h5>
-        <p class="text-muted">{{ showUserProfileData.role }}</p>
-      </div>
-    </div>
-
-    <div class="card mb-4">
-      <div class="card-body text-center">
-        <h5 class="my-4">Semester Result</h5>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>S.N</th>
-              <th>Subject Name</th>
-              <th>Grade</th>
-              <th>Credit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of paginatedItems; let i = index">
-              <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-              <td>{{ item.clubName }}</td>
-              <td>{{ item.position }}</td>
-              <td>{{ item.joinedDate }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <nav>
-          <ul class="pagination justify-content-center">
-            <li class="page-item" [class.disabled]="currentPage === 1">
-              <a class="page-link" (click)="setPage(currentPage - 1)">Previous</a>
-            </li>
-            <li class="page-item" *ngFor="let page of totalPages" [class.active]="page === currentPage">
-              <a class="page-link" (click)="setPage(page)">{{ page }}</a>
-            </li>
-            <li class="page-item" [class.disabled]="currentPage === totalPages.length">
-              <a class="page-link" (click)="setPage(currentPage + 1)">Next</a>
-            </li>
-          </ul>
-        </nav>
+<div class="student-dashboard" *ngIf="userRole === 'student'">
+  <div class="dashboard-header">
+    <h2>Academic Records</h2>
+    <div class="welcome-card">
+      <div class="welcome-content">
+        <h3>Hi, Kaneki</h3>
+        <p class="role-badge">{{ showUserProfileData.role }}</p>
+        <div class="performance-meter">
+          <div class="meter-gauge">
+            <div class="gauge-fill" [style.width.%]="calculateOverallPerformance()"></div>
+          </div>
+          <span>Overall Performance: {{ calculateOverallPerformance() }}%</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-lg-6">
-    <div class="card mb-4">
-      <div class="card-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th><th>First</th><th>Last</th><th>Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th>1</th><td>Mark</td><td>Otto</td><td>&#64;mdo</td></tr>
-            <tr><th>2</th><td>Jacob</td><td>Thornton</td><td>&#54;fat</td></tr>
-          </tbody>
-        </table>
-        <hr>
-        <p class="mb-4"><span class="text-primary font-italic me-1">Courses</span></p>
-        <div *ngFor="let progress of [80, 72, 89, 55, 66]; let i = index">
-          <p class="mt-4 mb-1" style="font-size: .77rem;">Subject{{ i + 1 }}</p>
-          <div class="progress rounded" style="height: 5px;">
-            <div class="progress-bar" [style.width.%]="progress" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="dashboard-content">
+    <div class="result-section">
+      <div class="card semester-card">
+        <div class="card-header">
+          <h4>Semester Results</h4>
+          <div class="pagination-info">
+            Page {{ currentPage }} of {{ totalPages.length }}
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="result-table">
+              <thead>
+                <tr>
+                  <th>S.N</th>
+                  <th>Subject Name</th>
+                  <th>Grade</th>
+                  <th>Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of paginatedItems; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td>{{ item.clubName }}</td>
+                  <td>
+                    <span class="grade-badge" [ngClass]="getGradeClass(item.position)">
+                      {{ item.position }}
+                    </span>
+                  </td>
+                  <td>{{ item.joinedDate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination-controls">
+            <button class="pagination-btn" [disabled]="currentPage === 1" (click)="setPage(currentPage - 1)">
+              <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <div class="page-numbers">
+              <button *ngFor="let page of totalPages"
+                      class="page-btn"
+                      [class.active]="page === currentPage"
+                      (click)="setPage(page)">
+                {{ page }}
+              </button>
+            </div>
+            <button class="pagination-btn" [disabled]="currentPage === totalPages.length" (click)="setPage(currentPage + 1)">
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="card progress-card">
+        <div class="card-header">
+          <h4>Course Progress</h4>
+        </div>
+        <div class="card-body">
+          <div class="course-progress-container">
+            <div *ngFor="let progress of [80, 72, 89, 55, 66]; let i = index" class="progress-item">
+              <div class="progress-info">
+                <span class="subject-name">Subject {{ i + 1 }}</span>
+                <span class="progress-percent">{{ progress }}%</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" [style.width.%]="progress"
+                     [ngClass]="getProgressBarClass(progress)"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="additional-info">
+            <h5>Academic Summary</h5>
+            <div class="info-grid">
+              <div class="info-item">
+                <i class="fas fa-book-open"></i>
+                <div>
+                  <span class="info-label">Total Credits</span>
+                  <span class="info-value">18</span>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-star"></i>
+                <div>
+                  <span class="info-label">Current GPA</span>
+                  <span class="info-value">3.42</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,33 +116,60 @@
 </div>
 
 <!-- ADMIN VIEW -->
-<div class="container mt-5" *ngIf="userRole === 'admin'">
-  <div class="card shadow">
-    <div class="card-body">
-      <h5 class="card-title">File Upload</h5>
-      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()" enctype="multipart/form-data">
-        <div class="form-group mb-3">
-          <label for="fileInput">Choose File</label>
-          <input type="file" class="form-control" id="fileInput" (change)="onFileChange($event)" />
-          <div *ngIf="uploadForm.get('file')?.touched && uploadForm.get('file')?.invalid">
-            <small class="text-danger">File is required.</small>
+<div class="admin-dashboard" *ngIf="userRole === 'admin'">
+  <div class="admin-container">
+    <div class="admin-card">
+      <div class="admin-card-header">
+        <h3>Academics Management</h3>
+        <!-- <p>Upload academic documents to the system</p> -->
+      </div>
+
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group">
+          <label for="fileInput" class="file-upload-label">
+            <div class="upload-area">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span *ngIf="!uploadForm.get('file')?.value">Choose a file or drag it here</span>
+              <span *ngIf="uploadForm.get('file')?.value">{{ getFileName(uploadForm.get('file')?.value) }}</span>
+            </div>
+            <input type="file" id="fileInput" (change)="onFileChange($event)" hidden />
+          </label>
+          <div *ngIf="uploadForm.get('file')?.touched && uploadForm.get('file')?.invalid" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Please select a file to upload
           </div>
         </div>
 
-        <div class="form-group mb-3">
-          <label for="type">Type</label>
-          <select id="type" class="form-control" formControlName="type">
-            <option value="" disabled selected>Select Type</option>
-            <option value="Routine">Routine</option>
-            <option value="SemesterResult">Semester Result</option>
-          </select>
-          <div *ngIf="uploadForm.get('type')?.touched && uploadForm.get('type')?.invalid">
-            <small class="text-danger">Type is required.</small>
+        <div class="form-group">
+          <label for="type">Document Type</label>
+          <div class="select-wrapper">
+            <select id="type" formControlName="type">
+              <option value="" disabled selected>Select Document Type</option>
+              <option value="Routine">Class Routine</option>
+              <option value="SemesterResult">Semester Results</option>
+              <option value="Notice">Academic Notice</option>
+            </select>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div *ngIf="uploadForm.get('type')?.touched && uploadForm.get('type')?.invalid" class="error-message">
+            <i class="fas fa-exclamation-circle"></i> Please select a document type
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!uploadForm.valid">Upload File</button>
+        <button type="submit" class="upload-btn" [disabled]="!uploadForm.valid">
+          <i class="fas fa-upload"></i> Upload Document
+        </button>
       </form>
+
+      <div class="upload-hints">
+        <div class="hint-item">
+          <i class="fas fa-file-alt"></i>
+          <span>Accepted formats: PDF, DOCX, XLSX</span>
+        </div>
+        <div class="hint-item">
+          <i class="fas fa-database"></i>
+          <span>Max file size: 5MB</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

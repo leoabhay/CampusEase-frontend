@@ -22,16 +22,20 @@ export class PaymentComponent implements OnInit {
   }
 
   fetchIdCardData(): void {
-    this.http.get<any>('http://localhost:3200/getIdCard').subscribe(response => {
-      this.idCardData = response.idcard;
+  const token = localStorage.getItem('userToken') || '';
+  this.http.get<any>('http://localhost:3200/getIdCard', {
+    headers: { Authorization: `Bearer ${token}` }
+  }).subscribe(response => {
+    this.idCardData = response.idcard;
+  });
+}
+
+
+  approvePayment(id: string): void {
+    this.http.post(`http://localhost:3200/approvePayment/${id}`, {}).subscribe(() => {
+      this.fetchIdCardData(); // refresh list after update
     });
   }
-
-  // approvePayment(id: string): void {
-  //   this.http.post(`http://localhost:3200/approvePayment/${id}`, {}).subscribe(() => {
-  //     this.fetchIdCardData(); // refresh list after update
-  //   });
-  // }
 
   declinePayment(id: string): void {
     if (confirm('Are you sure you want to delete this ID card request?')) {
@@ -46,15 +50,15 @@ export class PaymentComponent implements OnInit {
     this.editCardData = { ...card }; // clone card data to edit
   }
 
-//   updateCard(): void {
-//     const id = this.editCardData._id;
-//     this.http.put(`http://localhost:3200/IDCardUpdate/${id}`, this.editCardData).subscribe(() => {
-//   this.editMode = false;
-//   this.fetchIdCardData();
-// });
-//   }
-//   cancelEdit(): void {
-//     this.editMode = false;
-//     this.editCardData = {}; // reset edit data
-//   }
+  updateCard(): void {
+    const id = this.editCardData._id;
+    this.http.put(`http://localhost:3200/IDCardUpdate/${id}`, this.editCardData).subscribe(() => {
+  this.editMode = false;
+  this.fetchIdCardData();
+});
+  }
+  cancelEdit(): void {
+    this.editMode = false;
+    this.editCardData = {}; // reset edit data
+  }
 }

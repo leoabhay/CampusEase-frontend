@@ -9,6 +9,8 @@ import { UserManagementComponent } from './pages/admin-component/user-management
 import { ProfileComponent } from './pages/component/profile/profile.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 // import { ChatComponent } from './pages/component/chat/chat.component';
+import { CvSubmissionComponent } from './pages/component/cv-submission/cv-submission.component';
+import { AdminCvListComponent } from './pages/admin-component/admin-cv-list/admin-cv-list.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +33,16 @@ export const routes: Routes = [
     //   path: 'chat',
     //   component: ChatComponent,
     //  },
+    {
+        path:'cv-submission',
+        component:CvSubmissionComponent,
+        // canActivate:[authGuard]
+    },
+    {
+        path:'admin-cv-list',
+        component:AdminCvListComponent,
+        canActivate:[authGuard]
+    },
     {
         path:'dashboard',
         component:DashboardComponent,

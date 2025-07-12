@@ -1,0 +1,36 @@
+<div class="container mt-5" style="max-width: 500px;">
+  <h2 class="mb-4" style="color: rgb(23, 107, 135);">Submit Your CV</h2>
+
+  <form [formGroup]="cvForm" (ngSubmit)="submitCv()" novalidate>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name*</label>
+      <input id="name" type="text" formControlName="name" class="form-control" [class.is-invalid]="cvForm.get('name')?.invalid && cvForm.get('name')?.touched">
+      <div class="invalid-feedback" *ngIf="cvForm.get('name')?.invalid && cvForm.get('name')?.touched">Name is required.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email*</label>
+      <input id="email" type="email" formControlName="email" class="form-control" [class.is-invalid]="cvForm.get('email')?.invalid && cvForm.get('email')?.touched">
+      <div class="invalid-feedback" *ngIf="cvForm.get('email')?.invalid && cvForm.get('email')?.touched">Valid email is required.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone*</label>
+      <input id="phone" type="text" formControlName="phone" class="form-control" [class.is-invalid]="cvForm.get('phone')?.invalid && cvForm.get('phone')?.touched">
+      <div class="invalid-feedback" *ngIf="cvForm.get('phone')?.invalid && cvForm.get('phone')?.touched">Phone is required.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="cv" class="form-label">Upload CV (PDF, DOC, DOCX)*</label>
+      <input id="cv" type="file" (change)="onFileChange($event)" accept=".pdf,.doc,.docx" class="form-control" [class.is-invalid]="cvForm.get('cv')?.invalid && cvForm.get('cv')?.touched">
+      <div class="invalid-feedback" *ngIf="cvForm.get('cv')?.invalid && cvForm.get('cv')?.touched">CV file is required.</div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="submitting || cvForm.invalid">
+      {{ submitting ? 'Submitting...' : 'Send CV' }}
+    </button>
+  </form>
+
+  <div *ngIf="successMsg" class="alert alert-success mt-3">{{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+</div>

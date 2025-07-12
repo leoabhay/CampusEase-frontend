@@ -19,11 +19,11 @@ export class AcademicRecordsComponent implements OnInit {
 
   // Sample data (replace with real backend data later)
   items = [
-    { clubName: 'Math', position: 'A+', joinedDate: 3 },
-    { clubName: 'Physics', position: 'A', joinedDate: 4 },
-    { clubName: 'Chemistry', position: 'B+', joinedDate: 3 },
-    { clubName: 'Biology', position: 'A-', joinedDate: 4 },
-    { clubName: 'Computer', position: 'A+', joinedDate: 3 }
+    { clubName: 'Big Data', position: 'A+', joinedDate: 4 },
+    { clubName: 'Network Programming', position: 'A', joinedDate: 3 },
+    { clubName: 'Cloud Computing', position: 'B+', joinedDate: 3 },
+    { clubName: 'Java', position: 'A-', joinedDate: 3 },
+    { clubName: 'DBMS', position: 'A+', joinedDate: 3 }
   ];
   paginatedItems: any[] = [];
   itemsPerPage = 5;
@@ -62,7 +62,7 @@ export class AcademicRecordsComponent implements OnInit {
       formData.append('file', this.selectedFile);
       formData.append('type', this.uploadForm.get('type')!.value);
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('userToken');
       const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`
       });
@@ -91,4 +91,61 @@ export class AcademicRecordsComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedItems = this.items.slice(startIndex, endIndex);
   }
+  // Add these methods to your existing AcademicRecordsComponent class
+
+// Calculate overall performance percentage
+calculateOverallPerformance(): number {
+  // This is a sample calculation - adjust based on your actual data
+  const grades = this.items.map(item => {
+    switch(item.position) {
+      case 'A+': return 95;
+      case 'A': return 90;
+      case 'A-': return 85;
+      case 'B+': return 80;
+      case 'B': return 75;
+      case 'B-': return 70;
+      case 'C+': return 65;
+      case 'C': return 60;
+      case 'D': return 55;
+      default: return 50;
+    }
+  });
+
+  const average = grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
+  return Math.round(average);
+}
+
+// Get CSS class for grade badges
+getGradeClass(grade: string): string {
+  switch(grade) {
+    case 'A+':
+    case 'A':
+    case 'A-':
+      return 'grade-a';
+    case 'B+':
+    case 'B':
+    case 'B-':
+      return 'grade-b';
+    case 'C+':
+    case 'C':
+      return 'grade-c';
+    default:
+      return 'grade-d';
+  }
+}
+
+// Get CSS class for progress bars
+getProgressBarClass(progress: number): string {
+  if (progress >= 85) return 'progress-excellent';
+  if (progress >= 70) return 'progress-good';
+  if (progress >= 55) return 'progress-average';
+  return 'progress-poor';
+}
+
+// Extract filename from file input
+getFileName(file: any): string {
+  if (!file) return '';
+  if (typeof file === 'string') return file;
+  return file.name;
+}
 }

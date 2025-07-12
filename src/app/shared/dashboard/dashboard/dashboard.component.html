@@ -205,12 +205,12 @@
               <span>Notice</span>
             </a>
           </li>
-          <!-- <li class="active cursor">
+          <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
               <span>Academic Record</span>
             </a>
-          </li> -->
+          </li>
         </ng-container>
 
         <!-- Admin Section -->
@@ -255,13 +255,13 @@
           <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
-              <span>Routine / Result</span>
+              <span>Academic Records</span>
             </a>
           </li>
           <li class="active cursor">
             <a (click)="showSection('payment')">
               <i class="fas fa-graduation-cap"></i>
-              <span>Id card Request</span>
+              <span>Id Card Request</span>
             </a>
           </li>
           <li class="active cursor">
@@ -274,6 +274,12 @@
             <a (click)="showSection('job-vacancy')">
               <i class="fas fa-briefcase"></i>
               <span>Job Vacancy Management</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('cv-submission')">
+              <i class="fas fa-handshake"></i>
+              <span>CV Submission</span>
             </a>
           </li>
           <li class="active cursor">
@@ -500,6 +506,9 @@
       <!-- <div *ngIf="currentSection === 'class-schedule'">
         <app-class-schedule></app-class-schedule>
       </div> -->
+      <div *ngIf="currentSection === 'cv-submission'">
+        <app-admin-cv-list></app-admin-cv-list>
+      </div>
     </div>
   </div>
 

@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2 class="mb-3" style="color: rgb(23, 107, 135);">CV Submissions</h2>
+
+  <div *ngIf="loading" class="alert alert-info">Loading submissions...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table class="table table-bordered table-hover" *ngIf="!loading && submissions.length > 0">
+    <thead class="table-light">
+      <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>CV</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let submission of submissions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ submission.name }}</td>
+        <td>{{ submission.email }}</td>
+        <td>{{ submission.phone }}</td>
+        <td><a [href]="submission.cvUrl" target="_blank" rel="noopener noreferrer" download>
+          <i class="fas fa-file me-1"></i> Download CV</a></td>
+        <td><i class="fas fa-trash-alt text-danger" style="cursor: pointer;" (click)="deleteSubmission(submission._id)"></i></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && submissions.length === 0" class="alert alert-secondary text-center">
+    No CV submissions found.
+  </div>
+</div>

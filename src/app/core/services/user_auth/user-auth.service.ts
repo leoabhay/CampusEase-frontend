@@ -12,7 +12,7 @@ export class UserAuthService {
   login(credentials: { email: string; password: string }) {
     return this.http.post<any>('http://localhost:3200/login', credentials).pipe(
       tap(({ accessToken }) => {
-        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('userToken', accessToken);
       })
     );
   }
@@ -38,9 +38,15 @@ getStudentData():Observable<any>{
 getSecretarytData():Observable<any>{
   return this.http.get(environment.api_url+'user/secretary')
 }
-getIdCardData():Observable<any>{
-  return this.http.get(environment.api_url+'idcard')
+getIdCardData(): Observable<any> {
+  const token = this.getUserToken(); // assuming token is stored in localStorage under 'userToken'
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+
+  return this.http.get(environment.api_url + 'idcard', { headers });
 }
+
 saveProfile(userId: string,data: FormData): Observable<any> {
   return this.http.put<any>(environment.api_url+(`userdata/${userId}`), data);
 }

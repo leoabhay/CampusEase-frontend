@@ -78,7 +78,7 @@ export class ModelQuestionComponent implements OnInit {
         (res) => {
           console.log(res);
           this.modelQuestionForm.reset();
-          this.confirmationService.showSuccessMessage('Model question added successfully');
+          this.confirmationService.showSuccessMessage('Model question added successfully and email sent to all students');
           this.showModelQuestionList();
         },
         (err) => {

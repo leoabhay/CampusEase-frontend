@@ -4,6 +4,13 @@
   padding: 20px;
 }
 
+.page-title{
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .card {
   border: none;
   border-radius: 10px;

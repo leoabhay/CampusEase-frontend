@@ -82,16 +82,19 @@ export class IdCardComponent {
     }
   }
 
-  submitForm(paymentPayload: any): void {
-    const formData = this.enrollForm.value;
-    this.http.post(`${environment.api_url}postIdCard`, { ...formData, paymentPayload }).subscribe(
-      (res: any) => {
-        alertify.success(res.message);
-        this.router.navigate(['/success']);
-      },
-      (err) => {
-        alertify.error('Failed to submit request. Please try again.');
-      }
-    );
-  }
+submitForm(paymentPayload: any): void {
+  const formData = this.enrollForm.value;
+  const token = localStorage.getItem('userToken') || '';
+  const headers = { Authorization: `Bearer ${token}` };
+
+  this.http.post(`${environment.api_url}postIdCard`, { ...formData, paymentPayload }, { headers }).subscribe(
+    (res: any) => {
+      alertify.success(res.message);
+      this.router.navigate(['/success']);
+    },
+    (err) => {
+      alertify.error('Failed to submit request. Please try again.');
+    }
+  );
+}
 }

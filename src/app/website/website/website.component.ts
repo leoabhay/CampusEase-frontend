@@ -96,4 +96,8 @@ export class WebsiteComponent implements OnInit {
       this.showTeacherData = res.faculty;
     });
   }
+
+  goToSubmitCV(){
+    this.router.navigate(['/cv-submission']);
+  }
 }
