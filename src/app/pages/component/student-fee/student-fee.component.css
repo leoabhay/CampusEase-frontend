@@ -1,0 +1,243 @@
+/* Main container */
+.payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f8fafc;
+}
+
+/* Payment card */
+.payment-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(52, 152, 219, 0.1);
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+}
+
+/* Header section */
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.payment-header h2 {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.payment-icon {
+  background-color: rgba(52, 152, 219, 0.1);
+  border-radius: 50%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3498db;
+}
+
+/* Form styles */
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Input with Rs symbol */
+.input-with-rs {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rs-symbol {
+  position: absolute;
+  left: 12px;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.input-with-rs input {
+  padding-left: 45px;
+}
+
+/* Input and select styles */
+input, select {
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  width: 100%;
+}
+
+input:focus, select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+input.invalid {
+  border-color: #e74c3c;
+}
+
+/* Select wrapper */
+.select-wrapper {
+  position: relative;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+select {
+  appearance: none;
+  background-color: white;
+}
+
+/* Error message */
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Submit button */
+.submit-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.submit-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* QR Code section */
+.qr-section {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px dashed #e2e8f0;
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.qr-header h3 {
+  color: #2c3e50;
+  font-size: 18px;
+  margin: 0;
+}
+
+.qr-header svg {
+  color: #3498db;
+}
+
+.qr-code {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  background: white;
+}
+
+.qr-note {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* QR Action Buttons */
+.qr-action-buttons {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qr-scan-btn, .qr-proceed-btn {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.qr-scan-btn {
+  background-color: #e2e8f0;
+  color: #2c3e50;
+}
+
+.qr-scan-btn:hover {
+  background-color: #d1d8e0;
+}
+
+.qr-proceed-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.qr-proceed-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .payment-card {
+    padding: 20px;
+  }
+
+  .payment-header h2 {
+    font-size: 20px;
+  }
+
+  .qr-code {
+    max-width: 200px;
+  }
+}

@@ -33,6 +33,8 @@ import { PaymentComponent } from '../../../pages/component/payment/payment.compo
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 import { ChatComponent } from '../../../pages/component/chat/chat.component';
 import { AdminCvListComponent } from '../../../pages/admin-component/admin-cv-list/admin-cv-list.component';
+import { StudentFeeComponent } from '../../../pages/component/student-fee/student-fee.component';
+import { AdminFeeComponent } from '../../../pages/admin-component/admin-fee/admin-fee.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -67,7 +69,9 @@ import { AdminCvListComponent } from '../../../pages/admin-component/admin-cv-li
     OurCourseComponent,
     StudentDetailsComponent,
     PaymentComponent,
-    AdminCvListComponent
+    AdminCvListComponent,
+    StudentFeeComponent,
+    AdminFeeComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

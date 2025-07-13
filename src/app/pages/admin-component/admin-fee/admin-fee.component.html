@@ -1,0 +1,84 @@
+<div class="admin-container">
+  <div class="admin-card">
+    <div class="admin-header">
+      <h2>Fee Management</h2>
+      <div class="admin-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="loading-indicator">
+      <div class="spinner"></div>
+      <span>Loading fee records...</span>
+    </div>
+
+    <div *ngIf="!loading" class="table-responsive">
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Roll No</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Status</th>
+            <th>Receipt</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fee of fees">
+            <td data-label="Student">{{ fee.studentId?.name || 'N/A' }}</td>
+            <td data-label="Roll No">{{ fee.studentId?.rollno || 'N/A' }}</td>
+            <td data-label="Amount">Rs {{ fee.amount }}</td>
+            <td data-label="Method">{{ fee.method }}</td>
+            <td data-label="Status">
+              <span class="status-badge" [ngClass]="{
+                'paid': fee.status === 'Paid',
+                'pending': fee.status === 'Pending',
+                'rejected': fee.status === 'Rejected' || fee.status === 'Unpaid'
+              }">
+                {{ fee.status }}
+              </span>
+            </td>
+            <td data-label="Receipt">{{ fee.receiptNumber || 'N/A' }}</td>
+            <td data-label="Date">{{ fee.paymentDate | date: 'mediumDate' }} at {{ fee.paymentDate | date: 'shortTime' }}</td>
+            <td data-label="Actions" class="actions-cell">
+              <div class="action-buttons">
+                <!-- Show Approve/Reject buttons if status is 'Unpaid' or 'Pending' for any method -->
+                <button *ngIf="(fee.status === 'Unpaid' || fee.status === 'Pending')"
+                  class="btn-approve"
+                  (click)="approveFee(fee._id)">
+                  Approve
+                </button>
+                <button *ngIf="(fee.status === 'Unpaid' || fee.status === 'Pending')"
+                  class="btn-reject"
+                  (click)="rejectFee(fee._id)">
+                  Reject
+                </button>
+                <button class="btn-delete"
+                  (click)="deleteFee(fee._id)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="fees.length === 0">
+            <td colspan="8" class="no-records">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#95a5a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+              </svg>
+              <span>No fee records found</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

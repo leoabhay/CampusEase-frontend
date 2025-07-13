@@ -138,6 +138,12 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('student-fee')">
+              <i class="fas fa-money-bill"></i>
+              <span>Fee Payment</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('attendance-record')">
               <i class="fas fa-clipboard"></i>
               <span>Attendance Record</span>
@@ -229,6 +235,12 @@
             </a>
           </li>
           <li class="active cursor">
+            <a (click)="showSection('admin-fee')">
+              <i class="fas fa-money-bill"></i>
+              <span>Fee Management</span>
+            </a>
+          </li>
+          <li class="active cursor">
             <a (click)="showSection('join-club')">
               <i class="fas fa-users"></i>
               <span> Club</span>
@@ -255,7 +267,7 @@
           <li class="active cursor">
             <a (click)="showSection('academic-records')">
               <i class="fas fa-graduation-cap"></i>
-              <span>Academic Records</span>
+              <span>Academic Management</span>
             </a>
           </li>
           <li class="active cursor">
@@ -509,7 +521,12 @@
       <div *ngIf="currentSection === 'cv-submission'">
         <app-admin-cv-list></app-admin-cv-list>
       </div>
+      <div *ngIf="currentSection === 'student-fee'">
+        <app-student-fee></app-student-fee>
+      </div>
+      <div *ngIf="currentSection === 'admin-fee'">
+        <app-admin-fee></app-admin-fee>
+      </div>
+
     </div>
   </div>
-
-
