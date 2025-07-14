@@ -164,6 +164,13 @@
           </li>
 
           <li class="active cursor">
+            <a (click)="showSection('user-schedule')">
+              <i class="fas fa-calendar"></i>
+              <span>Class Schedule</span>
+            </a>
+          </li>
+
+          <li class="active cursor">
             <a (click)="showSection('join-club')">
               <i class="fas fa-users"></i>
               <span>Join Club</span>
@@ -250,6 +257,12 @@
             <a (click)="showSection('department')">
               <i class="fas fa-comments"></i>
               <span>Department</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('admin-schedule')">
+              <i class="fas fa-calendar"></i>
+              <span>Class Schedule</span>
             </a>
           </li>
           <li class="active cursor">
@@ -369,6 +382,12 @@
             <a (click)="showSection('attendance-record')">
               <i class="fas fa-clipboard-list"></i>
               <span>Attendance</span>
+            </a>
+          </li>
+          <li class="active cursor">
+            <a (click)="showSection('user-schedule')">
+              <i class="fas fa-calendar"></i>
+              <span>Class Schedule</span>
             </a>
           </li>
           <li class="active cursor">
@@ -515,9 +534,12 @@
       <div *ngIf="currentSection === 'events'">
         <app-events></app-events>
       </div>
-      <!-- <div *ngIf="currentSection === 'class-schedule'">
-        <app-class-schedule></app-class-schedule>
-      </div> -->
+      <div *ngIf="currentSection === 'admin-schedule'">
+        <app-admin-schedule></app-admin-schedule>
+      </div>
+      <div *ngIf="currentSection === 'user-schedule'">
+        <app-user-schedule></app-user-schedule>
+      </div>
       <div *ngIf="currentSection === 'cv-submission'">
         <app-admin-cv-list></app-admin-cv-list>
       </div>

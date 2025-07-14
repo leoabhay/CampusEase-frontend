@@ -1,0 +1,135 @@
+<div class="schedule-container">
+
+  <!-- Schedule Form Section -->
+  <div class="form-section">
+    <h2 class="text-center fw-bold" style="color: #2C3E50;">Schedule Management</h2>
+    <div class="form-card">
+      <h3>{{ isEditMode ? 'Update Schedule' : 'Create New Schedule' }}</h3>
+      <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <!-- Row 1 -->
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" class="form-control" placeholder="Enter subject" formControlName="subject" required>
+          </div>
+
+          <div class="form-group">
+            <label>Department</label>
+            <select class="form-control" formControlName="department" required>
+              <option value="">Select Department</option>
+              <option *ngFor="let d of departments" [value]="d._id">{{ d.createFaculty }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Faculty</label>
+            <select class="form-control" formControlName="faculty" required>
+              <option value="">Select Teacher</option>
+              <option *ngFor="let f of faculties" [value]="f._id">{{ f.name }}</option>
+            </select>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" class="form-control" formControlName="date" required>
+          </div>
+
+          <div class="form-group">
+            <label>Day</label>
+            <select class="form-control" formControlName="day" required>
+              <option value="">Select Day</option>
+              <option *ngFor="let d of ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']">
+                {{ d }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Time Slot</label>
+            <div class="time-inputs">
+              <input type="time" class="form-control" formControlName="timeFrom" required>
+              <span>to</span>
+              <input type="time" class="form-control" formControlName="timeTo" required>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="form-group">
+            <label>Block No.</label>
+            <input type="text" class="form-control" placeholder="Enter block number" formControlName="block" required>
+          </div>
+
+          <div class="form-group">
+            <label>Room No.</label>
+            <input type="text" class="form-control" placeholder="Enter room number" formControlName="roomNo">
+          </div>
+
+          <div class="form-group">
+            <label>Semester</label>
+            <input type="text" class="form-control" placeholder="Enter semester" formControlName="semester">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">
+            {{ isEditMode ? 'Update Schedule' : 'Create Schedule' }}
+          </button>
+          <button type="button" class="btn-secondary" (click)="resetForm()" *ngIf="isEditMode">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Schedule Cards Section -->
+  <div class="cards-section">
+    <h3>Schedules</h3>
+    <div class="cards-grid">
+      <div class="schedule-card" *ngFor="let s of schedules">
+        <div class="card-header">
+          <div class="subject">{{ s.subject }}</div>
+          <div class="semester">Semester: {{ s.semester || 'N/A' }}</div>
+        </div>
+
+        <div class="card-image">
+          <img src="../../../../assets/img/schedule.jpg" alt="Class Schedule">
+        </div>
+
+        <div class="card-details">
+          <div class="detail-item">
+            <span class="label">Faculty:</span>
+            <span class="value">{{ s.faculty?.name || s.faculty || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Department:</span>
+            <span class="value">{{ s.department?.createFaculty || s.department || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Date:</span>
+            <span class="value">{{ s.date ? (s.date | date:'mediumDate') : 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Day:</span>
+            <span class="value">{{ s.day || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Time:</span>
+            <span class="value">{{ s.timeFrom }} - {{ s.timeTo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Location:</span>
+            <span class="value">Block {{ s.block }}, Room {{ s.roomNo || 'N/A' }}</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-edit" (click)="onEdit(s)">Edit</button>
+          <button class="btn-delete" (click)="onDelete(s._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
