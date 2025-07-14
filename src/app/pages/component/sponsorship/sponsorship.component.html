@@ -1,50 +1,65 @@
 <section *ngIf="userRole == 'student'" class="sponsorship-section">
   <div class="container-fluid">
     <div class="row">
+          <h2 class="text-center fw-bold" style="color: #2C3E50;">Scholarship / Sponsorship</h2>
       <div class="col-lg-12">
         <div class="card application-card">
           <div class="card-header">
-            <h5><i class="fas fa-hand-holding-usd me-2"></i>Sponsorship / Scholarship Application</h5>
+            <div class="d-flex align-items-center">
+              <div>
+              </div>
+              <h5 class="mb-0">Sponsorship / Scholarship Application</h5>
+            </div>
           </div>
           <div class="card-body">
             <form [formGroup]="form" class="row g-3" (ngSubmit)="onSubmit()">
               <div class="col-md-6">
-                <label for="faculty" class="form-label">Faculty Name</label>
-                <select class="form-select" id="faculty" formControlName="faculty">
-                  <option value="" disabled selected>Select Faculty</option>
-                  <option *ngFor="let department of departments" [value]="department.createFaculty">
-                    {{ department.createFaculty }}
-                  </option>
-                </select>
+                <label for="faculty" class="form-label">Department Name<span class="required"></span></label>
+                <div class="input-with-icon">
+                  <i class="fas fa-university"></i>
+                  <select class="form-select" id="faculty" formControlName="faculty">
+                    <option value="" disabled selected>Select Department</option>
+                    <option *ngFor="let department of departments" [value]="department.createFaculty">
+                      {{ department.createFaculty }}
+                    </option>
+                  </select>
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="semester" class="form-label">Semester</label>
-                <select class="form-select" id="semester" formControlName="semester">
-                  <option value="" disabled selected>Select Semester</option>
-                  <option *ngFor="let sem of [1,2,3,4,5,6,7,8]" [value]="sem">
-                    Semester {{ sem }}
-                  </option>
-                </select>
+                <label for="semester" class="form-label">Semester<span class="required"></span></label>
+                <div class="input-with-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                  <select class="form-select" id="semester" formControlName="semester">
+                    <option value="" disabled selected>Select Semester</option>
+                    <option *ngFor="let sem of [1,2,3,4,5,6,7,8]" [value]="sem">{{ sem }}</option>
+                  </select>
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="topic" class="form-label">Topic</label>
-                <input class="form-control" id="topic" formControlName="topic" type="text" placeholder="Enter application topic">
+                <label for="topic" class="form-label">Topic<span class="required"></span></label>
+                <div class="input-with-icon">
+                  <i class="fas fa-heading"></i>
+                  <input class="form-control" id="topic" formControlName="topic" type="text" placeholder="Enter application topic">
+                </div>
               </div>
 
               <div class="col-md-6">
-                <label for="money" class="form-label">Amount Requested</label>
-                <div class="input-group">
-                  <span class="input-group-text">Rs</span>
+                <label for="money" class="form-label">Amount Requested<span class="required"></span></label>
+                <div class="input-with-icon">
+                  <i class="fas fa-rupee-sign"></i>
                   <input class="form-control" id="money" formControlName="money" type="number" placeholder="Enter amount">
                 </div>
               </div>
 
               <div class="col-12">
-                <label for="reason" class="form-label">Reason</label>
-                <textarea class="form-control" id="reason" formControlName="reason" rows="4"
-                  placeholder="Explain why you need this sponsorship/scholarship"></textarea>
+                <label for="reason" class="form-label">Reason<span class="required"></span></label>
+                <div class="input-with-icon">
+                  <i class="fas fa-comment-alt top-icon"></i>
+                  <textarea class="form-control" id="reason" formControlName="reason" rows="4"
+                    placeholder="Explain why you need this sponsorship/scholarship"></textarea>
+                </div>
               </div>
 
               <div class="col-12 text-center mt-4">
@@ -58,11 +73,16 @@
       </div>
     </div>
 
+    <!-- My Applications Table -->
     <div class="row mt-4">
       <div class="col-12">
         <div class="card applications-list-card">
           <div class="card-header">
-            <h5><i class="fas fa-list-alt me-2"></i>My Applications</h5>
+            <div class="d-flex align-items-center">
+              <div>
+              </div>
+              <h5 class="mb-0">My Applications</h5>
+            </div>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -74,45 +94,40 @@
                     <th>Amount</th>
                     <th>Reason</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <!-- <th>Actions</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of sponsorshipByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i=index"
-                    [class.table-success]="item.decision === 'accepted'"
-                    [class.table-danger]="item.decision === 'rejected'"
-                    [class.table-warning]="item.decision === 'Pending'">
+                  <tr *ngFor="let item of sponsorshipByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i=index">
                     <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
                     <td>{{ item.topic }}</td>
                     <td>Rs {{ item.money }}</td>
                     <td class="truncate-text">{{ item.reason }}</td>
                     <td>
-                      <span class="badge"
-                        [class.bg-success]="item.decision === 'accepted'"
-                        [class.bg-danger]="item.decision === 'rejected'"
-                        [class.bg-warning]="item.decision === 'Pending'">
+                      <span class="badge rounded-pill"
+                        [ngClass]="{
+                          'bg-success': item.decision === 'accepted',
+                          'bg-danger': item.decision === 'rejected',
+                          'bg-yellow': item.decision === 'Pending'
+                        }">
                         {{ item.decision }}
                       </span>
                     </td>
-                    <td>
-                      <button type="button" *ngIf="item.decision !== 'accepted' && item.decision !== 'rejected'"
-                        class="btn btn-sm btn-edit">
+                    <!-- <td>
+                      <button type="button" *ngIf="item.decision === 'Pending'" class="btn btn-sm btn-edit" tooltip="Edit"
+                        (click)="updateSponsorship(item._id, 'accepted')">
                         <i class="fas fa-edit"></i>
                       </button>
-                      <button type="button" *ngIf="item.decision !== 'accepted' && item.decision !== 'rejected'"
-                        class="btn btn-sm btn-delete ms-2"
+                      <button type="button" *ngIf="item.decision !== 'Pending'" class="btn btn-sm btn-delete ms-2" tooltip="Delete"
                         (click)="deleteSpon(item._id)">
                         <i class="fas fa-trash-alt"></i>
                       </button>
-                    </td>
+                    </td> -->
                   </tr>
                 </tbody>
               </table>
               <div class="d-flex justify-content-center mt-3">
-                <!-- <pagination-controls (pageChange)="currentPage = $event"
-                  previousLabel="Prev" nextLabel="Next"
-                  class="my-pagination">
-                </pagination-controls> -->
+                <!-- Add your pagination controls here -->
               </div>
             </div>
           </div>
@@ -124,14 +139,17 @@
 
 <section *ngIf="userRole=='admin'" class="admin-section">
   <div class="container-fluid">
+        <h2 class="text-center fw-bold" style="color: #2C3E50;">Sponsorship / Scholarship Management</h2>
     <div class="card admin-card">
       <div class="card-header">
-        <h5><i class="fas fa-tasks me-2"></i>Sponsorship / Scholarship Applications Management</h5>
+        <div class="d-flex align-items-center">
+          <!-- <h5 class="mb-0">Sponsorship / Scholarship Applications Management</h5> -->
+        </div>
       </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-hover">
-            <thead class="table-primary">
+            <thead>
               <tr>
                 <th>S.N</th>
                 <th>Name</th>
@@ -145,27 +163,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of sponsorshipByAdminList; let i=index"
-                [class.table-success]="item.decision === 'accepted'"
-                [class.table-danger]="item.decision === 'rejected'"
-                [class.table-warning]="item.decision === 'Pending'">
-                <td>{{i+1}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.faculty}}</td>
-                <td>Sem {{item.semester}}</td>
-                <td>{{item.topic}}</td>
-                <td>Rs {{item.money}}</td>
-                <td class="truncate-text">{{item.reason}}</td>
+              <tr *ngFor="let item of sponsorshipByAdminList; let i=index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.faculty }}</td>
+                <td>Sem {{ item.semester }}</td>
+                <td>{{ item.topic }}</td>
+                <td>Rs {{ item.money }}</td>
+                <td class="truncate-text">{{ item.reason }}</td>
                 <td>
-                  <span class="badge"
-                    [class.bg-success]="item.decision === 'accepted'"
-                    [class.bg-danger]="item.decision === 'rejected'"
-                    [class.bg-warning]="item.decision === 'Pending'">
-                    {{item.decision}}
+                  <span class="badge rounded-pill"
+                    [ngClass]="{
+                      'bg-success': item.decision === 'accepted',
+                      'bg-danger': item.decision === 'rejected',
+                      'bg-yellow': item.decision === 'Pending'
+                    }">
+                    {{ item.decision }}
                   </span>
                 </td>
                 <td>
-                  <div class="btn-group" *ngIf="item.decision === 'Pending'">
+                  <div *ngIf="item.decision === 'Pending'">
                     <button class="btn btn-sm btn-success" (click)="updateSponsorship(item._id, 'accepted')">
                       <i class="fas fa-check"></i> Approve
                     </button>
@@ -173,7 +190,11 @@
                       <i class="fas fa-times"></i> Reject
                     </button>
                   </div>
-                  <span *ngIf="item.decision !== 'Pending'" class="text-muted">Decision made</span>
+                  <div *ngIf="item.decision !== 'Pending'">
+                    <button class="btn btn-sm btn-delete" (click)="deleteSpon(item._id)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
