@@ -1,0 +1,43 @@
+  <!-- Schedule Cards Section -->
+  <div class="cards-section">
+    <h3>Schedules</h3>
+    <div class="cards-grid">
+      <div class="schedule-card" *ngFor="let s of schedules">
+        <div class="card-header">
+          <div class="subject">{{ s.subject }}</div>
+          <div class="semester">Semester: {{ s.semester || 'N/A' }}</div>
+        </div>
+
+        <div class="card-image">
+          <img src="../../../../assets/img/schedule.jpg" alt="Class Schedule">
+        </div>
+
+        <div class="card-details">
+          <div class="detail-item">
+            <span class="label">Faculty:</span>
+            <span class="value">{{ s.faculty?.name || s.faculty || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Department:</span>
+            <span class="value">{{ s.department?.createFaculty || s.department || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Date:</span>
+            <span class="value">{{ s.date ? (s.date | date:'mediumDate') : 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Day:</span>
+            <span class="value">{{ s.day || 'N/A' }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Time:</span>
+            <span class="value">{{ s.timeFrom }} - {{ s.timeTo }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Location:</span>
+            <span class="value">Block {{ s.block }}, Room {{ s.roomNo || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
