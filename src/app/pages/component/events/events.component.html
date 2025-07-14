@@ -2,10 +2,11 @@
   <!-- Admin View -->
   <div *ngIf="userRole == 'admin'" class="admin-view">
     <!-- Event Form Card -->
+    <h2 class="text-center fw-bold" style="color: #2C3E50;">Event Management</h2>
     <div class="card form-card">
       <div class="card-header">
-        <h2 class="mb-0">Event Form</h2>
-        <!-- <p class="subtitle">{{ isEditMode ? 'Edit Existing Event' : 'Create New Event' }}</p> -->
+        <!-- <h2 class="mb-0">Event Form</h2> -->
+        <h3 class="mb-0">{{ isEditMode ? 'Edit Existing Event' : 'Create New Event' }}</h3>
       </div>
       <div class="card-body">
         <form class="row g-3" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
@@ -57,7 +58,7 @@
     <!-- Events List Card -->
     <div class="card list-card mt-4">
       <div class="card-header">
-        <h3 class="mb-0">Event Management</h3>
+        <h3 class="mb-0">Manage events</h3>
         <!-- <p class="subtitle">Manage Events</p> -->
       </div>
       <div class="card-body">

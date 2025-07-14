@@ -1,7 +1,7 @@
 <!-- STUDENT VIEW -->
 <div class="student-dashboard" *ngIf="userRole === 'student'">
   <div class="dashboard-header">
-    <h2>Academic Records</h2>
+    <h2 class="text-center fw-bold" style="color: #2C3E50;">Academic Records</h2>
     <div class="welcome-card">
       <div class="welcome-content">
         <h3>Hi, Kaneki</h3>
@@ -146,7 +146,7 @@
               <option value="" disabled selected>Select Document Type</option>
               <option value="Routine">Class Routine</option>
               <option value="SemesterResult">Semester Results</option>
-              <option value="Notice">Academic Notice</option>
+              <!-- <option value="Notice">Academic Notice</option> -->
             </select>
             <i class="fas fa-chevron-down"></i>
           </div>

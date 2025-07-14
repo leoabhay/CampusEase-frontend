@@ -1,6 +1,7 @@
 <section *ngIf="userRole == 'student'">
   <div>
     <div class="row">
+      <h2 class="text-center fw-bold" style="color: #2C3E50;">Clubs</h2>
       <div class="col-lg-6">
         <div class="card my-4">
           <div class="card-body  text-center">
@@ -78,7 +79,7 @@
           <table class="table table-bordered table-striped" id="clubTable">
             <thead class="thead-dark">
               <tr>
-                <th>SN</th>
+                <th>S.N</th>
                 <th>Joined By</th>
                 <th>Club Name</th>
                 <th>Reason</th>
@@ -109,6 +110,7 @@
 <section class="container-fluid" *ngIf="userRole == 'admin'">
   <div class="row">
     <div class="col-lg-12">
+      <h2 class="text-center fw-bold" style="color: #2C3E50;">Club Management</h2>
       <div class="card my-4">
         <div class="card-body  text-center">
           <h5 class="card-title">
@@ -212,7 +214,7 @@
           <table class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>SN</th>
+                <th>S.N</th>
                 <th> Name</th>
                 <th>Reason</th>
                 <th>Joined Date</th>
