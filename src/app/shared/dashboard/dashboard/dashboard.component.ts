@@ -37,6 +37,7 @@ import { StudentFeeComponent } from '../../../pages/component/student-fee/studen
 import { AdminFeeComponent } from '../../../pages/admin-component/admin-fee/admin-fee.component';
 import { AdminScheduleComponent } from '../../../pages/admin-component/admin-schedule/admin-schedule.component';
 import { UserScheduleComponent } from '../../../pages/component/user-schedule/user-schedule.component';
+import { AcademicComponent } from '../../../pages/component/academic/academic.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -75,7 +76,8 @@ import { UserScheduleComponent } from '../../../pages/component/user-schedule/us
     StudentFeeComponent,
     AdminFeeComponent,
     AdminScheduleComponent,
-    UserScheduleComponent
+    UserScheduleComponent,
+    AcademicComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

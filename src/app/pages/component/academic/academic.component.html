@@ -1,0 +1,180 @@
+<div class="academic-portal">
+  <h2 class="portal-header">Academic Records</h2>
+
+  <!-- === ADMIN/FACULTY FORM === -->
+  <form
+    *ngIf="userRole === 'admin' || userRole === 'faculty'"
+    (ngSubmit)="submit()"
+    #academicForm="ngForm"
+    class="portal-form"
+  >
+    <div class="form-field">
+      <label>Roll Number</label>
+      <input
+        type="text"
+        [(ngModel)]="form.rollno"
+        name="rollno"
+        required
+        [readonly]="editMode"
+      />
+    </div>
+
+    <div class="form-field">
+      <label>Semester</label>
+      <input
+        type="text"
+        [(ngModel)]="form.semester"
+        name="semester"
+        required
+      />
+    </div>
+
+    <div class="subjects-section">
+      <label>Subjects</label>
+      <div
+        *ngFor="let sub of form.subjects; let i = index"
+        class="subject-item"
+      >
+        <input
+          [(ngModel)]="sub.subjectName"
+          name="subjectName{{ i }}"
+          placeholder="Subject Name"
+          required
+        />
+        <input
+          [(ngModel)]="sub.grade"
+          name="grade{{ i }}"
+          placeholder="Grade"
+          required
+        />
+        <input
+          type="number"
+          [(ngModel)]="sub.internalMarks"
+          name="internalMarks{{ i }}"
+          placeholder="Internal Marks"
+          required
+        />
+        <button
+          type="button"
+          class="remove-btn"
+          (click)="removeSubject(i)"
+          [disabled]="form.subjects.length === 1"
+        >
+          ×
+        </button>
+      </div>
+      <button type="button" class="add-btn" (click)="addSubject()">
+        + Add Subject
+      </button>
+    </div>
+
+    <div class="form-field">
+      <label>GPA</label>
+      <input
+        type="number"
+        [(ngModel)]="form.GPA"
+        name="GPA"
+        required
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-btn">
+        {{ editMode ? 'Update' : 'Create' }}
+      </button>
+    </div>
+  </form>
+
+  <!-- === Academic Records Table for Admin/Faculty === -->
+  <div *ngIf="userRole === 'admin' || userRole === 'faculty'" class="records-section">
+    <h3 class="section-title">All Academic Records</h3>
+    <div class="table-container">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Semester</th>
+            <th>Subject Name</th>
+            <th>Grade</th>
+            <th>Internal Marks</th>
+            <th>GPA</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let record of records">
+            <tr>
+              <td [attr.rowspan]="record.subjects.length">{{ record.rollno?.rollno || record.rollno }}</td>
+              <td [attr.rowspan]="record.subjects.length">{{ record.semester }}</td>
+              <td>{{ record.subjects[0]?.subjectName }}</td>
+              <td>{{ record.subjects[0]?.grade }}</td>
+              <td>{{ record.subjects[0]?.internalMarks }}</td>
+              <td [attr.rowspan]="record.subjects.length">{{ record.GPA }}</td>
+              <td [attr.rowspan]="record.subjects.length" class="actions-cell">
+                <button class="edit-btn" (click)="editRecord(record)">Edit</button>
+                <button class="delete-btn" (click)="deleteRecord(record._id)">Delete</button>
+              </td>
+            </tr>
+            <tr *ngFor="let sub of record.subjects; let i = index" [hidden]="i === 0">
+              <td>{{ sub.subjectName }}</td>
+              <td>{{ sub.grade }}</td>
+              <td>{{ sub.internalMarks }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- === Academic Records Table for Student === -->
+  <div *ngIf="userRole === 'student'" class="student-dashboard">
+    <div class="performance-section">
+      <h3 class="section-title">Your Academic Performance</h3>
+      <div *ngFor="let record of records" class="semester-card">
+        <h4>Semester {{ record.semester }}</h4>
+        <div class="gpa-badge">
+          <span>GPA: {{ record.GPA }}</span>
+        </div>
+
+        <table class="subject-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Grade</th>
+              <th>Internal Marks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of record.subjects">
+              <td>{{ s.subjectName }}</td>
+              <td>{{ s.grade }}</td>
+              <td>{{ s.internalMarks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="attendance-section">
+      <h3 class="section-title">Attendance Overview</h3>
+      <div class="attendance-list">
+        <div class="attendance-item" *ngFor="let att of attendanceRecords">
+          <span class="att-date">{{ att.date }}</span>
+          <span class="att-status" [class.present]="att.present" [class.absent]="!att.present">
+            {{ att.present ? 'Present' : 'Absent' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="assignments-section">
+      <h3 class="section-title">Assignment Submissions</h3>
+      <div class="assignment-list">
+        <div class="assignment-item" *ngFor="let a of studentAssignments">
+          <div class="assignment-title">{{ a.title || a.subject }}</div>
+          <div class="assignment-status">Submitted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
