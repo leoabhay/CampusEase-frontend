@@ -3,7 +3,9 @@
     <div class="payment-header">
       <h2>Fee Payment</h2>
       <div class="payment-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+             viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
       </div>
@@ -35,7 +37,9 @@
             <option value="QR">Online (QR)</option>
             <option value="Cash">Cash</option>
           </select>
-          <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </div>
@@ -43,7 +47,9 @@
 
       <button type="submit" class="submit-btn" [disabled]="feeForm.invalid">
         Proceed to Pay
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
@@ -52,7 +58,9 @@
 
     <div *ngIf="showQRCode" class="qr-section">
       <div class="qr-header">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="7" height="7"></rect>
           <rect x="14" y="3" width="7" height="7"></rect>
           <rect x="14" y="14" width="7" height="7"></rect>
@@ -60,8 +68,7 @@
         </svg>
         <h3>Scan to Pay (Rs {{ feeForm.value.amount }})</h3>
       </div>
-      <img [src]="qrCodeDataUrl" alt="Payment QR Code" class="qr-code">
-      <!-- <p class="qr-note">After payment, your record will be updated manually by admin.</p> -->
+      <img [src]="qrCodeDataUrl" alt="Payment QR Code" class="qr-code" />
 
       <div class="qr-action-buttons">
         <button *ngIf="!qrScanned" (click)="onQRCodeScanned()" class="qr-scan-btn">
@@ -72,5 +79,42 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- Payment History Table -->
+  <div class="payment-history mt-5">
+    <h3>Your Payment History</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.N</th>
+          <th>Amount (Rs)</th>
+          <th>Method</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="loadingHistory">
+          <td colspan="5" class="text-center">Loading payment history...</td>
+        </tr>
+        <tr *ngFor="let fee of paymentHistory; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ fee.amount }}</td>
+          <td>{{ fee.method }}</td>
+          <td>
+            <span [ngClass]="{
+              'text-success': fee.status === 'Approved',
+              'text-warning': fee.status === 'Pending',
+              'text-danger': fee.status === 'Rejected'
+            }">{{ fee.status }}</span>
+          </td>
+          <td>{{ fee.createdAt | date: 'short' }}</td>
+        </tr>
+        <tr *ngIf="!loadingHistory && paymentHistory.length === 0">
+          <td colspan="5" class="text-center">No payment records found.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

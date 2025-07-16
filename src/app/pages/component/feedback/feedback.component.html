@@ -99,7 +99,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of FeedbackByEmailList | paginate: { itemsPerPage: 10, currentPage: currentPage }; let i = index">
+            <tr *ngFor="let item of FeedbackByEmailList; let i = index">
               <td>{{ (currentPage - 1) * 10 + i + 1 }}</td>
               <td>{{ item.feedbackGroup }}</td>
               <td>{{ item.feedbackFor }}</td>
@@ -114,9 +114,9 @@
         </table>
       </div>
 
-      <div class="pagination-container">
+      <!-- <div class="pagination-container">
         <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

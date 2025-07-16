@@ -4,7 +4,7 @@
     <form (ngSubmit)="searchUsers()" #searchForm="ngForm" class="search-form">
       <div class="form-group">
         <label class="form-label">Select Role</label>
-        <select class="form-control" [(ngModel)]="role" name="role" required>
+        <select class="form-select" [(ngModel)]="role" name="role" required>
           <option value="student">Student</option>
           <option value="faculty">Faculty</option>
           <option value="secretary">Secretary</option>
@@ -66,7 +66,7 @@
           <div class="assignment-card" *ngFor="let assignment of userData.assignments">
             <div class="assignment-title">{{ assignment.title || assignment.assignment || 'Assignment' }}</div>
             <div class="assignment-date">
-              <i class="far fa-calendar-check"></i> 
+              <i class="far fa-calendar-check"></i>
               Submitted: {{ assignment.submitteddate || assignment.submittedDate || 'N/A' | date }}
             </div>
           </div>

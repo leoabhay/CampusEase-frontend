@@ -15,7 +15,7 @@
 
           <div class="form-group">
             <label>Department</label>
-            <select class="form-control" formControlName="department" required>
+            <select class="form-select" formControlName="department" required>
               <option value="">Select Department</option>
               <option *ngFor="let d of departments" [value]="d._id">{{ d.createFaculty }}</option>
             </select>
@@ -23,7 +23,7 @@
 
           <div class="form-group">
             <label>Faculty</label>
-            <select class="form-control" formControlName="faculty" required>
+            <select class="form-select" formControlName="faculty" required>
               <option value="">Select Teacher</option>
               <option *ngFor="let f of faculties" [value]="f._id">{{ f.name }}</option>
             </select>
@@ -37,7 +37,7 @@
 
           <div class="form-group">
             <label>Day</label>
-            <select class="form-control" formControlName="day" required>
+            <select class="form-select" formControlName="day" required>
               <option value="">Select Day</option>
               <option *ngFor="let d of ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']">
                 {{ d }}

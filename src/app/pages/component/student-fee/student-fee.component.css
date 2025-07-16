@@ -1,7 +1,7 @@
 /* Main container styles */
 .payment-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* column to stack form and table */
   align-items: center;
   min-height: 100vh;
   background-color: #f5f7fa;
@@ -18,6 +18,7 @@
   max-width: 450px;
   overflow: hidden;
   transition: all 0.3s ease;
+  margin-bottom: 3rem; /* spacing below payment card before table */
 }
 
 .payment-card:hover {
@@ -76,7 +77,8 @@
   font-weight: 600;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 0.8rem 1rem 0.8rem 2.5rem;
   border: 1px solid #ddd;
@@ -86,7 +88,8 @@ input, select {
   background-color: #f9f9f9;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #176b87;
   box-shadow: 0 0 0 2px rgba(23, 107, 135, 0.2);
@@ -206,7 +209,8 @@ select {
   gap: 0.8rem;
 }
 
-.qr-scan-btn, .qr-proceed-btn {
+.qr-scan-btn,
+.qr-proceed-btn {
   width: 100%;
   padding: 0.8rem;
   border-radius: 8px;
@@ -261,4 +265,93 @@ select {
   .payment-form {
     padding: 1.5rem;
   }
+}
+
+/* --- New styles for payment history table --- */
+
+.payment-history {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.payment-history h3 {
+  margin-bottom: 1rem;
+  color: #176b87;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.payment-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payment-history thead tr {
+  background-color: #176b87;
+  color: white;
+  text-align: left;
+  font-weight: 600;
+}
+
+.payment-history th,
+.payment-history td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.payment-history tbody tr:hover {
+  background-color: #f0f7fa;
+  cursor: default;
+}
+
+.payment-history .text-success {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.payment-history .text-warning {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.payment-history .text-danger {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.payment-history td,
+.payment-history th {
+  white-space: nowrap;
+}
+
+.payment-history td:nth-child(1),
+.payment-history th:nth-child(1) {
+  width: 5%;
+}
+
+.payment-history td:nth-child(2),
+.payment-history th:nth-child(2) {
+  width: 20%;
+}
+
+.payment-history td:nth-child(3),
+.payment-history th:nth-child(3) {
+  width: 20%;
+}
+
+.payment-history td:nth-child(4),
+.payment-history th:nth-child(4) {
+  width: 20%;
+}
+
+.payment-history td:nth-child(5),
+.payment-history th:nth-child(5) {
+  width: 35%;
 }

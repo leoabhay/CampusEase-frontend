@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -15,18 +15,22 @@ import { environment } from '../../../../environments/environment.development';
   templateUrl: './student-fee.component.html',
   styleUrls: ['./student-fee.component.css']
 })
-export class StudentFeeComponent {
+export class StudentFeeComponent implements OnInit {
   feeForm!: FormGroup;
   studentId: string = '';
   qrCodeDataUrl: string = '';
   showQRCode = false;
   qrScanned = false; // Track if user confirmed scanning QR code
+  paymentHistory: any[] = [];
+  loadingHistory = false;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.feeForm = this.fb.group({
       amount: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       method: ['Khalti', Validators.required]
@@ -34,6 +38,8 @@ export class StudentFeeComponent {
 
     const tokenData = this.parseJwt(localStorage.getItem('userToken') || '');
     this.studentId = tokenData.userId || '';
+
+    this.fetchPaymentHistory();
   }
 
   parseJwt(token: string): any {
@@ -42,6 +48,23 @@ export class StudentFeeComponent {
     } catch (e) {
       return {};
     }
+  }
+
+  fetchPaymentHistory() {
+    this.loadingHistory = true;
+    const token = localStorage.getItem('userToken') || '';
+    const headers = { Authorization: `Bearer ${token}` };
+
+    this.http.get<any[]>(`${environment.api_url}getFees/${this.studentId}`, { headers }).subscribe(
+      data => {
+        this.paymentHistory = data;
+        this.loadingHistory = false;
+      },
+      err => {
+        alertify.error('Failed to load payment history');
+        this.loadingHistory = false;
+      }
+    );
   }
 
   payWithKhalti(): void {
@@ -53,7 +76,7 @@ export class StudentFeeComponent {
       eventHandler: {
         onSuccess: (payload: any) => {
           alertify.success("Payment successful!");
-          this.submitFee('Online');
+          this.submitFee('Online', payload);
         },
         onError: (error: any) => {
           console.error(error);
@@ -69,7 +92,7 @@ export class StudentFeeComponent {
     };
 
     const checkout = new KhaltiCheckout(config);
-    const amount = Number(this.feeForm.value.amount) * 100;
+    const amount = Number(this.feeForm.value.amount) * 100; // Khalti amount in paisa
     checkout.show({ amount });
   }
 
@@ -116,19 +139,23 @@ export class StudentFeeComponent {
     this.submitFee('QR');
   }
 
-  submitFee(method: string): void {
+  submitFee(method: string, paymentPayload?: any): void {
     const token = localStorage.getItem('userToken') || '';
     const headers = { Authorization: `Bearer ${token}` };
-    const payload = {
+    const payload: any = {
       studentId: this.studentId,
       amount: Number(this.feeForm.value.amount),
       method: method
     };
+    if (paymentPayload) payload.paymentPayload = paymentPayload;
 
     this.http.post(`${environment.api_url}payFee`, payload, { headers }).subscribe(
       (res: any) => {
         alertify.success(res.message || 'Fee paid successfully!');
-        this.router.navigate(['/dashboard']);
+        this.feeForm.reset({ method: 'Khalti' });
+        this.showQRCode = false;
+        this.qrScanned = false;
+        this.fetchPaymentHistory();
       },
       (err) => {
         alertify.error(err.error?.message || 'Failed to process fee payment');

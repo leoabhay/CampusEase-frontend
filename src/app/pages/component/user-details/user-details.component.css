@@ -46,7 +46,7 @@
   font-weight: 500;
 }
 
-.form-control {
+.form-select {
   width: 100%;
   padding: 10px 15px;
   border: 1px solid #ddd;
@@ -55,7 +55,7 @@
   transition: border-color 0.3s;
 }
 
-.form-control:focus {
+.form-select:focus {
   border-color: #176B87;
   outline: none;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);

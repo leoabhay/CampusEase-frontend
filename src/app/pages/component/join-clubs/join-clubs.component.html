@@ -29,7 +29,10 @@
                   formControlName="reason" rows="3"></textarea>
               </div>
               <div class="col-lg-12 mb-4">
-                <button type="submit" [disabled]="clubForm.invalid" class="btn btn-primary mb-4">Join Club</button>
+                <button type="submit" [disabled]="clubForm.invalid" class="btn btn-primary mb-4" style="background-color: #176B87; border-color: #176B87;">
+  Join Club
+</button>
+
               </div>
             </form>
           </div>
@@ -88,7 +91,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let club of allClubs | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+              <tr *ngFor="let club of allClubs; let i = index">
                 <td>{{ i + 1 + (page - 1) * 10 }}</td>
                 <td>{{ club.joinedBy }}</td>
                 <td>{{ club.clubName }}</td>
@@ -99,7 +102,7 @@
             </tbody>
           </table>
         </div>
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        <!-- <pagination-controls (pageChange)="page = $event"></pagination-controls> -->
 
       </div>
 
