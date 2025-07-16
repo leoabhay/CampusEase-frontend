@@ -22,7 +22,7 @@ table {
 }
 
 thead {
-  background-color: #3498DB;
+  background-color: #176B87;
   color: #fff;
 }
 
@@ -44,8 +44,8 @@ tbody tr:hover {
 
 /* Button styling with hover effects */
 .btn-primary {
-  background-color: #3498DB;
-  border-color: #3498DB;
+  background-color: #176B87;
+  border-color: #176B87;
   color: white;
   padding: 8px 16px;
   border-radius: 4px;

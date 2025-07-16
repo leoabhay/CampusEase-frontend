@@ -25,7 +25,7 @@
 }
 
 .card-header {
-    background: linear-gradient(135deg, #3498db, #2c81ba);
+    background: linear-gradient(135deg, #176B87, #2c81ba);
     color: white;
     border-bottom: none;
     padding: 1.5rem;
@@ -60,7 +60,7 @@
 
 /* Form Styles */
 .form-card {
-    border-top: 4px solid #3498db;
+    border-top: 4px solid #176B87;
 }
 
 .form-label {
@@ -80,7 +80,7 @@
 }
 
 .form-control:focus {
-    border-color: #3498db;
+    border-color: #176B87;
     box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
@@ -102,7 +102,7 @@
 }
 
 .btn-primary {
-    background-color: #3498db;
+    background-color: #176B87;
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
 }
 
@@ -126,7 +126,7 @@
 }
 
 .table thead th {
-    background: linear-gradient(135deg, #3498db, #2c81ba);
+    background: linear-gradient(135deg, #176B87, #2c81ba);
     color: white;
     font-weight: 500;
     border: none;
@@ -165,7 +165,7 @@
 }
 
 .btn-edit {
-    background-color: #3498db;
+    background-color: #176B87;
     color: white;
     box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
 }
@@ -216,7 +216,7 @@
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    /* background: linear-gradient(90deg, #3498db, #2c81ba); */
+    /* background: linear-gradient(90deg, #176B87, #2c81ba); */
     border-radius: 2px;
 }
 
@@ -232,7 +232,7 @@
 }
 
 .pagination li a {
-    color: #3498db;
+    color: #176B87;
     border: 1px solid #e0e6ed;
     border-radius: 6px;
     padding: 0.5rem 0.9rem;
@@ -240,9 +240,9 @@
 }
 
 .pagination li.active a {
-    background-color: #3498db;
+    background-color: #176B87;
     color: white;
-    border-color: #3498db;
+    border-color: #176B87;
 }
 
 .pagination li a:hover {

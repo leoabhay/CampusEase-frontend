@@ -84,7 +84,7 @@
 }
 
 .view-details-btn {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -188,7 +188,7 @@
 }
 
 .teacher-actions-card .card-header {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border-top-left-radius: 10px !important;
   border-top-right-radius: 10px !important;
@@ -243,16 +243,16 @@
 }
 
 .badge-primary {
-  background-color: #3498db;
+  background-color: #176B87;
 }
 
 .btn-outline-info {
-  color: #3498db;
-  border-color: #3498db;
+  color: #176B87;
+  border-color: #176B87;
 }
 
 .btn-outline-info:hover {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
 }
 

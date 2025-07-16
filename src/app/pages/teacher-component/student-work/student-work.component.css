@@ -39,7 +39,7 @@
 }
 
 .assignment-table thead th {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   font-weight: 500;
   padding: 1rem;
@@ -85,7 +85,7 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #3498db;
+  color: #176B87;
   transition: all 0.2s ease;
 }
 

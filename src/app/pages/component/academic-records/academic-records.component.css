@@ -296,7 +296,7 @@
 
 .admin-card-header {
   padding: 2rem;
-  background: #3498db;
+  background: #176B87;
   color: white;
 }
 
@@ -332,13 +332,13 @@
 }
 
 .upload-area:hover {
-  border-color: #2575fc;
+  border-color: #176B87;
   background: #f8faff;
 }
 
 .upload-area i {
   font-size: 2.5rem;
-  color: #2575fc;
+  color: #176B87;
   margin-bottom: 1rem;
   display: block;
 }
@@ -368,7 +368,7 @@
 .upload-btn {
   width: 100%;
   padding: 0.75rem;
-  background: #3498db;
+  background: #176B87;
   color: white;
   border: none;
   border-radius: 8px;
@@ -405,7 +405,7 @@
 }
 
 .hint-item i {
-  color: #2575fc;
+  color: #176B87;
 }
 
 .error-message {

@@ -23,7 +23,7 @@
 }
 
 .enrollment-header i {
-  color: #3498db;
+  color: #176B87;
   margin-right: 10px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .form-group label i {
-  color: #3498db;
+  color: #176B87;
   margin-right: 8px;
 }
 
@@ -70,12 +70,12 @@
 }
 
 .form-control:focus {
-  border-color: #3498db;
+  border-color: #176B87;
   box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
 .btn-enroll {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -105,7 +105,7 @@
 }
 
 .card-header {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   padding: 15px 25px;
 }
@@ -158,7 +158,7 @@
 
 .credit-badge {
   background-color: #e8f4fc;
-  color: #3498db;
+  color: #176B87;
   padding: 4px 10px;
   border-radius: 20px;
   font-weight: 500;
@@ -167,7 +167,7 @@
 /* No Subjects Alert */
 .no-subjects-alert {
   background-color: #e8f4fc;
-  border-left: 4px solid #3498db;
+  border-left: 4px solid #176B87;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
 }
 
 .no-subjects-alert i {
-  color: #3498db;
+  color: #176B87;
   font-size: 24px;
 }
 
@@ -220,7 +220,7 @@
 }
 
 .modal-header {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   padding: 20px;
 }
@@ -309,7 +309,7 @@
 }
 
 .btn-modal-primary {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   padding: 8px 16px;

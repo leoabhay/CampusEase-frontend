@@ -67,7 +67,7 @@
 }
 
 .form-header h4 {
-  color: #3498db;
+  color: #176B87;
   font-weight: 600;
   margin: 0;
   display: flex;
@@ -78,14 +78,14 @@
 .close-btn {
   background: none;
   border: none;
-  color: #3498db;
+  color: #176B87;
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0.2rem;
 }
 
 .close-btn:hover {
-  color: #3498db;
+  color: #176B87;
 }
 
 .edit-form {
@@ -108,7 +108,7 @@
 
 .form-group label {
   font-weight: 500;
-  color: #3498db;
+  color: #176B87;
 }
 
 .form-control {
@@ -181,7 +181,7 @@ table {
 }
 
 thead {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
 }
 

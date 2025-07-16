@@ -20,7 +20,7 @@
 }
 
 .card-header {
-  background-color: #3498DB;
+  background-color: #176B87;
   color: white;
   padding: 15px 20px;
   border-bottom: none;
@@ -70,8 +70,8 @@
 }
 
 .btn-primary {
-  background-color: #3498DB;
-  border-color: #3498DB;
+  background-color: #176B87;
+  border-color: #176B87;
 }
 
 .btn-primary:hover {

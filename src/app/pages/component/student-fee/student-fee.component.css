@@ -1,68 +1,68 @@
-/* Main container */
+/* Main container styles */
 .payment-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
-  background-color: #f8fafc;
+  background-color: #f5f7fa;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Payment card */
+/* Payment card styles */
 .payment-card {
-  background: white;
+  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(52, 152, 219, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 450px;
-  padding: 30px;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-/* Header section */
+.payment-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Header styles */
 .payment-header {
+  background-color: #176b87;
+  color: white;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
 }
 
 .payment-header h2 {
-  color: #2c3e50;
-  font-size: 24px;
-  font-weight: 600;
   margin: 0;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
-.payment-icon {
-  background-color: rgba(52, 152, 219, 0.1);
-  border-radius: 50%;
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #3498db;
+.payment-icon svg {
+  stroke: white;
+  width: 28px;
+  height: 28px;
 }
 
 /* Form styles */
 .payment-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 2rem;
 }
 
 .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
-  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.5rem;
   font-weight: 500;
-  font-size: 14px;
+  color: #333;
+  font-size: 0.95rem;
 }
 
-/* Input with Rs symbol */
 .input-with-rs {
   position: relative;
   display: flex;
@@ -72,33 +72,31 @@
 .rs-symbol {
   position: absolute;
   left: 12px;
-  color: #7f8c8d;
-  font-weight: 500;
+  color: #176b87;
+  font-weight: 600;
 }
 
-.input-with-rs input {
-  padding-left: 45px;
-}
-
-/* Input and select styles */
 input, select {
-  padding: 12px 15px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 15px;
   width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #f9f9f9;
 }
 
 input:focus, select:focus {
-  border-color: #3498db;
   outline: none;
+  border-color: #176b87;
+  box-shadow: 0 0 0 2px rgba(23, 107, 135, 0.2);
 }
 
 input.invalid {
   border-color: #e74c3c;
 }
 
-/* Select wrapper */
+/* Select styles */
 .select-wrapper {
   position: relative;
 }
@@ -113,131 +111,154 @@ input.invalid {
 
 select {
   appearance: none;
-  background-color: white;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
-/* Error message */
-.error-message {
-  color: #e74c3c;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-/* Submit button */
+/* Button styles */
 .submit-btn {
-  background-color: #3498db;
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #176b87;
   color: white;
   border: none;
-  padding: 14px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #145a72;
+  transform: translateY(-2px);
 }
 
 .submit-btn:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
-  opacity: 0.7;
+  transform: none;
 }
 
-/* QR Code section */
+.submit-btn svg {
+  stroke: white;
+}
+
+/* Error message styles */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: block;
+}
+
+/* QR Section styles */
 .qr-section {
-  margin-top: 30px;
-  text-align: center;
-  padding: 20px;
-  background-color: #f8fafc;
-  border-radius: 8px;
-  border: 1px dashed #e2e8f0;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
 }
 
 .qr-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  color: #176b87;
 }
 
 .qr-header h3 {
-  color: #2c3e50;
-  font-size: 18px;
   margin: 0;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
 .qr-header svg {
-  color: #3498db;
+  stroke: #176b87;
 }
 
 .qr-code {
-  max-width: 250px;
   width: 100%;
-  height: auto;
+  max-width: 250px;
+  display: block;
+  margin: 0 auto 1.5rem;
+  border: 1px solid #eee;
+  padding: 1rem;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  padding: 10px;
-  background: white;
+  background-color: white;
 }
 
 .qr-note {
+  text-align: center;
   color: #7f8c8d;
-  font-size: 14px;
-  margin-top: 15px;
-  line-height: 1.5;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
 }
 
-/* QR Action Buttons */
 .qr-action-buttons {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.8rem;
 }
 
 .qr-scan-btn, .qr-proceed-btn {
-  padding: 12px;
+  width: 100%;
+  padding: 0.8rem;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  border: none;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .qr-scan-btn {
-  background-color: #e2e8f0;
-  color: #2c3e50;
+  background-color: transparent;
+  border: 1px solid #176b87;
+  color: #176b87;
 }
 
 .qr-scan-btn:hover {
-  background-color: #d1d8e0;
+  background-color: rgba(23, 107, 135, 0.1);
 }
 
 .qr-proceed-btn {
-  background-color: #3498db;
+  background-color: #176b87;
   color: white;
+  border: none;
 }
 
 .qr-proceed-btn:hover {
-  background-color: #2980b9;
+  background-color: #145a72;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-  .payment-card {
-    padding: 20px;
+  .payment-container {
+    padding: 1rem;
   }
 
-  .payment-header h2 {
-    font-size: 20px;
+  .payment-header {
+    padding: 1.2rem 1.5rem;
   }
 
-  .qr-code {
-    max-width: 200px;
+  .payment-form {
+    padding: 1.5rem;
   }
 }

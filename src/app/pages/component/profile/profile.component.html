@@ -3,8 +3,8 @@
     <div class="row align-items-center">
       <div class="col-auto">
         <div class="profile-avatar">
-          <img [src]="showUserProfileData?.photo || 'assets/images/default-profile.png'" 
-               alt="Profile Photo" 
+          <img [src]="showUserProfileData?.photo || 'assets/images/default-profile.png'"
+               alt="Profile Photo"
                class="img-thumbnail rounded-circle border-white">
           <button class="btn-edit-avatar" (click)="triggerFileInput()">
             <i class="fas fa-camera"></i>
@@ -12,7 +12,7 @@
           <input type="file" id="photo" class="d-none" (change)="onFileChange($event)" accept="image/*">
         </div>
       </div>
-      
+
       <div class="col">
         <div class="profile-info">
           <h1 class="profile-name">{{showUserProfileData?.name}}</h1>
@@ -58,25 +58,31 @@
               </div>
             </div>
           </div>
-          
+
           <hr class="my-4">
 
-          <!-- ✅ Removed role check here -->
+          <!--  Removed role check here -->
           <h6 class="mb-3"><i class="fas fa-edit me-2"></i>Edit Profile</h6>
           <form [formGroup]="formProfile" (ngSubmit)="onSubmit()">
             <div class="form-floating mb-3">
-              <input type="text" id="address" class="form-control" formControlName="address" 
+              <input type="text" id="address" class="form-control" formControlName="address"
                      placeholder="Address">
               <label for="address">Address</label>
             </div>
-            <button type="submit" class="btn btn-primary px-4" [disabled]="formProfile.invalid">
-              <i class="fas fa-save me-2"></i>Save Changes
-            </button>
+            <button
+  type="submit"
+  class="btn px-4"
+  [disabled]="formProfile.invalid"
+  style="background-color: #176b87; border-color: #176b87; color: white;"
+>
+  <i class="fas fa-save me-2"></i>Save Changes
+</button>
+
           </form>
         </div>
       </div>
     </div>
-    
+
     <div class="col-lg-4">
       <div class="card shadow-sm mb-4">
         <div class="card-header bg-white border-bottom-0">
@@ -85,7 +91,7 @@
         <div class="card-body">
           <form [formGroup]="changePasswordForm" (ngSubmit)="onPasswordChange()">
             <div class="form-floating mb-3">
-              <input type="password" formControlName="oldpassword" class="form-control" 
+              <input type="password" formControlName="oldpassword" class="form-control"
                      id="oldPassword" placeholder="Old Password" required>
               <label for="oldPassword">Old Password</label>
               <div *ngIf="changePasswordForm.get('oldpassword')?.invalid && changePasswordForm.get('oldpassword')?.touched"
@@ -94,7 +100,7 @@
               </div>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" formControlName="password" class="form-control" 
+              <input type="password" formControlName="password" class="form-control"
                      id="newPassword" placeholder="New Password" required>
               <label for="newPassword">New Password</label>
               <div *ngIf="changePasswordForm.get('password')?.invalid && changePasswordForm.get('password')?.touched"
@@ -103,7 +109,7 @@
               </div>
             </div>
             <div class="form-floating mb-4">
-              <input type="password" formControlName="confirmPassword" class="form-control" 
+              <input type="password" formControlName="confirmPassword" class="form-control"
                      id="confirmPassword" placeholder="Confirm Password" required>
               <label for="confirmPassword">Confirm Password</label>
               <div *ngIf="changePasswordForm.hasError('mismatch') && changePasswordForm.get('confirmPassword')?.touched"
@@ -111,13 +117,19 @@
                 Passwords do not match
               </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100" [disabled]="changePasswordForm.invalid">
-              <i class="fas fa-key me-2"></i>Update Password
-            </button>
+            <button
+  type="submit"
+  class="btn w-100"
+  [disabled]="changePasswordForm.invalid"
+  style="background-color: #176b87; border-color: #176b87; color: white;"
+>
+  <i class="fas fa-key me-2"></i>Update Password
+</button>
+
           </form>
         </div>
       </div>
-      
+
       <div class="card shadow-sm">
         <div class="card-header bg-white border-bottom-0">
           <h5 class="card-title mb-0"><i class="fas fa-chart-line me-2"></i>Quick Stats</h5>

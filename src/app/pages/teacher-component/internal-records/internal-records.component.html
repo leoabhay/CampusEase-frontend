@@ -2,9 +2,15 @@
   <h2>Internal Marks Record</h2>
 
   <!-- Recalculate Button -->
-  <button (click)="recalculateInternalMarks()" [disabled]="isCalculating" class="btn btn-primary mb-3" style="background-color: #3498DB; border-color: #3498DB;">
-    {{ isCalculating ? 'Calculating...' : 'Recalculate Internal Marks' }}
+  <button
+  (click)="recalculateInternalMarks()"
+  [disabled]="isCalculating"
+  class="btn btn-primary mb-3"
+  style="background-color: #176b87; border-color: #176b87; color: white;"
+>
+  {{ isCalculating ? 'Calculating...' : 'Recalculate Internal Marks' }}
 </button>
+
 
   <table>
     <thead>

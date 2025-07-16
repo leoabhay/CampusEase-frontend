@@ -53,7 +53,7 @@
 }
 
 .user-list li.active {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
 }
 
@@ -64,7 +64,7 @@
 
 .user-list li.active .badge.count {
   background-color: white;
-  color: #3498db;
+  color: #176B87;
 }
 
 .badges {
@@ -122,7 +122,7 @@
 }
 
 .badge.count {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   min-width: 20px;
   justify-content: center;
@@ -198,7 +198,7 @@
 }
 
 .dots:hover {
-  color: #3498db;
+  color: #176B87;
 }
 
 .dropdown-options {
@@ -272,7 +272,7 @@
 }
 
 .messages > div.own .bubble {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border-top-right-radius: 5px;
 }
@@ -323,7 +323,7 @@
 }
 
 .input-area input:focus {
-  border-color: #3498db;
+  border-color: #176B87;
   background-color: white;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
@@ -331,7 +331,7 @@
 .input-area button {
   margin-left: 12px;
   padding: 10px 22px;
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   border-radius: 30px;

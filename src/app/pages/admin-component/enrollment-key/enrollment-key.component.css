@@ -28,7 +28,7 @@
 }
 
 .section-title {
-  color: #3498db;
+  color: #176B87;
   font-weight: 500;
   margin: 0;
 }
@@ -40,8 +40,8 @@
 
 .subject-row {
   transition: all 0.3s ease;
-  /* border-left: 3px solid #3498db; */
-  /* border-right: 3px solid #3498db; */
+  /* border-left: 3px solid #176B87; */
+  /* border-right: 3px solid #176B87; */
 }
 
 .subject-row:hover {

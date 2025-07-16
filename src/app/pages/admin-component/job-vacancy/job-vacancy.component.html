@@ -147,9 +147,15 @@
             <!-- <button *ngIf="isEditMode" type="button" class="btn btn-outline-secondary" (click)="cancelEdit()">
               Cancel
             </button> -->
-            <button type="submit" class="btn btn-primary" [disabled]="vacancyForm.invalid">
-              {{ isEditMode ? 'Update Vacancy' : 'Create Vacancy' }}
-            </button>
+            <button
+  type="submit"
+  class="btn"
+  [disabled]="vacancyForm.invalid"
+  style="background-color: #176b87; border-color: #176b87; color: white;"
+>
+  {{ isEditMode ? 'Update Vacancy' : 'Create Vacancy' }}
+</button>
+
           </div>
         </div>
       </form>
@@ -184,17 +190,28 @@
               <td>{{item.vacancyLevel}}</td>
               <td>{{item.vacancySubject}}</td>
               <td>
-                <span class="badge" [ngClass]="{'bg-primary': item.time === 'fullTime', 'bg-secondary': item.time === 'partTime'}">
-                  {{item.time === 'fullTime' ? 'Full Time' : 'Part Time'}}
-                </span>
+                <span
+  class="badge"
+  [ngClass]="{'bg-secondary': item.time === 'partTime'}"
+  [ngStyle]="item.time === 'fullTime' ? { 'background-color': '#176b87', 'color': 'white' } : null"
+>
+  {{ item.time === 'fullTime' ? 'Full Time' : 'Part Time' }}
+</span>
+
               </td>
               <td>{{item.vacancyQualification}}</td>
               <td>Rs {{item.vacancySalary | number:'1.2-2'}}</td>
               <td>
                 <div class="d-flex gap-2">
-                  <button class="btn btn-sm btn-outline-primary" (click)="editVacancy(item._id)" title="Edit">
-                    <i class="fas fa-edit"></i>
-                  </button>
+                  <button
+  class="btn btn-sm"
+  (click)="editVacancy(item._id)"
+  title="Edit"
+  style="color: #176b87; border: 1px solid #176b87; background-color: transparent;"
+>
+  <i class="fas fa-edit"></i>
+</button>
+
                   <button class="btn btn-sm btn-outline-danger" (click)="deleteVacancy(item._id)" title="Delete">
                     <i class="fas fa-trash-alt"></i>
                   </button>

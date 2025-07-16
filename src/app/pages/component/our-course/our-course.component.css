@@ -23,7 +23,7 @@
 }
 
 .section-header i {
-  color: #3498db;
+  color: #176B87;
   margin-right: 10px;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .enrollment-header {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   padding: 15px 20px;
 }
@@ -112,7 +112,7 @@
 
 .credits-badge {
   background-color: #e8f4fc;
-  color: #3498db;
+  color: #176B87;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 14px;
@@ -120,7 +120,7 @@
 }
 
 .btn-view {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -172,7 +172,7 @@
 }
 
 .btn-manage {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border: none;
   padding: 8px 16px;

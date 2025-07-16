@@ -15,7 +15,7 @@ h2 {
     font-weight: 600;
     text-align: center;
     padding-bottom: 15px;
-    /* border-bottom: 2px solid #3498db; */
+    /* border-bottom: 2px solid #176B87; */
     margin-bottom: 25px;
 }
 
@@ -28,7 +28,7 @@ h2 {
 }
 
 .table thead th {
-    background-color: #3498db !important;
+    background-color: #176B87 !important;
     color: white;
     font-weight: 500;
     border: none;
@@ -72,7 +72,7 @@ h2 {
 
 /* Link styling */
 a {
-    color: #3498db;
+    color: #176B87;
     text-decoration: none;
     transition: all 0.2s ease;
 }

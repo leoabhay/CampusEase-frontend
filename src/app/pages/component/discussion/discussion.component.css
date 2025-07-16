@@ -36,7 +36,7 @@
 }
 
 .btn-primary {
-  background-color: #4361ee;
+  background-color: #176B87;
   color: white;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .btn-edit {
-  color: #3b82f6;
+  color: #176b87;
   background-color: rgba(59, 130, 246, 0.1);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .form-control:focus {
-  border-color: #4361ee;
+  border-color: #176B87;
   box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
   outline: none;
 }
@@ -177,7 +177,7 @@ label {
   width: 40px;
   height: 40px;
   left: 30px;
-  background-color: #4361ee;
+  background-color: #176B87;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -228,7 +228,7 @@ label {
 
 .timeline-meta .date {
   margin-right: 15px;
-  color: #4361ee;
+  color: #176B87;
   font-weight: 500;
 }
 

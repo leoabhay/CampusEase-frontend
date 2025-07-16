@@ -41,9 +41,17 @@
     <div class="card form-section">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="section-title">Subjects</h5>
-        <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSubject()">
-          <i class="bi bi-plus-circle"></i> Add Subject
-        </button>
+        <button
+  type="button"
+  class="btn btn-sm"
+  (click)="addSubject()"
+  style="color: #176B87; border: 1px solid #176B87; background-color: transparent;"
+  onmouseover="this.style.backgroundColor='#176B87'; this.style.color='white';"
+  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#176B87';"
+>
+  <i class="bi bi-plus-circle"></i> Add Subject
+</button>
+
       </div>
       <div class="card-body">
         <div formArrayName="subjects">
@@ -93,9 +101,15 @@
 
     <!-- Form Actions -->
     <div class="form-actions mt-4 text-end">
-      <button type="submit" class="btn btn-primary px-4" [disabled]="enrollmentForm.invalid">
-        <i class="bi bi-check-circle"></i> Submit
-      </button>
+      <button
+  type="submit"
+  class="btn px-4"
+  [disabled]="enrollmentForm.invalid"
+  style="background-color: #176b87; border-color: #176b87; color: white;"
+>
+  <i class="bi bi-check-circle"></i> Submit
+</button>
+
     </div>
   </form>
 </div>

@@ -23,7 +23,7 @@
 }
 
 .form-control:focus, .form-select:focus {
-  border-color: #3498db;
+  border-color: #176B87;
   box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
@@ -45,8 +45,8 @@
 }
 
 .btn-primary {
-  background-color: #3498db;
-  border-color: #3498db;
+  background-color: #176B87;
+  border-color: #176B87;
 }
 
 .btn-primary:hover {
@@ -55,12 +55,12 @@
 }
 
 .btn-outline-primary {
-  color: #3498db;
-  border-color: #3498db;
+  color: #176B87;
+  border-color: #176B87;
 }
 
 .btn-outline-primary:hover {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .table thead th {
-  background-color: #3498db;
+  background-color: #176B87;
   color: white;
   border-bottom: none;
   font-weight: 500;
@@ -138,12 +138,12 @@
 }
 
 .page-item.active .page-link {
-  background-color: #3498db;
-  border-color: #3498db;
+  background-color: #176B87;
+  border-color: #176B87;
 }
 
 .page-link {
-  color: #3498db;
+  color: #176B87;
   border: 1px solid #dee2e6;
   margin: 0 5px;
   border-radius: 4px;
