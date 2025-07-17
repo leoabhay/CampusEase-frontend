@@ -1,0 +1,111 @@
+<div class="attendance-container">
+  <div class="attendance-header">
+    <h2>Face Attendance System</h2>
+    <div class="role-badge">{{ userRole | uppercase }}</div>
+  </div>
+
+  <!-- Student Section -->
+  <ng-container *ngIf="userRole === 'student'">
+    <div class="student-section">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="subjectName"
+          placeholder="Enter subject Name"
+          class="form-input"
+        />
+        <i class="fas fa-book icon"></i>
+      </div>
+
+      <div class="webcam-container">
+        <webcam
+          [trigger]="triggerObservable"
+          (imageCapture)="handleImage($event)"
+          class="webcam-view"
+        ></webcam>
+      </div>
+
+      <div *ngIf="webcamImage" class="preview-container">
+        <p class="preview-title">Your Photo Preview</p>
+        <img [src]="webcamImage.imageAsDataUrl" class="preview-image" />
+      </div>
+
+      <div class="action-buttons">
+        <button (click)="triggerSnapshot()" class="btn btn-capture">
+          <i class="fas fa-camera"></i> Capture Photo
+        </button>
+        <button
+          (click)="markAttendance()"
+          class="btn btn-submit"
+          [disabled]="loading"
+        >
+          <i class="fas fa-check-circle"></i>
+          {{ loading ? 'Processing...' : 'Mark Attendance' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Student Attendance Table -->
+    <div *ngIf="attendanceList.length > 0" class="records-container">
+      <h3 class="records-title">My Attendance Records</h3>
+      <div class="table-responsive">
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceList">
+              <td>{{ record.subjectName || record.subjectCode }}</td>
+              <td>{{ record.date | date: 'medium' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Faculty/Admin Section -->
+  <ng-container *ngIf="userRole === 'admin' || userRole === 'faculty'">
+    <div class="admin-section">
+      <!-- Optional: You can keep a refresh button or load automatically -->
+      <!-- <button (click)="fetchAllAttendance()" class="btn btn-admin">
+        <i class="fas fa-list-alt"></i> Refresh All Attendance Records
+      </button> -->
+    </div>
+
+    <!-- Faculty/Admin Attendance Table -->
+    <div *ngIf="attendanceList.length > 0" class="records-container">
+      <h3 class="records-title">All Attendance Records</h3>
+      <div class="table-responsive">
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>Roll No</th>
+              <th>Subject</th>
+              <th>Date</th>
+              <th *ngIf="userRole === 'admin'">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceList">
+              <td>{{ record.rollno }}</td>
+              <td>{{ record.subjectName || record.subjectCode }}</td>
+              <td>{{ record.date | date: 'medium' }}</td>
+              <td *ngIf="userRole === 'admin'">
+                <button
+                  class="btn btn-delete"
+                  (click)="deleteAttendance(record._id)"
+                >
+                  <i class="fas fa-trash-alt"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</div>

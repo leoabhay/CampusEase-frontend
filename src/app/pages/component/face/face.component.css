@@ -1,0 +1,233 @@
+/* Base Styles */
+.attendance-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #176B87;
+}
+
+.attendance-header h2 {
+  color: #176B87;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.role-badge {
+  background-color: #176B87;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Form Elements */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #176B87;
+  box-shadow: 0 0 0 3px rgba(23, 107, 135, 0.1);
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #176B87;
+}
+
+/* Webcam Styles */
+.webcam-container {
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.webcam-view {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Preview Styles */
+.preview-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.prevview-title {
+  font-weight: 500;
+  color: #176B87;
+  margin-bottom: 0.5rem;
+}
+
+.preview-image {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 2px solid #176B87;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn i {
+  margin-right: 8px;
+}
+
+.btn-capture {
+  background-color: #176B87;
+  color: white;
+}
+
+.btn-capture:hover {
+  background-color: #135a70;
+  transform: translateY(-2px);
+}
+
+.btn-submit {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-submit:hover:not([disabled]) {
+  background-color: #3e8e41;
+  transform: translateY(-2px);
+}
+
+.btn-submit[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-view {
+  background-color: #607D8B;
+  color: white;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.btn-view:hover {
+  background-color: #546E7A;
+  transform: translateY(-2px);
+}
+
+.btn-admin {
+  background-color: #176B87;
+  color: white;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.btn-admin:hover {
+  background-color: #135a70;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Table Styles */
+.records-container {
+  margin-top: 2rem;
+}
+
+.records-title {
+  color: #176B87;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.records-table th,
+.records-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.records-table th {
+  background-color: #176B87;
+  color: white;
+  font-weight: 500;
+}
+
+.records-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.records-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-container {
+    padding: 1rem;
+  }
+}

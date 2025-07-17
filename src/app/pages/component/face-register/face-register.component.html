@@ -1,0 +1,55 @@
+<div class="registration-container">
+  <div class="registration-card">
+    <h2 class="registration-title">Register Face for Attendance</h2>
+
+    <form class="registration-form" (submit)="registerFace($event)">
+      <div class="form-group">
+        <label for="rollno">Select Roll Number</label>
+        <select
+          [(ngModel)]="rollno"
+          [ngModelOptions]="{ standalone: true }"
+          name="rollno"
+          required
+          class="form-control"
+        >
+          <option [ngValue]="null" disabled selected>Select roll number</option>
+          <option *ngFor="let r of validRollnos" [ngValue]="r">{{ r }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Upload Photo</label>
+        <div class="file-upload">
+          <label for="photo" class="file-upload-label">
+            <span class="file-upload-button">Choose File</span>
+            <span class="file-upload-text">{{ selectedFileName || 'No file chosen' }}</span>
+          </label>
+          <input
+            id="photo"
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            required
+          />
+        </div>
+      </div>
+
+      <div *ngIf="previewImage" class="image-preview">
+        <p>Preview:</p>
+        <img [src]="previewImage" alt="Photo preview" />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!rollno || !base64Image || loading"
+        class="submit-button"
+      >
+        {{ loading ? 'Registering...' : 'Register Face' }}
+      </button>
+    </form>
+
+    <p *ngIf="message" class="status-message" [class.success]="success" [class.error]="!success">
+      {{ message }}
+    </p>
+  </div>
+</div>

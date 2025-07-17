@@ -97,7 +97,13 @@
               <li class="nav-item" [class.active]="currentSection === 'attendance-record'">
                 <a class="nav-link" (click)="showSection('attendance-record')">
                   <i class="fas fa-clipboard"></i>
-                  <span>Attendance</span>
+                  <span>Attendance (OTP)</span>
+                </a>
+              </li>
+              <li class="nav-item" [class.active]="currentSection === 'face-attendance'">
+                <a class="nav-link" (click)="showSection('face-attendance')">
+                  <i class="fas fa-clipboard"></i>
+                  <span>Attendance (Face)</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'semester'">
@@ -225,6 +231,12 @@
                   <span>Listed Course</span>
                 </a>
               </li>
+              <li class="nav-item" [class.active]="currentSection === 'face-register'">
+                <a class="nav-link" (click)="showSection('face-register')">
+                  <i class="fas fa-clipboard"></i>
+                  <span>Attendance</span>
+                </a>
+              </li>
               <li class="nav-item" [class.active]="currentSection === 'result'">
                 <a class="nav-link" (click)="showSection('result')">
                   <i class="fas fa-book"></i>
@@ -334,7 +346,19 @@
               <li class="nav-item" [class.active]="currentSection === 'attendance-record'">
                 <a class="nav-link" (click)="showSection('attendance-record')">
                   <i class="fas fa-clipboard-list"></i>
-                  <span>Attendance</span>
+                  <span>Attendance (OTP)</span>
+                </a>
+              </li>
+              <li class="nav-item" [class.active]="currentSection === 'face-attendance'">
+                <a class="nav-link" (click)="showSection('face-attendance')">
+                  <i class="fas fa-clipboard"></i>
+                  <span>Attendance (Face)</span>
+                </a>
+              </li>
+              <li class="nav-item" [class.active]="currentSection === 'face-register'">
+                <a class="nav-link" (click)="showSection('face-register')">
+                  <i class="fas fa-clipboard"></i>
+                  <span>Attendance (Register)</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'user-schedule'">
@@ -500,6 +524,12 @@
           </div>
           <div *ngIf="currentSection === 'admin-fee'">
             <app-admin-fee></app-admin-fee>
+          </div>
+          <div *ngIf="currentSection === 'face-attendance'">
+            <app-face></app-face>
+          </div>
+          <div *ngIf="currentSection === 'face-register'">
+            <app-face-register></app-face-register>
           </div>
           <div *ngIf="currentSection === 'academic'">
             <app-academic></app-academic>

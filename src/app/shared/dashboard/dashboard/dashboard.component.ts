@@ -38,6 +38,8 @@ import { AdminFeeComponent } from '../../../pages/admin-component/admin-fee/admi
 import { AdminScheduleComponent } from '../../../pages/admin-component/admin-schedule/admin-schedule.component';
 import { UserScheduleComponent } from '../../../pages/component/user-schedule/user-schedule.component';
 import { AcademicComponent } from '../../../pages/component/academic/academic.component';
+import { FaceComponent } from '../../../pages/component/face/face.component';
+import { FaceRegisterComponent } from '../../../pages/component/face-register/face-register.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -77,7 +79,9 @@ import { AcademicComponent } from '../../../pages/component/academic/academic.co
     AdminFeeComponent,
     AdminScheduleComponent,
     UserScheduleComponent,
-    AcademicComponent
+    AcademicComponent,
+    FaceComponent,
+    FaceRegisterComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

@@ -29,10 +29,6 @@ export const routes: Routes = [
         path: 'reset-password',
         component: ResetPasswordComponent
      },
-    //  {
-    //   path: 'chat',
-    //   component: ChatComponent,
-    //  },
     {
         path:'cv-submission',
         component:CvSubmissionComponent,
