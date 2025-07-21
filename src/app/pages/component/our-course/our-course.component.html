@@ -1,6 +1,6 @@
 <div class="courses-container">
   <!-- Student View -->
-  <div class="student-courses" *ngIf="userRole == 'student'">
+  <div class="student-courses" *ngIf="userRole === 'student' || userRole === 'admin'">
     <div class="section-header">
       <h2>Available Courses</h2>
       <p>View all available courses and subjects</p>

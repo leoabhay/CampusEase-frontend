@@ -65,7 +65,7 @@ export class EnrollmentService {
     return this.http.get<any>(environment.api_url + 'enrollmentDatabyEnrolledsubject');
   }
 
-  // ✅ Update enrollment by ID
+  // Update enrollment by ID
   UpdateEnrollmentData(enrollmentId: string, obj: any): Observable<any> {
     return this.http.put<any>(environment.api_url + `enrollmentUpdate/${enrollmentId}`, obj);
   }

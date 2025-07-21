@@ -2,7 +2,7 @@
   <h2 class="form-title mb-4">Course Enrollment</h2>
   <form [formGroup]="enrollmentForm" (ngSubmit)="submitForm()" class="enrollment-form">
 
-    <!-- Basic Information Section -->
+    <!-- Basic Info -->
     <div class="card form-section mb-4">
       <div class="card-header">
         <h5 class="section-title">Create new enrollment</h5>
@@ -11,14 +11,26 @@
         <div class="row g-3">
           <div class="col-md-4">
             <label for="enrollmentKey" class="form-label">Enrollment Key</label>
-            <input type="text" class="form-control" id="enrollmentKey" formControlName="enrollmentKey" placeholder="Enter Enrollment Key">
+            <input
+              type="text"
+              class="form-control"
+              id="enrollmentKey"
+              formControlName="enrollmentKey"
+              placeholder="Enter Enrollment Key"
+            />
             <div *ngIf="enrollmentForm.get('enrollmentKey')?.invalid && enrollmentForm.get('enrollmentKey')?.touched" class="invalid-feedback">
               Enrollment Key is required
             </div>
           </div>
           <div class="col-md-4">
             <label for="semester" class="form-label">Semester</label>
-            <input type="text" class="form-control" id="semester" formControlName="semester" placeholder="Enter Semester">
+            <input
+              type="text"
+              class="form-control"
+              id="semester"
+              formControlName="semester"
+              placeholder="Enter Semester"
+            />
             <div *ngIf="enrollmentForm.get('semester')?.invalid && enrollmentForm.get('semester')?.touched" class="invalid-feedback">
               Semester is required and must contain only digits
             </div>
@@ -42,54 +54,81 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="section-title">Subjects</h5>
         <button
-  type="button"
-  class="btn btn-sm"
-  (click)="addSubject()"
-  style="color: #176B87; border: 1px solid #176B87; background-color: transparent;"
-  onmouseover="this.style.backgroundColor='#176B87'; this.style.color='white';"
-  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#176B87';"
->
-  <i class="bi bi-plus-circle"></i> Add Subject
-</button>
-
+          type="button"
+          class="btn btn-sm"
+          (click)="addSubject()"
+          style="color: #176B87; border: 1px solid #176B87; background-color: transparent;"
+          onmouseover="this.style.backgroundColor='#176B87'; this.style.color='white';"
+          onmouseout="this.style.backgroundColor='transparent'; this.style.color='#176B87';"
+        >
+          <i class="bi bi-plus-circle"></i> Add Subject
+        </button>
       </div>
       <div class="card-body">
         <div formArrayName="subjects">
-          <div *ngFor="let subject of subjects.controls; let i = index" [formGroupName]="i" class="subject-row mb-3 p-3 bg-light rounded">
+          <div
+            *ngFor="let subject of subjects.controls; let i = index"
+            [formGroupName]="i"
+            class="subject-row mb-3 p-3 bg-light rounded"
+          >
             <div class="row g-3 align-items-end">
               <div class="col-md-3">
-                <label [for]="'name'+i" class="form-label">Subject Name</label>
-                <input type="text" class="form-control" [id]="'name'+i" formControlName="name" placeholder="Enter Subject Name">
+                <label [for]="'name' + i" class="form-label">Subject Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [id]="'name' + i"
+                  formControlName="name"
+                  placeholder="Enter Subject Name"
+                />
                 <div *ngIf="getSubjectControl(i, 'name')?.invalid && getSubjectControl(i, 'name')?.touched" class="invalid-feedback">
                   Subject Name is required and must contain only letters and spaces
                 </div>
               </div>
               <div class="col-md-2">
-                <label [for]="'credit'+i" class="form-label">Credit</label>
-                <input type="text" class="form-control" [id]="'credit'+i" formControlName="credit" placeholder="Credit">
+                <label [for]="'credit' + i" class="form-label">Credit</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [id]="'credit' + i"
+                  formControlName="credit"
+                  placeholder="Credit"
+                />
                 <div *ngIf="getSubjectControl(i, 'credit')?.invalid && getSubjectControl(i, 'credit')?.touched" class="invalid-feedback">
                   Subject Credit is required and must contain only digits
                 </div>
               </div>
               <div class="col-md-2">
-                <label [for]="'code'+i" class="form-label">Subject Code</label>
-                <input type="text" class="form-control" [id]="'code'+i" formControlName="code" placeholder="Code">
+                <label [for]="'code' + i" class="form-label">Subject Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [id]="'code' + i"
+                  formControlName="code"
+                  placeholder="Code"
+                />
                 <div *ngIf="getSubjectControl(i, 'code')?.invalid && getSubjectControl(i, 'code')?.touched" class="invalid-feedback">
                   Subject Code is required and must contain only alphanumeric characters
                 </div>
               </div>
               <div class="col-md-4">
-                <label [for]="'teacher'+i" class="form-label">Teacher</label>
-                <select class="form-select" [id]="'teacher'+i" formControlName="teacher">
-                  <option value="" disabled selected>Select Teacher</option>
-                  <option *ngFor="let item of showTeacherData" [value]="item.email">{{item.name}}</option>
+                <label [for]="'teacher' + i" class="form-label">Teacher</label>
+                <select class="form-select" [id]="'teacher' + i" formControlName="teacher">
+                  <option value="" disabled>Select Teacher</option>
+                  <option *ngFor="let item of showTeacherData" [value]="item.email">{{ item.name }}</option>
                 </select>
                 <div *ngIf="getSubjectControl(i, 'teacher')?.invalid && getSubjectControl(i, 'teacher')?.touched" class="invalid-feedback">
                   Teacher Name is required
                 </div>
               </div>
               <div class="col-md-1 text-end">
-                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeSubject(i)" *ngIf="subjects.controls.length > 1">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="removeSubject(i)"
+                  *ngIf="subjects.controls.length > 1"
+                  title="Remove Subject"
+                >
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </div>
@@ -99,17 +138,76 @@
       </div>
     </div>
 
-    <!-- Form Actions -->
+    <!-- Submit Button -->
     <div class="form-actions mt-4 text-end">
       <button
-  type="submit"
-  class="btn px-4"
-  [disabled]="enrollmentForm.invalid"
-  style="background-color: #176b87; border-color: #176b87; color: white;"
->
-  <i class="bi bi-check-circle"></i> Submit
-</button>
-
+        type="submit"
+        class="btn px-4"
+        [disabled]="enrollmentForm.invalid"
+        style="background-color: #176b87; border-color: #176b87; color: white;"
+      >
+        <i class="bi bi-check-circle"></i> Submit
+      </button>
     </div>
   </form>
+</div>
+
+<!-- Enrollment List Table Section -->
+<div class="course-table-container mt-5">
+  <h3 class="table-title">All Enrollments</h3>
+  <div class="table-wrapper">
+    <table class="course-data-table table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="serial-col">S.N</th>
+          <th class="key-col">Enrollment Key</th>
+          <th class="semester-col">Semester</th>
+          <th class="department-col">Department</th>
+          <th class="subject-col">Subject</th>
+          <th class="code-col">Course Code</th>
+          <th class="credit-col">Credit</th>
+          <th class="teacher-col">Teacher</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listData; let i = index">
+          <td class="serial-col">{{ i + 1 }}</td>
+          <td class="key-col"><span class="enrollment-key">{{ item.enrollment_key }}</span></td>
+          <td class="semester-col">{{ item.semester }}</td>
+          <td class="department-col">{{ item.department }}</td>
+          <td class="subject-col">
+            <div class="subject-cell" *ngFor="let subject of item.subjects">{{ subject.name }}</div>
+          </td>
+          <td class="code-col">
+            <div class="code-cell" *ngFor="let subject of item.subjects">{{ subject.code }}</div>
+          </td>
+          <td class="credit-col">
+            <div class="credit-cell" *ngFor="let subject of item.subjects">{{ subject.credit }}</div>
+          </td>
+          <td class="teacher-col">
+            <div class="teacher-cell" *ngFor="let subject of item.subjects">{{ subject.teacher }}</div>
+          </td>
+          <td class="actions-col">
+  <div class="d-flex gap-2">
+    <button
+      class="btn btn-sm btn-outline-primary"
+      (click)="editEnrollment(item)"
+      title="Edit Enrollment"
+    >
+      <i class="fas fa-edit"></i>
+    </button>
+    <button
+      class="btn btn-sm btn-outline-danger"
+      (click)="deleteEnrollData(item._id)"
+      title="Delete Enrollment"
+    >
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

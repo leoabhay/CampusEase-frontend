@@ -221,13 +221,19 @@
               <li class="nav-item" [class.active]="currentSection === 'enrollment-key'">
                 <a class="nav-link" (click)="showSection('enrollment-key')">
                   <i class="fas fa-key"></i>
-                  <span>Enrollment Key</span>
+                  <span>Course Enrollment</span>
                 </a>
               </li>
-              <li class="nav-item" [class.active]="currentSection === 'list-course'">
+              <!-- <li class="nav-item" [class.active]="currentSection === 'list-course'">
                 <a class="nav-link" (click)="showSection('list-course')">
                   <i class="fas fa-list"></i>
                   <span>Listed Course</span>
+                </a>
+              </li> -->
+              <li class="nav-item" [class.active]="currentSection === 'our-courses'">
+                <a class="nav-link" (click)="showSection('our-courses')">
+                  <i class="fas fa-book-open"></i>
+                  <span>Courses</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'face-register'">

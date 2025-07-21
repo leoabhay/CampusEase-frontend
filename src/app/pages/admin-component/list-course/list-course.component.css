@@ -1,157 +1,240 @@
-/* Table Container */
-.course-table-container {
-  padding: 20px;
+/* Courses Component Styles */
+.courses-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 100%;
-  overflow-x: auto;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.table-title {
-  color: #2c3e50;
+.section-header {
+  margin-bottom: 30px;
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
 }
 
-/* Table Wrapper */
-.table-wrapper {
+.section-header h2 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  color: #7f8c8d;
+  font-size: 16px;
+}
+
+.section-header i {
+  color: #176B87;
+  margin-right: 10px;
+}
+
+/* Student Courses Styles */
+.enrollment-group {
+  background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+  margin-bottom: 30px;
   overflow: hidden;
 }
 
-/* Main Table Styles */
-.course-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
+.enrollment-header {
+  background-color: #176B87;
+  color: white;
+  padding: 15px 20px;
 }
 
-.course-data-table thead {
-  background-color: #f8f9fa;
-}
-
-.course-data-table th {
-  padding: 12px 15px;
-  text-align: left;
-  font-weight: 600;
-  color: #495057;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid #dee2e6;
-}
-
-.course-data-table td {
-  padding: 12px 15px;
-  vertical-align: top;
-  border-bottom: 1px solid #e9ecef;
-}
-
-/* Column Specific Styles */
-.serial-col {
-  width: 5%;
-  text-align: center;
-  font-weight: 600;
-}
-
-.key-col {
-  width: 12%;
-}
-
-.enrollment-key {
-  display: inline-block;
-  padding: 4px 8px;
-  background-color: #e3f2fd;
-  color: #176b87;
-  border-radius: 4px;
-  font-size: 0.85rem;
+.enrollment-header h3 {
+  margin: 0;
+  font-size: 18px;
   font-weight: 500;
 }
 
-.semester-col {
-  width: 8%;
+.enrollment-header i {
+  margin-right: 10px;
 }
 
-.subject-col {
-  width: 25%;
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-.code-col {
-  width: 10%;
+.subject-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.credit-col {
-  width: 8%;
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.15);
 }
 
-.teacher-col {
-  width: 20%;
+.subject-image {
+  height: 160px;
+  overflow: hidden;
 }
 
-.actions-col {
-  width: 12%;
+.subject-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
 }
 
-/* Cell Content Styles */
-.subject-cell,
-.code-cell,
-.credit-cell,
-.teacher-cell,
-.action-cell {
-  padding: 6px 0;
-  border-bottom: 1px dashed #eee;
+.subject-card:hover .subject-image img {
+  transform: scale(1.05);
 }
 
-.subject-cell:last-child,
-.code-cell:last-child,
-.credit-cell:last-child,
-.teacher-cell:last-child,
-.action-cell:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.subject-details {
+  padding: 15px;
 }
 
-/* Action Button */
-.delete-btn {
-  background: none;
-  border: 1px solid #dc3545;
-  color: #dc3545;
-  width: 30px;
-  height: 30px;
+.subject-details h4 {
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+  font-size: 18px;
+}
+
+.subject-code {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.subject-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.credits-badge {
+  background-color: #e8f4fc;
+  color: #176B87;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-view {
+  background-color: #176B87;
+  color: white;
+  border: none;
+  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s;
-  display: inline-flex;
+  transition: all 0.3s;
+}
+
+.btn-view:hover {
+  background-color: #2980b9;
+}
+
+.btn-view i {
+  margin-right: 5px;
+}
+
+/* Faculty Courses Styles */
+.faculty-subject-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.faculty-subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.15);
+}
+
+.subject-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.delete-btn:hover {
-  background-color: #dc3545;
+.faculty-subject-card:hover .subject-overlay {
+  opacity: 1;
+}
+
+.btn-manage {
+  background-color: #176B87;
   color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-/* Zebra Striping */
-.course-data-table tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
+.btn-manage:hover {
+  background-color: #2980b9;
 }
 
-/* Hover Effect */
-.course-data-table tbody tr:hover {
-  background-color: #f1f1f1;
+.subject-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subject-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex: 1;
+}
+
+.btn-action:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.btn-action i {
+  margin-right: 5px;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-  .course-data-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  .subject-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 
-  .course-data-table th,
-  .course-data-table td {
-    padding: 8px 12px;
+  .subject-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header h2 {
+    font-size: 24px;
   }
 }
