@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';
 import * as alertify from 'alertifyjs';
 import { ClubService } from '../../../core/services/club_service/club.service';
@@ -7,16 +8,19 @@ import { DepartmentService } from '../../../core/services/department-service/dep
 import { CommonModule } from '@angular/common';
 import { EnrollmentService } from '../../../core/services/enrollment_service/enrollment.service';
 import { PopUpService } from '../../../core/popup/pop-up.service';
+
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-management.component.html',
-  styleUrl: './user-management.component.css'
+  styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit {
   userForm!: FormGroup;
-  clubForm!: FormGroup;
+  isEditMode: boolean = false;
+  selectedUserId: string | null = null;
+
   showTeacherData: any[] = [];
   showTeacherCount: number = 0;
   subjectListCount: number = 0;
@@ -25,163 +29,172 @@ export class UserManagementComponent implements OnInit {
   showSecretaryData: any[] = [];
   showSecretaryCount: number = 0;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserAuthService,
-    private clubService: ClubService, private departmentService: DepartmentService,
-    private enrollmentService: EnrollmentService, private confirmationService: PopUpService
-  ) {
-  
-    
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserAuthService,
+    private clubService: ClubService,
+    private departmentService: DepartmentService,
+    private enrollmentService: EnrollmentService,
+    private confirmationService: PopUpService
+  ) {}
+
   ngOnInit(): void {
+    this.initForm();
+    this.loadAllData();
+  }
+
+  initForm() {
     this.userForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]], 
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       email: ['', [Validators.required, Validators.email]],
-      rollno: ['', [Validators.pattern('[0-9]*'), Validators.min(0)]], 
+      rollno: ['', [Validators.pattern('[0-9]*'), Validators.min(0)]],
       address: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       role: ['', Validators.required]
     });
+  }
 
-    // this.userForm.get('role')?.valueChanges.subscribe(role => {
-    //   this.setRollNoValidation(role);
-    // });
-    
+  loadAllData() {
     this.teacherData();
-    this.getSubjectList()
-    this.secretaryCount()
-    this.studentCount()
-
+    this.getSubjectList();
+    this.secretaryCount();
+    this.studentCount();
   }
-  // setRollNoValidation(role: string): void {
-  //   const rollnoControl = this.userForm.get('rollno');
-  //   if (role === 'student') {
-  //     rollnoControl?.setValidators([Validators.required]);
-  //   } else {
-  //     rollnoControl?.clearValidators();
-  //     rollnoControl?.setValue(null);
-  //   }
-  //   rollnoControl?.updateValueAndValidity();
-  // }
-  // setRollNoValidation(role: string): void {
-  //   const rollnoControl = this.userForm.get('rollno');
-  //   if (role === 'student') {
-  //     rollnoControl?.setValidators([Validators.required]);
-  //     rollnoControl?.setValue(null); // Clear the roll number for students
-  //   } else if (role === 'admin' || role === 'faculty' || role === 'secretary') {
-  //     const randomRollNumber = this.generateRandomRollNumber(10000, 99999); // Adjust the range as needed
-  //     rollnoControl?.setValue(randomRollNumber.toString()); // Ensure it's stored as a string if needed
-  //     rollnoControl?.clearValidators();
-  //   } else {
-  //     rollnoControl?.clearValidators();
-  //     const randomRollNumber = this.generateRandomRollNumber(10000, 99999); // Assign random number for other roles
-  //     rollnoControl?.setValue(randomRollNumber.toString()); // Ensure it's stored as a string if needed
-  //   }
-  //   rollnoControl?.updateValueAndValidity();
-  // }
 
-  // generateRandomRollNumber(min: number, max: number): number {
-  //   return Math.floor(Math.random() * (max - min + 1)) + min;
-  // }
+  // Call this when you want to reset the form and editing state
+  resetForm() {
+    this.userForm.reset();
+    this.isEditMode = false;
+    this.selectedUserId = null;
 
-  // onRoleChange(): void {
-  //   const role = this.userForm.get('role')?.value;
-  //   this.setRollNoValidation(role);
-  // }
+    // Reset password validators since on create they are required
+    this.userForm.get('password')?.setValidators([Validators.required, Validators.minLength(6)]);
+    this.userForm.get('confirmPassword')?.setValidators([Validators.required]);
+    this.userForm.get('password')?.updateValueAndValidity();
+    this.userForm.get('confirmPassword')?.updateValueAndValidity();
+  }
+
+  // Populate form to edit, but keep password fields empty and optional
+  editUser(user: any) {
+    this.isEditMode = true;
+    this.selectedUserId = user._id;
+
+    this.userForm.patchValue({
+      name: user.name,
+      email: user.email,
+      rollno: user.rollno,
+      address: user.address,
+      role: user.role,
+      password: '',
+      confirmPassword: ''
+    });
+
+    // Remove password validators on edit (optional to change password)
+    this.userForm.get('password')?.clearValidators();
+    this.userForm.get('confirmPassword')?.clearValidators();
+    this.userForm.get('password')?.updateValueAndValidity();
+    this.userForm.get('confirmPassword')?.updateValueAndValidity();
+  }
+
   createUser() {
-    if (this.userForm.valid) {
-      const formData = this.userForm.value;
-      console.log(formData);
-      const passwordMatch = this.userForm.value.password === this.userForm.value.confirmPassword;
-      if (passwordMatch) {
-        this.userService.postuserRegister(this.userForm.value).subscribe((res) => {
-          console.log(res);
-          debugger
-          alertify.success('User Added Sucessfully')
-          this.userForm.reset();
-          this.teacherData()
-          this.secretaryCount()
-          this.studentCount()
-        })
-      }
-      else {
-        const passwordControl = this.userForm.get('password');
-        const confirmPasswordControl = this.userForm.get('confirmPassword');
-        if (passwordControl?.errors?.['minLength']) {
-          alertify.error('Password must be atleast 6 Characters long')
-        }
-        else {
-          alertify.error('Password doesnot match')
-        }
-      }
+    if (this.userForm.invalid) {
+      alertify.error('Please enter valid input');
+      return;
     }
-    else {
-      alertify.error('Please, Enter the valid input')
-      console.log(this.userForm.value);
+
+    if (this.userForm.value.password !== this.userForm.value.confirmPassword) {
+      alertify.error('Passwords do not match');
+      return;
+    }
+
+    const formData = { ...this.userForm.value };
+
+    if (this.isEditMode && this.selectedUserId) {
+      // Remove password fields when updating, so password remains unchanged
+      delete formData.password;
+      delete formData.confirmPassword;
+
+      this.userService.updateUserById(this.selectedUserId, formData).subscribe(() => {
+        alertify.success('User updated successfully');
+        this.resetForm();
+        this.loadAllData();
+      }, err => {
+        alertify.error('Error updating user');
+      });
+    } else {
+      // Create user with password
+      this.userService.postuserRegister(formData).subscribe(() => {
+        alertify.success('User added successfully');
+        this.resetForm();
+        this.loadAllData();
+      }, err => {
+        alertify.error('Error creating user');
+      });
     }
   }
-  studentCount(){
-    this.userService.getStudentData().subscribe((res) => {
-      this.showStudentCount = res.count
-      this.showStudentData = res.student
-    })
+
+  // Your existing delete and data fetching methods below:
+  studentCount() {
+    this.userService.getStudentData().subscribe(res => {
+      this.showStudentCount = res.count;
+      this.showStudentData = res.student;
+    });
   }
-  secretaryCount(){
-    this.userService.getSecretarytData().subscribe((res) => {
-      this.showSecretaryCount = res.count
-      this.showSecretaryData = res.secretary
-    })
+
+  secretaryCount() {
+    this.userService.getSecretarytData().subscribe(res => {
+      this.showSecretaryCount = res.count;
+      this.showSecretaryData = res.secretary;
+    });
   }
+
   teacherData() {
-    this.userService.getTeacherData().subscribe((res) => {
-      this.showTeacherCount = res.count
-      this.showTeacherData = res.faculty
-    })
+    this.userService.getTeacherData().subscribe(res => {
+      this.showTeacherCount = res.count;
+      this.showTeacherData = res.faculty;
+    });
   }
+
   getSubjectList() {
-    this.enrollmentService.getSubjectDataListAll().subscribe((res) => {
-      console.log(res);
+    this.enrollmentService.getSubjectDataListAll().subscribe(res => {
       this.subjectListCount = res.count;
-    })
+    });
   }
 
   async deleteTeacher(teacherId: string) {
-    const confirmed = this.confirmationService.showConfirmationPopup()
-    if (await confirmed) {
-      debugger
-      this.userService.delTeacherList(teacherId).subscribe((res) => {
-        console.log(res);
-        this.teacherData()
-        this.confirmationService.showSuccessMessage('User deleted sucessfully')
-      })
-    }
-    else {
-      this.confirmationService.showErrorMessage('Sorry cannot be deleted')
+    const confirmed = await this.confirmationService.showConfirmationPopup();
+    if (confirmed) {
+      this.userService.delTeacherList(teacherId).subscribe(() => {
+        this.teacherData();
+        this.confirmationService.showSuccessMessage('User deleted successfully');
+      });
+    } else {
+      this.confirmationService.showErrorMessage('Sorry, cannot be deleted');
     }
   }
+
   async deleteStudent(studentId: string) {
-  const confirmed = await this.confirmationService.showConfirmationPopup();
-  if (confirmed) {
-    this.userService.delStudentList(studentId).subscribe((res) => {
-      this.studentCount();
-      this.confirmationService.showSuccessMessage('Student deleted successfully');
-    });
-  } else {
-    this.confirmationService.showErrorMessage('Action cancelled');
+    const confirmed = await this.confirmationService.showConfirmationPopup();
+    if (confirmed) {
+      this.userService.delStudentList(studentId).subscribe(() => {
+        this.studentCount();
+        this.confirmationService.showSuccessMessage('Student deleted successfully');
+      });
+    } else {
+      this.confirmationService.showErrorMessage('Action cancelled');
+    }
   }
-}
 
-async deleteSecretary(secretaryId: string) {
-  const confirmed = await this.confirmationService.showConfirmationPopup();
-  if (confirmed) {
-    this.userService.delSecretaryList(secretaryId).subscribe((res) => {
-      this.secretaryCount();
-      this.confirmationService.showSuccessMessage('Secretary deleted successfully');
-    });
-  } else {
-    this.confirmationService.showErrorMessage('Action cancelled');
+  async deleteSecretary(secretaryId: string) {
+    const confirmed = await this.confirmationService.showConfirmationPopup();
+    if (confirmed) {
+      this.userService.delSecretaryList(secretaryId).subscribe(() => {
+        this.secretaryCount();
+        this.confirmationService.showSuccessMessage('Secretary deleted successfully');
+      });
+    } else {
+      this.confirmationService.showErrorMessage('Action cancelled');
+    }
   }
-}
-
-
 }

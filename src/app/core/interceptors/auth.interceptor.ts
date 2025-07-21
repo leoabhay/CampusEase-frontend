@@ -21,3 +21,23 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req);
 };
+
+// export const authInterceptor: HttpInterceptorFn = (req, next) => {
+//   const authToken = localStorage.getItem('userToken');
+//   console.log('Interceptor Called. Token:', authToken); // ✅ Add this log
+
+//   if (req.headers.get('No-Auth') === 'True') {
+//     return next(req);
+//   }
+
+//   if (authToken) {
+//     const authReq = req.clone({
+//       setHeaders: {
+//         Authorization: `Bearer ${authToken}`
+//       }
+//     });
+//     return next(authReq);
+//   }
+
+//   return next(req);
+// };

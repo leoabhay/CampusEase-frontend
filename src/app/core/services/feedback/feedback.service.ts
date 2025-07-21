@@ -27,5 +27,10 @@ export class FeedbackService {
   delFeedbackClubList(id:string):Observable<any>{
     return this.http.delete<any>(environment.api_url+(`deleteFeedback/${id}`))
   }
+  updateFeedback(id: string, data: any) {
+  return this.http.put<any>(environment.api_url + (`updateFeedback/${id}`), data);
 }
-
+  AllFeedbackData():Observable<any>{
+    return this.http.get<any>(environment.api_url+'getAllFeedback')
+  }
+}

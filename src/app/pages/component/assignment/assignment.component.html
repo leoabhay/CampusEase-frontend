@@ -68,9 +68,9 @@
               </tbody>
             </table>
           </div>
-          <div class="pagination-container">
+          <!-- <div class="pagination-container">
             <pagination-controls (pageChange)="p1 = $event"></pagination-controls>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -93,6 +93,7 @@
                   <th scope="col">File</th>
                   <th scope="col">Rollno</th>
                   <th scope="col">Status</th>
+                  <!-- <th scope="col">Actions</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -113,6 +114,14 @@
                       {{ item.status }}
                     </span>
                   </td>
+                  <!-- <td>
+                    <button class="btn btn-sm btn-primary me-2" (click)="onEditAssignment(item)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="onDeleteAssignment(item._id)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

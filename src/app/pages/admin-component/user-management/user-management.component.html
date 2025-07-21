@@ -8,7 +8,7 @@
         </div>
         <div class="stats-content">
           <div class="stats-title">Total Students</div>
-          <div class="stats-number">{{showStudentCount}}</div>
+          <div class="stats-number">{{ showStudentCount }}</div>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="stats-content">
           <div class="stats-title">Total Teachers</div>
-          <div class="stats-number">{{showTeacherCount}}</div>
+          <div class="stats-number">{{ showTeacherCount }}</div>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
         </div>
         <div class="stats-content">
           <div class="stats-title">Total Clubs</div>
-          <div class="stats-number">{{showSecretaryCount}}</div>
+          <div class="stats-number">{{ showSecretaryCount }}</div>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="stats-content">
           <div class="stats-title">Total Subjects</div>
-          <div class="stats-number">{{subjectListCount}}</div>
+          <div class="stats-number">{{ subjectListCount }}</div>
         </div>
       </div>
     </div>
@@ -55,14 +55,14 @@
     <div class="col-12">
       <div class="card user-form-card">
         <div class="card-header">
-          <h5 class="card-title">Create User</h5>
+          <h5 class="card-title">{{ isEditMode ? 'Edit User' : 'Create User' }}</h5>
         </div>
         <div class="card-body">
           <form [formGroup]="userForm" (ngSubmit)="createUser()" class="row g-3">
             <!-- Name Input -->
             <div class="col-md-6">
               <label for="name" class="form-label">Full Name</label>
-              <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter full name">
+              <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter full name" />
               <div *ngIf="userForm.get('name')?.invalid && (userForm.get('name')?.dirty || userForm.get('name')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('name')?.errors?.['required']">Name is required</span>
                 <span *ngIf="userForm.get('name')?.errors?.['pattern']">Only letters and spaces allowed</span>
@@ -72,7 +72,7 @@
             <!-- Email Input -->
             <div class="col-md-6">
               <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter email">
+              <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter email" />
               <div *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.dirty || userForm.get('email')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required</span>
                 <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email format</span>
@@ -82,7 +82,7 @@
             <!-- Password Input -->
             <div class="col-md-6">
               <label for="password" class="form-label">Password</label>
-              <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter password">
+              <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter password" />
               <div *ngIf="userForm.get('password')?.invalid && (userForm.get('password')?.dirty || userForm.get('password')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('password')?.errors?.['required']">Password is required</span>
                 <span *ngIf="userForm.get('password')?.errors?.['minlength']">Minimum 6 characters required</span>
@@ -92,7 +92,7 @@
             <!-- Confirm Password Input -->
             <div class="col-md-6">
               <label for="confirmPassword" class="form-label">Confirm Password</label>
-              <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm password">
+              <input type="password" id="confirmPassword" class="form-control" formControlName="confirmPassword" placeholder="Confirm password" />
               <div *ngIf="userForm.get('confirmPassword')?.invalid && (userForm.get('confirmPassword')?.dirty || userForm.get('confirmPassword')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('confirmPassword')?.errors?.['required']">Please confirm password</span>
                 <span *ngIf="userForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords don't match</span>
@@ -102,7 +102,7 @@
             <!-- Address Input -->
             <div class="col-md-6">
               <label for="address" class="form-label">Address</label>
-              <input type="text" id="address" class="form-control" formControlName="address" placeholder="Enter address">
+              <input type="text" id="address" class="form-control" formControlName="address" placeholder="Enter address" />
               <div *ngIf="userForm.get('address')?.invalid && (userForm.get('address')?.dirty || userForm.get('address')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('address')?.errors?.['required']">Address is required</span>
               </div>
@@ -114,7 +114,7 @@
               <select id="role" class="form-select" formControlName="role">
                 <option value="" disabled selected>Select Role</option>
                 <option value="student">Student</option>
-                <option value="faculty">Faculty</option>
+                <option value="faculty">Teacher</option>
                 <option value="secretary">Secretary</option>
               </select>
               <div *ngIf="userForm.get('role')?.invalid && (userForm.get('role')?.dirty || userForm.get('role')?.touched)" class="invalid-feedback">
@@ -129,18 +129,28 @@
                    userForm.get('role')?.value === 'faculty' ? 'Teacher ID' :
                    userForm.get('role')?.value === 'secretary' ? 'Secretary ID' : 'ID' }}
               </label>
-              <input type="number" id="rollno" class="form-control" formControlName="rollno" placeholder="Enter ID" min="0">
+              <input type="number" id="rollno" class="form-control" formControlName="rollno" placeholder="Enter ID" min="0" />
               <div *ngIf="userForm.get('rollno')?.invalid && (userForm.get('rollno')?.dirty || userForm.get('rollno')?.touched)" class="invalid-feedback">
                 <span *ngIf="userForm.get('rollno')?.errors?.['required']">ID is required</span>
                 <span *ngIf="userForm.get('rollno')?.errors?.['min']">Cannot be negative</span>
               </div>
             </div>
 
-            <!-- Submit Button -->
+            <!-- Submit & Cancel Buttons -->
             <div class="col-12">
               <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-                <i class="fas fa-user-plus me-2"></i>Create User
+                <i class="fas fa-user-plus me-2"></i> {{ isEditMode ? 'Update User' : 'Create User' }}
               </button>
+              <button
+  *ngIf="isEditMode"
+  type="button"
+  class="btn ms-2"
+  (click)="resetForm()"
+  style="background-color: #176B87; color: white;"
+>
+  Cancel
+</button>
+
             </div>
           </form>
         </div>
@@ -161,7 +171,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>SN</th>
+                  <th>S.N</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Actions</th>
@@ -173,6 +183,15 @@
                   <td>{{ teacher.name }}</td>
                   <td>{{ teacher.email }}</td>
                   <td>
+                    <button
+  class="btn btn-sm me-2"
+  (click)="editUser(teacher)"
+  title="Edit"
+  style="background-color: #176B87; color: white; border: none;"
+>
+  <i class="fas fa-edit"></i>
+</button>
+
                     <button class="btn btn-sm btn-outline-danger" (click)="deleteTeacher(teacher._id)" title="Delete">
                       <i class="fas fa-trash-alt"></i>
                     </button>
@@ -196,7 +215,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>SN</th>
+                  <th>S.N</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Roll No</th>
@@ -210,6 +229,15 @@
                   <td>{{ student.email }}</td>
                   <td>{{ student.rollno }}</td>
                   <td>
+                    <button
+  class="btn btn-sm me-2"
+  (click)="editUser(student)"
+  title="Edit"
+  style="background-color: #176B87; color: white; border: none;"
+>
+  <i class="fas fa-edit"></i>
+</button>
+
                     <button class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student._id)" title="Delete">
                       <i class="fas fa-trash-alt"></i>
                     </button>
@@ -233,10 +261,9 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>SN</th>
+                  <th>S.N</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <!-- <th>Club/Party</th> -->
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -245,8 +272,16 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ secretary.name }}</td>
                   <td>{{ secretary.email }}</td>
-                  <!-- <td>{{ secretary.club || 'N/A' }}</td> -->
                   <td>
+                    <button
+  class="btn btn-sm me-2"
+  (click)="editUser(secretary)"
+  title="Edit"
+  style="background-color: #176B87; color: white; border: none;"
+>
+  <i class="fas fa-edit"></i>
+</button>
+
                     <button class="btn btn-sm btn-outline-danger" (click)="deleteSecretary(secretary._id)" title="Delete">
                       <i class="fas fa-trash-alt"></i>
                     </button>

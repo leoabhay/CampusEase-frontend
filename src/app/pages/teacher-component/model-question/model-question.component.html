@@ -48,13 +48,13 @@
   <div class="container-fluid" *ngIf="userRole == 'faculty'">
     <div class="row">
       <div class="col-lg-12">
-        <!-- Add Model Question Form -->
+        <!-- Add/Edit Model Question Form -->
         <div class="card model-question-form-card">
           <div class="card-header">
-            <h5>Add New Model Question</h5>
+            <h5>{{ editingId ? 'Update Model Question' : 'Add New Model Question' }}</h5>
           </div>
           <div class="card-body">
-            <form [formGroup]="modelQuestionForm" (ngSubmit)="onSubmitQuestion()">
+            <form [formGroup]="modelQuestionForm" (ngSubmit)="editingId ? onUpdateQuestion() : onSubmitQuestion()">
               <div class="form-group mb-4">
                 <label for="subjectSelect" class="form-label">Subject</label>
                 <select class="form-select" id="subjectSelect" formControlName="subject">
@@ -76,10 +76,12 @@
                 </div>
               </div>
 
-              <div class="d-grid">
+              <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-submit" [disabled]="!modelQuestionForm.valid">
-                  <i class="fas fa-plus-circle me-2"></i>Upload Question
+                  <i class="fas" [ngClass]="editingId ? 'fa-edit' : 'fa-plus-circle'"></i>
+                  {{ editingId ? 'Update Question' : 'Upload Question' }}
                 </button>
+                <button type="button" class="btn btn-secondary" *ngIf="editingId" (click)="cancelEdit()">Cancel</button>
               </div>
             </form>
           </div>
@@ -99,6 +101,7 @@
                     <th scope="col">Subject Name</th>
                     <th scope="col">Question</th>
                     <th scope="col">File</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,6 +114,17 @@
                         <i class="fas fa-file-download me-1"></i> Download
                       </a>
                     </td>
+                    <td>
+                      <button class="btn btn-sm btn-edit me-2" (click)="editModelQuestion(item)" style="background-color: #176B87; color: white;">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-danger" (click)="onDeleteQuestion(item._id)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="modelQuestionList.length === 0">
+                    <td colspan="5" class="text-center">No model questions found.</td>
                   </tr>
                 </tbody>
               </table>

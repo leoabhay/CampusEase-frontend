@@ -120,7 +120,7 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #80bdff;
+  border-color: #176B87;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
@@ -241,7 +241,7 @@ tbody tr:hover {
 }
 
 .btn-edit {
-  background: #17a2b8;
+  background:  #176B87;
   color: white;
 }
 

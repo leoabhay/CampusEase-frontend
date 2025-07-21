@@ -101,7 +101,7 @@ textarea.form-control {
 }
 
 .btn-apply {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #176B87;
   color: white;
   border: none;
   padding: 10px 25px;
@@ -172,8 +172,8 @@ textarea.form-control {
 }
 
 .btn-delete {
-  background-color: #fc8181;
-  color: #9b2c2c;
+  background-color: #dc3545;;
+  color: #fff;
 }
 
 .btn-delete:hover {

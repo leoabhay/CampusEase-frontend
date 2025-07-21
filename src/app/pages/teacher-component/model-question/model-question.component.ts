@@ -12,7 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, NgxPaginationModule, FormsModule],
   templateUrl: './model-question.component.html',
-  styleUrls: ['./model-question.component.css']  // fix typo here: styleUrls instead of styleUrl
+  styleUrls: ['./model-question.component.css']  // fixed typo here
 })
 export class ModelQuestionComponent implements OnInit {
   userRole: string | null | undefined;
@@ -26,6 +26,8 @@ export class ModelQuestionComponent implements OnInit {
 
   getQuestionsByEnrolledSubjectData: any[] = [];
   filteredQuestions: any[] = [];
+
+  editingId: string | null = null;  // Track which question is being edited
 
   constructor(
     private modelService: ModelQuestionService,
@@ -42,7 +44,7 @@ export class ModelQuestionComponent implements OnInit {
     this.modelQuestionForm = this.formBuilder.group({
       subject: ['', Validators.required],
       model_question: ['', Validators.required],
-      file: [null, Validators.required],  // file should start as null, not empty string
+      file: [null]  // file not required on update
     });
 
     this.getSubjectList();
@@ -72,7 +74,9 @@ export class ModelQuestionComponent implements OnInit {
 
       // Append the file (File object)
       const file = this.modelQuestionForm.get('file')!.value;
-      formData.append('file', file);
+      if (file) {
+        formData.append('file', file);
+      }
 
       this.modelService.postModelQuestion(formData).subscribe(
         (res) => {
@@ -89,7 +93,6 @@ export class ModelQuestionComponent implements OnInit {
       );
     } else {
       this.confirmationService.showErrorMessage('Please fill all required fields');
-      this.showModelQuestionList();
     }
   }
 
@@ -121,5 +124,71 @@ export class ModelQuestionComponent implements OnInit {
       console.log(res);
       this.assignmentList = res;
     });
+  }
+
+  // --- UPDATE LOGIC ---
+
+  editModelQuestion(item: any) {
+    this.editingId = item._id;
+    this.modelQuestionForm.patchValue({
+      subject: item.subject,
+      model_question: item.model_question,
+      file: null  // clear file input, user can optionally upload new file
+    });
+  }
+
+  onUpdateQuestion() {
+    if (!this.editingId) {
+      this.confirmationService.showErrorMessage('No model question selected for update');
+      return;
+    }
+
+    if (this.modelQuestionForm.valid) {
+      const formData = new FormData();
+      formData.append('subject', this.modelQuestionForm.get('subject')!.value);
+      formData.append('model_question', this.modelQuestionForm.get('model_question')!.value);
+
+      const file = this.modelQuestionForm.get('file')!.value;
+      if (file) {
+        formData.append('file', file);
+      }
+
+      this.modelService.updateModelQuestion(this.editingId, formData).subscribe(
+        (res) => {
+          this.confirmationService.showSuccessMessage('Model question updated successfully');
+          this.editingId = null;
+          this.modelQuestionForm.reset();
+          this.showModelQuestionList();
+        },
+        (err) => {
+          console.error(err);
+          this.confirmationService.showErrorMessage('Error updating model question');
+        }
+      );
+    } else {
+      this.confirmationService.showErrorMessage('Please fill all required fields to update');
+    }
+  }
+
+  cancelEdit() {
+    this.editingId = null;
+    this.modelQuestionForm.reset();
+  }
+
+  // --- DELETE LOGIC ---
+
+  onDeleteQuestion(id: string) {
+    if (confirm('Are you sure you want to delete this model question?')) {
+      this.modelService.deleteModelQuestion(id).subscribe(
+        () => {
+          this.confirmationService.showSuccessMessage('Model question deleted successfully');
+          this.showModelQuestionList();
+        },
+        (err) => {
+          console.error(err);
+          this.confirmationService.showErrorMessage('Error deleting model question');
+        }
+      );
+    }
   }
 }

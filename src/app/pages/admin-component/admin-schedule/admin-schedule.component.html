@@ -22,7 +22,7 @@
           </div>
 
           <div class="form-group">
-            <label>Faculty</label>
+            <label>Teacher</label>
             <select class="form-select" formControlName="faculty" required>
               <option value="">Select Teacher</option>
               <option *ngFor="let f of faculties" [value]="f._id">{{ f.name }}</option>
@@ -99,7 +99,7 @@
 
         <div class="card-details">
           <div class="detail-item">
-            <span class="label">Faculty:</span>
+            <span class="label">Teacher:</span>
             <span class="value">{{ s.faculty?.name || s.faculty || 'N/A' }}</span>
           </div>
           <div class="detail-item">

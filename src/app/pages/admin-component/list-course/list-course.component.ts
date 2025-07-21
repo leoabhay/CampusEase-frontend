@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { EnrollmentService } from '../../../core/services/enrollment_service/enrollment.service';
+import { UserAuthService } from '../../../core/services/user_auth/user-auth.service';  // <-- import user service for teachers
 import { CommonModule } from '@angular/common';
 import * as alertify from 'alertifyjs';
 import { PopUpService } from '../../../core/popup/pop-up.service';
@@ -14,30 +15,47 @@ import { PopUpService } from '../../../core/popup/pop-up.service';
 })
 export class ListCourseComponent {
   listData: any[] = [];
+  showTeacherData: any[] = [];  // Holds teachers with email and name
 
   constructor(
     private http: HttpClient,
     private courseListService: EnrollmentService,
+    private userService: UserAuthService,   // <-- inject here
     private confirmationService: PopUpService
   ) {
-    this.getEnrollmentList();
+    this.loadTeachersAndEnrollments();
   }
 
-  // Fetch all enrollment data
-  getEnrollmentList() {
-    this.courseListService.getEnrollmentData().subscribe((res) => {
-      console.log('Fetched enrollments:', res);
-      this.listData = res;
+  // Load teachers and then enrollment list
+  loadTeachersAndEnrollments() {
+    this.userService.getTeacherData().subscribe((res: any) => {
+      this.showTeacherData = res.faculty || [];
+      this.getEnrollmentList();
     });
   }
 
-  // Delete full enrollment
+  // Fetch all enrollment data and map teacher emails to names
+  getEnrollmentList() {
+    this.courseListService.getEnrollmentData().subscribe((res) => {
+      this.listData = res;
+
+      // Map teacher emails to names in subjects
+      this.listData.forEach(enrollment => {
+        enrollment.subjects.forEach((subject: any) => {
+          const teacher = this.showTeacherData.find(t => t.email === subject.teacher);
+          if (teacher) {
+            subject.teacher = teacher.name;  // replace email with name
+          }
+        });
+      });
+    });
+  }
+
   async deleteEnrollData(enrollId: string) {
     const confirmed = await this.showConfirmationPopup();
     if (confirmed) {
       this.courseListService.delEnrollmentList(enrollId).subscribe(
         (res) => {
-          console.log('Deleted enrollment:', res);
           this.getEnrollmentList();
           this.confirmationService.showSuccessMessage('Enrollment deleted successfully');
         },
@@ -48,7 +66,6 @@ export class ListCourseComponent {
     }
   }
 
-  // Confirmation dialog using alertify
   showConfirmationPopup(): Promise<boolean> {
     return new Promise((resolve) => {
       alertify.confirm(
@@ -60,7 +77,6 @@ export class ListCourseComponent {
     });
   }
 
-  // Delete a single subject or full enrollment if it's the last subject
   async deleteSubject(enrollmentId: string, subjectCode: string): Promise<void> {
     const confirmed = await this.showConfirmationPopup();
     if (!confirmed) {
@@ -99,25 +115,4 @@ export class ListCourseComponent {
       );
     }
   }
-
-  // Update enrollment by ID with dummy data (replace this with form-based values)
-  // updateEnrollment(enrollmentId: string): void {
-  //   const updatedData = {
-  //     semester: 6,
-  //     section: 'B',
-  //     subjects: ['CS101', 'MA201', 'PHY303']
-  //   };
-
-  //   this.courseListService.UpdateEnrollmentData(enrollmentId, updatedData).subscribe(
-  //     (res) => {
-  //       console.log('Enrollment updated:', res);
-  //       this.getEnrollmentList();
-  //       this.confirmationService.showSuccessMessage('Enrollment updated successfully');
-  //     },
-  //     (err) => {
-  //       console.error('Update failed:', err);
-  //       this.confirmationService.showErrorMessage('Failed to update enrollment');
-  //     }
-  //   );
-  // }
 }

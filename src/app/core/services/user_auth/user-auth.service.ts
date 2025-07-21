@@ -95,6 +95,10 @@ updateUser(id: string, userData: any): Observable<any> {
   return this.http.put(environment.api_url + `userdata/${id}`, userData);
 }
 
+updateUserById(id: string, updatedData: any): Observable<any> {
+  return this.http.put(`${environment.api_url}updateUser/${id}`, updatedData);
+}
+
 
 isLoggedIn(): Observable<boolean> {
   const authToken = localStorage.getItem('userToken');

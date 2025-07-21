@@ -13,8 +13,7 @@
     <!-- === TOP NAVBAR === -->
     <nav class="navbar navbar-expand-lg navbar-dark campus-navbar fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand fw-bold campus-brand" href="/dashboard">
-          <i class="fas fa-graduation-cap me-2"></i> CampusEase
+        <a class="navbar-brand fw-bold campus-brand" href="/dashboard">CampusEase
         </a>
 
         <ul class="navbar-nav ms-auto">
@@ -127,19 +126,13 @@
               <li class="nav-item" [class.active]="currentSection === 'join-club'">
                 <a class="nav-link" (click)="showSection('join-club')">
                   <i class="fas fa-users"></i>
-                  <span>Join Club</span>
+                  <span>Clubs</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'id-card'">
                 <a class="nav-link" (click)="showSection('id-card')">
                   <i class="fas fa-id-card"></i>
                   <span>ID Card Renew</span>
-                </a>
-              </li>
-              <li class="nav-item" [class.active]="currentSection === 'sponsorship'">
-                <a class="nav-link" (click)="showSection('sponsorship')">
-                  <i class="fas fa-hand-holding-usd"></i>
-                  <span>Sponsorship / Scholarship</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'assignment'">
@@ -152,6 +145,12 @@
                 <a class="nav-link" (click)="showSection('model-question')">
                   <i class="fas fa-question-circle"></i>
                   <span>Model Question</span>
+                </a>
+              </li>
+              <li class="nav-item" [class.active]="currentSection === 'sponsorship'">
+                <a class="nav-link" (click)="showSection('sponsorship')">
+                  <i class="fas fa-hand-holding-usd"></i>
+                  <span>Sponsorship / Scholarship</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'feedback'">
@@ -265,6 +264,12 @@
                 <a class="nav-link" (click)="showSection('job-vacancy')">
                   <i class="fas fa-briefcase"></i>
                   <span>Job Vacancy</span>
+                </a>
+              </li>
+              <li class="nav-item" [class.active]="currentSection === 'feedback'">
+                <a class="nav-link" (click)="showSection('feedback')">
+                  <i class="fas fa-comment-dots"></i>
+                  <span>Feedback</span>
                 </a>
               </li>
               <li class="nav-item" [class.active]="currentSection === 'cv-submission'">

@@ -1,13 +1,13 @@
 <div class="academic-portal">
-  <h2 class="portal-header">Academic Records</h2>
-
+  <!-- <h2 class="portal-header">Academic Records</h2> -->
   <!-- === ADMIN/FACULTY FORM === -->
   <form
-    *ngIf="userRole === 'admin' || userRole === 'faculty'"
-    (ngSubmit)="submit()"
-    #academicForm="ngForm"
-    class="portal-form"
+  *ngIf="userRole === 'admin' || userRole === 'faculty'"
+  (ngSubmit)="submit()"
+  #academicForm="ngForm"
+  class="portal-form"
   >
+  <h2 class="text-center fw-bold" style="color: #2C3E50;">Academic Management</h2>
     <div class="form-field">
       <label>Roll Number</label>
       <input
@@ -111,8 +111,12 @@
               <td>{{ record.subjects[0]?.internalMarks }}</td>
               <td [attr.rowspan]="record.subjects.length">{{ record.GPA }}</td>
               <td [attr.rowspan]="record.subjects.length" class="actions-cell">
-                <button class="edit-btn" (click)="editRecord(record)">Edit</button>
-                <button class="delete-btn" (click)="deleteRecord(record._id)">Delete</button>
+                <button class="edit-btn" (click)="editRecord(record)">
+                <i class="fas fa-edit"></i>
+                </button>
+
+                <button class="delete-btn" (click)="deleteRecord(record._id)">
+                <i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr *ngFor="let sub of record.subjects; let i = index" [hidden]="i === 0">

@@ -52,12 +52,14 @@
         <table class="records-table">
           <thead>
             <tr>
+              <th>S.N</th>
               <th>Subject</th>
               <th>Date</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let record of attendanceList">
+              <td>{{ attendanceList.indexOf(record) + 1 }}</td>
               <td>{{ record.subjectName || record.subjectCode }}</td>
               <td>{{ record.date | date: 'medium' }}</td>
             </tr>

@@ -71,7 +71,7 @@ export class IdCardComponent {
     };
 
     const checkout = new KhaltiCheckout(config);
-    checkout.show({ amount: 1000 });
+    checkout.show({ amount: 10000 });
   }
 
   onSubmit(): void {

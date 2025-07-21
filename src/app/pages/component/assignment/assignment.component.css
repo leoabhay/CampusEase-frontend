@@ -16,7 +16,7 @@
 }
 
 .card-header {
-  background-color: #3498DB;
+  background-color: #176B87;
   color: white;
   border-radius: 10px 10px 0 0 !important;
   padding: 15px 20px;
@@ -47,12 +47,12 @@
 }
 
 .form-select:focus, .form-control:focus {
-  border-color: #3498DB;
+  border-color: #176B87;
   box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
 }
 
 .btn-submit {
-  background-color: #3498DB;
+  background-color: #176B87;
   color: white;
   border: none;
   border-radius: 8px;
@@ -62,7 +62,7 @@
 }
 
 .btn-submit:hover {
-  background-color: #3498DB;
+  background-color: #176B87;
 }
 
 .btn-submit:disabled {
@@ -79,7 +79,7 @@
 
 .assignment-table thead th {
   background-color: #f8f9fc;
-  color: #3498DB;
+  color: #176B87;
   font-weight: 600;
   padding: 12px 15px;
   border-bottom: 2px solid #e3e6f0;
@@ -97,14 +97,14 @@
 
 /* File Download Link */
 .file-download {
-  color: #3498DB;
+  color: #176B87;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .file-download:hover {
-  color: #3498DB;
+  color: #176B87;
   text-decoration: underline;
 }
 

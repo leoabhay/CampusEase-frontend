@@ -88,9 +88,10 @@
           <td data-label="Reason" class="reason-cell">{{ card.reason }}</td>
           <td data-label="Photo">
             <div
-              class="photo-preview"
-              [style.backgroundImage]="'url(' + (card.photo?.startsWith('http') ? card.photo : 'http://localhost:3200/' + card.photo) + ')'"
-            ></div>
+  class="photo-preview"
+  [style.backgroundImage]="'url(assets/img/profile.jpg)'"
+></div>
+
           </td>
           <td data-label="Paid">
             <span class="paid-badge" [class.paid]="card.isPaid">{{ card.isPaid ? 'Yes' : 'No' }}</span>
@@ -102,9 +103,9 @@
             <button class="btn-delete" (click)="declinePayment(card._id)">
               <i class="fas fa-trash-alt"></i>
             </button>
-            <button *ngIf="!card.isPaid" class="btn-approve" (click)="approvePayment(card._id)">
-              <i class="fas fa-check-circle"></i> Approve
-            </button>
+            <!-- <button *ngIf="!card.isPaid" class="btn-approve" (click)="approvePayment(card._id)">
+              <i class="fas fa-check-circle"></i>
+            </button> -->
           </td>
         </tr>
       </tbody>

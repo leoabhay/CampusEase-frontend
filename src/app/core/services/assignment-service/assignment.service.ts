@@ -34,4 +34,18 @@ export class AssignmentService {
   getStudentData(studentId:string):Observable<any>{
     return this.http.get<any>(environment.api_url+(`students/${studentId}`))
   }
+  updateAssignment(id:string,obj:any):Observable<any>{
+    return this.http.put<any>(environment.api_url+(`putGiveAssignments/${id}`),obj)
+  }
+  deleteAssignment(id:string):Observable<any>{
+    return this.http.delete<any>(environment.api_url+(`giveAssignments/${id}`))
+  }
+  updateAnswerAssignment(id: string, data: FormData): Observable<any> {
+  return this.http.put(`${environment.api_url}editassignments/${id}`, data);
+}
+
+deleteAnswerAssignment(id: string): Observable<any> {
+  return this.http.delete(`${environment.api_url}delassignments/${id}`);
+}
+
 }

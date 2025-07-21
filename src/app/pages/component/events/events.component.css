@@ -25,7 +25,7 @@
 }
 
 .card-header {
-    background: linear-gradient(135deg, #176B87, #2c81ba);
+    background: #176B87;
     color: white;
     border-bottom: none;
     padding: 1.5rem;
@@ -126,7 +126,7 @@
 }
 
 .table thead th {
-    background: linear-gradient(135deg, #176B87, #2c81ba);
+    background: #176B87;
     color: white;
     font-weight: 500;
     border: none;

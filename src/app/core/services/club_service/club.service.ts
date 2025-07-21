@@ -29,9 +29,9 @@ export class ClubService {
   postJoinClub(obj:any):Observable<any>{
     return this.http.post(environment.api_url+'joinclub',obj)
   }
-  getClubListByEmail():Observable<any>{
-    return this.http.get<any>(environment.api_url+'getjoinedclubbyemail')
-  }
+  getClubListByEmail(): Observable<any> {
+  return this.http.get<any>(`${environment.api_url}getjoinedclubbyemail`);
+}
   getJoinedClubbyClubnameApi():Observable<any>{
     return this.http.get<any>(environment.api_url+'getjoinedclubbyclubname')
   }

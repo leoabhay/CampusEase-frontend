@@ -2,10 +2,10 @@
   <h2 class="page-title">Assignments</h2>
   <div class="row">
     <div class="col-lg-12">
-      <!-- Assignment Add Card -->
+      <!-- Assignment Add/Edit Card -->
       <div class="card assignment-form-card">
         <div class="card-header">
-          <h5>Add New Assignment</h5>
+          <h5>{{ isEditing ? 'Edit Assignment' : 'Add New Assignment' }}</h5>
         </div>
         <div class="card-body">
           <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
@@ -13,7 +13,7 @@
               <label for="subjectSelect" class="form-label">Subject</label>
               <select class="form-select" id="subjectSelect" formControlName="subject">
                 <option value="" disabled selected>Select subject</option>
-                <option *ngFor="let item of subjectList" [value]="item.name">{{item.name}}</option>
+                <option *ngFor="let item of subjectList" [value]="item.name">{{ item.name }}</option>
               </select>
             </div>
 
@@ -28,7 +28,7 @@
 
             <div class="form-group mb-4">
               <label for="assignmentFile" class="form-label">Assignment File</label>
-              <input type="file" class="form-control" id="assignmentFile" (change)="onFileChange($event)" />
+              <input type="file" class="form-control" id="assignmentFile" (change)="onFileChange($event)" [required]="!isEditing" />
               <div *ngIf="assignmentForm.controls['assignmentFile'].invalid && (assignmentForm.controls['assignmentFile'].dirty || assignmentForm.controls['assignmentFile'].touched)" class="validation-errors">
                 <small class="text-danger">Assignment file is required.</small>
               </div>
@@ -52,9 +52,12 @@
               </div>
             </div>
 
-            <div class="d-grid">
+            <div class="d-flex justify-content-between">
               <button type="submit" class="btn btn-submit" [disabled]="assignmentForm.invalid">
-                <i class="fas fa-plus-circle me-2"></i>Add Assignment
+                <i class="fas fa-save me-2"></i>{{ isEditing ? 'Update Assignment' : 'Add Assignment' }}
+              </button>
+              <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="resetForm()">
+                <i class="fas fa-times me-2"></i>Cancel
               </button>
             </div>
           </form>
@@ -77,10 +80,11 @@
                   <th scope="col">File</th>
                   <th scope="col">Remarks</th>
                   <th scope="col">Due Date</th>
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of assignmentList | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                <tr *ngFor="let item of assignmentList; let i = index">
                   <th scope="row">{{ i + 1 + (p - 1) * 5 }}</th>
                   <td>{{ item.subject }}</td>
                   <td>{{ item.assignmentName }}</td>
@@ -91,13 +95,23 @@
                   </td>
                   <td>{{ item.remarks }}</td>
                   <td>{{ item.dueDate | date:'mediumDate' }}</td>
+                  <td>
+                    <button class="btn btn-sm me-2" style="background-color: #176B87; color: white;" (click)="editAssignment(item)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteAssignment(item._id)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <!--
           <div class="pagination-container mt-3">
             <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
+          -->
         </div>
       </div>
     </div>
