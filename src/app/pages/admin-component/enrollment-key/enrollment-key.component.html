@@ -190,13 +190,9 @@
           </td>
           <td class="actions-col">
   <div class="d-flex gap-2">
-    <button
-      class="btn btn-sm btn-outline-primary"
-      (click)="editEnrollment(item)"
-      title="Edit Enrollment"
-    >
-      <i class="fas fa-edit"></i>
-    </button>
+    <button class="btn btn-sm btn-edit me-2" (click)="editEnrollment(item)" style="background-color: #176B87; color: white;">
+                <i class="fas fa-edit"></i>
+              </button>
     <button
       class="btn btn-sm btn-outline-danger"
       (click)="deleteEnrollData(item._id)"

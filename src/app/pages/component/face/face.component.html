@@ -17,13 +17,15 @@
         <i class="fas fa-book icon"></i>
       </div>
 
-      <div class="webcam-container">
-        <webcam
-          [trigger]="triggerObservable"
-          (imageCapture)="handleImage($event)"
-          class="webcam-view"
-        ></webcam>
-      </div>
+      <!-- Add this inside the student section -->
+<p class="instruction-text">Please position your face in front of the camera.</p>
+<div class="webcam-container">
+  <webcam
+    [trigger]="triggerObservable"
+    (imageCapture)="handleImage($event)"
+    class="webcam-view"
+  ></webcam>
+</div>
 
       <div *ngIf="webcamImage" class="preview-container">
         <p class="preview-title">Your Photo Preview</p>

@@ -1,4 +1,4 @@
-/* Main Container */
+/* Base Styles */
 .academic-portal {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   max-width: 1200px;
@@ -7,22 +7,12 @@
   color: #333;
 }
 
-/* Header */
-.portal-header {
-  color: #2c3e50;
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2.2rem;
-  /* border-bottom: 2px solid #2c3e50; */
-  padding-bottom: 10px;
-}
-
 /* Form Styles */
 .portal-form {
-  background: #f9f9f9;
+  background: #fff;
   padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(52, 152, 219, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 }
 
@@ -33,121 +23,94 @@
 .form-field label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 600;
-  color: #176B87;
+  font-weight: 500;
+  color: #555;
 }
 
 .form-field input {
   width: 100%;
-  padding: 10px;
+  padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
-  transition: border 0.3s;
-}
-
-.form-field input:focus {
-  border-color: #176B87;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 /* Subjects Section */
 .subjects-section {
-  margin: 25px 0;
-}
-
-.subjects-section label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #176B87;
+  margin-bottom: 20px;
 }
 
 .subject-item {
   display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
-  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .subject-item input {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 8px 12px;
 }
 
-.remove-btn {
-  background: #e74c3c;
-  color: white;
+/* Buttons */
+.add-btn, .remove-btn {
+  padding: 8px 12px;
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-}
-
-.remove-btn:disabled {
-  background: #95a5a6;
-  cursor: not-allowed;
-}
-
-.remove-btn:not(:disabled):hover {
-  background: #c0392b;
 }
 
 .add-btn {
-  background: #176B87;
+  background-color: #176B87;
   color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s;
 }
 
-.add-btn:hover {
-  background: #2980b9;
-}
-
-/* Form Actions */
-.form-actions {
-  text-align: right;
+.remove-btn {
+  background-color: #e74c3c;
+  color: white;
+  width: 30px;
 }
 
 .submit-btn {
-  background: #176B87;
+  background-color: #176B87;
   color: white;
+  padding: 12px 25px;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s;
 }
 
-.submit-btn:hover {
-  background: #2980b9;
+/* Layout */
+.content-wrapper {
+  display: flex;
+  gap: 20px;
 }
 
-/* Records Section */
-.records-section {
-  margin-top: 40px;
+.academic-content {
+  flex: 2;
+  min-width: 0;
 }
 
+.attendance-column {
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+}
+
+/* Section Styles */
 .section-title {
   color: #176B87;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  border-bottom: 1px solid #eee;
+  margin: 0 0 15px 0;
+  font-weight: 600;
   padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Academic Records */
+.records-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .table-container {
@@ -157,96 +120,39 @@
 .records-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 30px;
 }
 
 .records-table th {
-  background: #176B87;
+  background-color: #176B87;
   color: white;
-  padding: 12px;
+  padding: 12px 15px;
   text-align: left;
 }
 
 .records-table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.records-table tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-.records-table tr:hover {
-  background: #f1f9ff;
-}
-
-.actions-cell {
-  white-space: nowrap;
-}
-
-.edit-btn, .delete-btn {
-  padding: 6px 12px;
-  margin-right: 5px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s;
-}
-
-.edit-btn {
-  background: #176B87;
-  color: white;
-}
-
-.edit-btn:hover {
-  background: #2980b9;
-}
-
-.delete-btn {
-  background: #e74c3c;
-  color: white;
-}
-
-.delete-btn:hover {
-  background: #c0392b;
-}
-
-/* Student Dashboard */
-.student-dashboard {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-}
-
-.performance-section, .attendance-section, .assignments-section {
+/* Student Performance */
+.performance-section {
   background: white;
-  padding: 25px;
   border-radius: 8px;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .semester-card {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 6px;
   margin-bottom: 20px;
-  border-left: 4px solid #176B87;
-}
-
-.semester-card h4 {
-  margin-top: 0;
-  color: #176B87;
 }
 
 .gpa-badge {
-  display: inline-block;
-  background: #176B87;
+  background-color: #176B87;
   color: white;
+  display: inline-block;
   padding: 5px 15px;
   border-radius: 20px;
   margin-bottom: 15px;
-  font-weight: bold;
 }
 
 .subject-table {
@@ -254,100 +160,95 @@
   border-collapse: collapse;
 }
 
-.subject-table th {
-  background: #f1f9ff;
-  padding: 10px;
-  text-align: left;
-  color: #176B87;
-}
-
-.subject-table td {
-  padding: 10px;
+.subject-table th, .subject-table td {
+  padding: 8px 12px;
   border-bottom: 1px solid #eee;
 }
 
-.subject-table tr:last-child td {
-  border-bottom: none;
-}
-
-/* Attendance Section */
-.attendance-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-}
-
-.attendance-item {
+/* Assignments */
+.assignments-section {
   background: white;
-  padding: 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-left: 4px solid #176B87;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-.att-date {
-  color: #555;
-}
-
-.att-status {
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.att-status.present {
-  background: #2ecc71;
-  color: white;
-}
-
-.att-status.absent {
-  background: #e74c3c;
-  color: white;
-}
-
-/* Assignments Section */
 .assignment-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .assignment-item {
-  background: white;
-  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
   border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #176B87;
-}
-
-.assignment-title {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #176B87;
 }
 
 .assignment-status {
-  font-size: 12px;
-  color: #2ecc71;
-  font-weight: bold;
+  color: #28a745;
+  font-weight: 500;
 }
 
-/* Responsive Adjustments */
+/* Attendance */
+.attendance-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.attendance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.attendance-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.att-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.present {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.absent {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.no-records {
+  text-align: center;
+  color: #999;
+  padding: 10px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .subject-item {
+  .content-wrapper {
     flex-direction: column;
-    gap: 10px;
   }
 
-  .subject-item input {
-    width: 100%;
-  }
-
-  .attendance-list, .assignment-list {
-    grid-template-columns: 1fr;
+  .attendance-column {
+    max-width: 100%;
   }
 }
