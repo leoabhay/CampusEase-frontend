@@ -41,6 +41,7 @@ export class StudentDetailsComponent implements OnInit {
     this.http.get<any>(endpoint, { params }).subscribe({
       next: (response) => {
         this.userData = response;
+        console.log("Fetched user:", this.userData); // ✅ Check if courses is included
         this.loading = false;
       },
       error: (error) => {

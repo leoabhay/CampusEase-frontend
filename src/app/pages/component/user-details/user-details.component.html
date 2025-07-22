@@ -60,6 +60,8 @@
 
     <!-- Student-Specific Data -->
     <div *ngIf="role === 'student'" class="student-details">
+
+      <!-- Assignments -->
       <div class="detail-section" *ngIf="userData.assignments?.length">
         <h3 class="section-title"><i class="fas fa-tasks"></i> Assignments</h3>
         <div class="assignment-grid">
@@ -73,6 +75,7 @@
         </div>
       </div>
 
+      <!-- Regular Attendance -->
       <div class="detail-section" *ngIf="userData.attendance?.length">
         <h3 class="section-title"><i class="fas fa-user-check"></i> Attendance</h3>
         <div class="attendance-chart">
@@ -84,6 +87,37 @@
           </div>
         </div>
       </div>
+
+      <!-- Face Attendance -->
+<div class="detail-section" *ngIf="userData.faceAttendance?.length">
+  <h3 class="section-title"><i class="fas fa-id-card"></i> Face Attendance</h3>
+  <div class="face-attendance-list">
+    <div *ngFor="let faceAtt of userData.faceAttendance" class="face-attendance-item">
+      <div class="face-attendance-subject"><strong>Subject:</strong> {{ faceAtt.subjectName || 'N/A' }}</div>
+      <div class="face-attendance-date">Date: {{ faceAtt.date | date }}</div>
+      <div class="face-attendance-status present">Present</div>
+    </div>
+  </div>
+</div>
+
+      <!-- Courses -->
+      <div class="detail-section" *ngIf="userData.courses?.length">
+        <h3 class="section-title"><i class="fas fa-book"></i> Courses</h3>
+        <ul class="course-list">
+          <li *ngFor="let course of userData.courses">
+            <!-- <strong>Enrollment Key:</strong> {{ course.enrollment_key || 'N/A' }}<br /> -->
+            <strong>Semester:</strong> {{ course.semester || 'N/A' }}<br />
+            <strong>Department:</strong> {{ course.department || 'N/A' }}<br />
+            <strong>Subjects:</strong>
+            <ul>
+              <li *ngFor="let subj of course.subjects">
+                {{ subj.name || 'N/A' }} (Code: {{ subj.code || 'N/A' }}, Credit: {{ subj.credit || 'N/A' }})
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
     <!-- Secretary-Specific Data -->

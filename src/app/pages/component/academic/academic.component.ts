@@ -16,6 +16,7 @@ export class AcademicComponent implements OnInit {
   records: any[] = [];
   attendanceRecords: any[] = [];
   studentAssignments: any[] = [];
+  faceAttendanceRecords: any[] = [];
 
   form: any = {
     rollno: '',
@@ -43,6 +44,7 @@ export class AcademicComponent implements OnInit {
     if (this.userRole === 'student') {
       this.loadStudentAttendance();
       this.loadStudentAssignments();
+      this.loadFaceAttendanceByEmail();
     }
   }
 
@@ -96,6 +98,20 @@ export class AcademicComponent implements OnInit {
     }
   });
 }
+
+loadFaceAttendanceByEmail(): void {
+  this.http.get(`${this.API_URL}/getFaceAttendancesByEmail`, this.getAuthHeaders()).subscribe({
+    next: (res: any) => {
+      console.log('Face Attendance data:', res);
+      this.faceAttendanceRecords = Array.isArray(res) ? res : [];
+    },
+    error: (err) => {
+      console.error('Face Attendance load error', err);
+      alertify.error('Failed to load face attendance');
+    }
+  });
+}
+
 
 loadStudentAssignments(): void {
   this.http.get(`${this.API_URL}/getassignmentsbyemail`, this.getAuthHeaders()).subscribe({

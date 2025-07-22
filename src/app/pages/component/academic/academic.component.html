@@ -171,6 +171,24 @@
       </div>
     </div>
 
+    <div class="attendance-section">
+  <h3 class="section-title">Face Attendance Overview</h3>
+  <div class="attendance-list">
+    <div class="attendance-item" *ngFor="let fa of faceAttendanceRecords">
+      <div>
+        <div class="att-date">{{ fa.date }}</div>
+        <div class="att-subject" style="color: #176B87; font-weight: 600;">{{ fa.subjectName }}</div>
+      </div>
+      <div class="att-status present">
+        Present
+      </div>
+    </div>
+    <div *ngIf="faceAttendanceRecords.length === 0" style="text-align:center; grid-column: 1/-1; color: #999;">
+      No face attendance records available.
+    </div>
+  </div>
+</div>
+
     <div class="assignments-section">
       <h3 class="section-title">Assignment Submissions</h3>
       <div class="assignment-list">
