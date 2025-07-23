@@ -55,46 +55,48 @@ export class AssignmentComponent {
     this.getassignmentsbyemailFunction();
   }
 
-  onSubmit(): void {
-    if (this.assignmentForm.valid) {
-      const formData = new FormData();
-      formData.append('subject', this.assignmentForm.get('subject')!.value);
-      formData.append('assignment', this.assignmentForm.get('assignment')!.value);
-      formData.append('assignmentFile', this.assignmentForm.get('assignmentFile')!.value);
-      formData.append('submitteddate', this.assignmentForm.get('submitteddate')!.value);
+ onSubmit(): void {
+  if (this.assignmentForm.valid) {
+    const formData = new FormData();
+    formData.append('subject', this.assignmentForm.get('subject')!.value);
+    formData.append('assignment', this.assignmentForm.get('assignment')!.value);
+    formData.append('assignmentFile', this.assignmentForm.get('assignmentFile')!.value);
+    formData.append('submitteddate', this.assignmentForm.get('submitteddate')!.value);
 
-      if (this.editMode) {
-        this.assigmentService.updateAnswerAssignment(this.editingAssignmentId, formData).subscribe(
-          res => {
-            this.conformationService.showSuccessMessage("Assignment updated successfully!");
-            this.assignmentForm.reset();
-            this.clearFileInput();
-            this.editMode = false;
-            this.getassignmentsbyemailFunction();
-          },
-          error => {
-            console.error('Error updating assignment:', error);
-            this.conformationService.showErrorMessage("Failed to update assignment.");
-          }
-        );
-      } else {
-        this.assigmentService.postAnswerAssignment(formData).subscribe(
-          res => {
-            this.assignmentForm.reset();
-            this.clearFileInput();
-            this.getassignmentsbyemailFunction();
-          },
-          error => {
-            this.conformationService.showErrorMessage(
-              error?.error?.message || 'Error submitting assignment'
-            );
-            this.assignmentForm.reset();
-            this.clearFileInput();
-          }
-        );
-      }
+    if (this.editMode) {
+      this.assigmentService.updateAnswerAssignment(this.editingAssignmentId, formData).subscribe(
+        res => {
+          this.conformationService.showSuccessMessage("Assignment updated successfully!");
+          this.conformationService.showSuccessMessage("Assignment submitted");  // <-- Added here
+          this.assignmentForm.reset();
+          this.clearFileInput();
+          this.editMode = false;
+          this.getassignmentsbyemailFunction();
+        },
+        error => {
+          console.error('Error updating assignment:', error);
+          this.conformationService.showErrorMessage("Failed to update assignment.");
+        }
+      );
+    } else {
+      this.assigmentService.postAnswerAssignment(formData).subscribe(
+        res => {
+          this.conformationService.showSuccessMessage("Assignment submitted");  // <-- Added here
+          this.assignmentForm.reset();
+          this.clearFileInput();
+          this.getassignmentsbyemailFunction();
+        },
+        error => {
+          this.conformationService.showErrorMessage(
+            error?.error?.message || 'Error submitting assignment'
+          );
+          this.assignmentForm.reset();
+          this.clearFileInput();
+        }
+      );
     }
   }
+}
 
   clearFileInput() {
     const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
@@ -116,13 +118,29 @@ export class AssignmentComponent {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.assignmentForm.patchValue({
-        assignmentFile: file
-      });
+  const file = event.target.files[0];
+  if (file) {
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword', // .doc
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // .xlsx
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      this.conformationService.showErrorMessage('Invalid file type. Allowed: PDF, DOC, DOCX, XLSX');
+      // Clear file input
+      event.target.value = '';
+      this.assignmentForm.patchValue({ assignmentFile: null });
+      return;
     }
+
+    // Valid file
+    this.assignmentForm.patchValue({
+      assignmentFile: file
+    });
   }
+}
 
   showData() {
     this.assigmentService.getAnswerAssignment().subscribe(res => {

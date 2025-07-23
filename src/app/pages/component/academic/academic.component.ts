@@ -139,23 +139,65 @@ loadStudentAssignments(): void {
     }
   }
 
-  submit(): void {
-    const apiCall = this.editMode
-      ? this.updateAcademicRecord(this.editId!, this.form)
-      : this.createAcademicRecord(this.form);
-
-    apiCall.subscribe({
-      next: () => {
-        this.resetForm();
-        this.loadRecords();
-        alertify.success(this.editMode ? 'Record updated' : 'Record created');
-      },
-      error: (err) => {
-        console.error('Submit error', err);
-        alertify.error(this.editMode ? 'Update failed' : 'Creation failed');
-      }
-    });
+submit(): void {
+  // === Validate required fields ===
+  if (!this.form.rollno || this.form.rollno.trim() === '') {
+    alertify.error('Roll number is required');
+    return;
   }
+
+  if (!this.form.semester || this.form.semester.trim() === '') {
+    alertify.error('Semester is required');
+    return;
+  }
+
+  if (this.form.GPA === null || this.form.GPA === undefined || this.form.GPA === '') {
+    alertify.error('GPA is required');
+    return;
+  }
+
+  if (this.form.GPA < 0 || this.form.GPA > 4) {
+    alertify.error('GPA must be between 0 and 4');
+    return;
+  }
+
+  for (const subject of this.form.subjects) {
+    if (!subject.subjectName || subject.subjectName.trim() === '') {
+      alertify.error('Subject name is required');
+      return;
+    }
+
+    if (!subject.grade || subject.grade.trim() === '') {
+      alertify.error('Grade is required');
+      return;
+    }
+
+    const grade = subject.grade.toUpperCase();
+    const validGrades = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+    if (!validGrades.includes(grade)) {
+      alertify.error(`Invalid grade "${subject.grade}". Must be A to F`);
+      return;
+    }
+  }
+
+  const apiCall = this.editMode
+    ? this.updateAcademicRecord(this.editId!, this.form)
+    : this.createAcademicRecord(this.form);
+
+  apiCall.subscribe({
+    next: () => {
+      this.resetForm();
+      this.loadRecords();
+      alertify.success(this.editMode ? 'Record updated' : 'Record created');
+    },
+    error: (err) => {
+      console.error('Submit error', err);
+      alertify.error(this.editMode ? 'Update failed' : 'Creation failed');
+    }
+  });
+}
+
 
   editRecord(record: any): void {
     this.editMode = true;

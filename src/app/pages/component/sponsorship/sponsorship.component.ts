@@ -37,7 +37,7 @@ export class SponsorshipComponent implements OnInit {
       faculty: ['', Validators.required],
       semester: ['', Validators.required],
       topic: ['', Validators.required],
-      money: ['', Validators.required],
+      money: ['', [Validators.required, Validators.min(0)]],
       reason: ['', Validators.required],
       decision: ['Pending'],
       sponsor: ['admin@gmail.com'] // fixed email typo

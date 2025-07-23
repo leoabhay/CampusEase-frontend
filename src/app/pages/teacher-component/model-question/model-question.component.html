@@ -71,7 +71,7 @@
               <div class="form-group mb-4">
                 <label for="questionFile" class="form-label">Question File</label>
                 <div class="file-upload-wrapper">
-                  <input type="file" class="form-control" id="questionFile" (change)="onFileChangeQuestion($event)" />
+                  <input type="file" class="form-control" id="questionFile" (change)="onFileChangeQuestion($event)" accept=".pdf,.doc,.docx,.xlsx" />
                   <small class="form-text text-muted">Supported formats: PDF, DOC, DOCX</small>
                 </div>
               </div>

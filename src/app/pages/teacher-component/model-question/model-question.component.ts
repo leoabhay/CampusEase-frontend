@@ -96,14 +96,30 @@ export class ModelQuestionComponent implements OnInit {
     }
   }
 
-  onFileChangeQuestion(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.modelQuestionForm.patchValue({
-        file: file
-      });
+onFileChangeQuestion(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    // Allowed MIME types or extensions
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword', // .doc
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // .xlsx
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      this.confirmationService.showErrorMessage('Only PDF, DOC, DOCX, and XLSX files are allowed');
+      // Clear the file input if invalid file selected
+      event.target.value = '';
+      return;
     }
+
+    // If valid, patch the file control
+    this.modelQuestionForm.patchValue({
+      file: file
+    });
   }
+}
 
   showModelQuestionList() {
     this.modelService.getModelQuestion().subscribe((res) => {
