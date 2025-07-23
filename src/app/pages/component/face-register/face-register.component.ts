@@ -33,7 +33,7 @@ export class FaceRegisterComponent implements OnInit {
         this.validRollnos = res;
       },
       error: () => {
-        alert('❌ Failed to load valid roll numbers.');
+        alert('Failed to load valid roll numbers.');
       },
     });
   }
@@ -59,7 +59,7 @@ export class FaceRegisterComponent implements OnInit {
     event.preventDefault();
 
     if (!this.rollno || !this.base64Image || !this.isRollnoValid()) {
-      this.message = '❌ Please provide valid roll number and photo.';
+      this.message = 'Please provide valid roll number and photo.';
       this.success = false;
       return;
     }
@@ -75,19 +75,19 @@ export class FaceRegisterComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           if (res.success) {
-            this.message = `✅ Face registered for roll no: ${this.rollno}`;
+            this.message = `Face registered for roll no: ${this.rollno}`;
             this.success = true;
             this.rollno = null;
             this.base64Image = null;
             this.previewImage = null;
           } else {
-            this.message = '❌ Face registration failed: ' + (res.message || 'Unknown error');
+            this.message = 'Face registration failed: ' + (res.message || 'Unknown error');
             this.success = false;
           }
           this.loading = false;
         },
         error: (err) => {
-          this.message = '❌ Error: ' + (err.error?.message || err.message || 'Unknown error');
+          this.message = 'Error: ' + (err.error?.message || err.message || 'Unknown error');
           this.success = false;
           this.loading = false;
         },
@@ -103,7 +103,7 @@ export class FaceRegisterComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching attendance:', err);
-        alert('❌ Failed to load attendance list');
+        alert('Failed to load attendance list');
         this.loading = false;
       },
     });

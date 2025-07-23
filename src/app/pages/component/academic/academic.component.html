@@ -114,10 +114,10 @@
                   <td>{{ record.subjects[0]?.internalMarks }}</td>
                   <td [attr.rowspan]="record.subjects.length">{{ record.GPA }}</td>
                   <td [attr.rowspan]="record.subjects.length" class="actions-cell">
-                    <button class="edit-btn" (click)="editRecord(record)">
+                    <button class="edit-btn" (click)="editRecord(record)" style="color: #176B87;">
                       <i class="fas fa-edit"></i>
                     </button>
-                    <button class="delete-btn" (click)="deleteRecord(record._id)">
+                    <button class="delete-btn text-danger" (click)="deleteRecord(record._id)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
                   </td>
@@ -161,7 +161,7 @@
         </div>
 
         <!-- Assignments Section -->
-        <div class="assignments-section">
+        <div *ngIf="userRole === 'student'" class="assignments-section">
           <h3 class="section-title">Assignment Submissions</h3>
           <div class="assignment-list">
             <div class="assignment-item" *ngFor="let a of studentAssignments">
@@ -174,7 +174,7 @@
     </div>
 
     <!-- Right Column - Attendance -->
-    <div class="attendance-column">
+    <div *ngIf="userRole === 'student'" class="attendance-column">
       <div class="attendance-section">
         <h3 class="section-title">Attendance Overview</h3>
         <div class="attendance-list">
