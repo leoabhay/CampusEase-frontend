@@ -7,25 +7,38 @@
   <!-- Student Section -->
   <ng-container *ngIf="userRole === 'student'">
     <div class="student-section">
-      <div class="input-group">
-        <input
-          type="text"
-          [(ngModel)]="subjectName"
-          placeholder="Enter subject Name"
-          class="form-input"
-        />
-        <i class="fas fa-book icon"></i>
-      </div>
+      <div class="input-group mb-3">
+  <span class="input-group-text">
+    <i class="fas fa-book"></i>
+  </span>
+  <select
+    class="form-select"
+    [(ngModel)]="subjectName"
+    name="subjectName"
+    required
+    (click)="populateSubjects()"
+  >
+    <!-- Default placeholder (only shown when nothing is selected) -->
+    <option *ngIf="!subjectName" value="" disabled selected>Select Subject</option>
 
-      <!-- Add this inside the student section -->
-<p class="instruction-text">Please position your face in front of the camera.</p>
-<div class="webcam-container">
-  <webcam
-    [trigger]="triggerObservable"
-    (imageCapture)="handleImage($event)"
-    class="webcam-view"
-  ></webcam>
+    <!-- Dynamic options (only shown when dropdown is clicked) -->
+    <ng-container *ngIf="subjectsPopulated">
+      <option *ngFor="let subj of enrolledSubjects" [value]="subj.name">
+        {{ subj.name }}
+      </option>
+    </ng-container>
+  </select>
 </div>
+
+      <p class="instruction-text">Please position your face in front of the camera.</p>
+
+      <div class="webcam-container">
+        <webcam
+          [trigger]="triggerObservable"
+          (imageCapture)="handleImage($event)"
+          class="webcam-view"
+        ></webcam>
+      </div>
 
       <div *ngIf="webcamImage" class="preview-container">
         <p class="preview-title">Your Photo Preview</p>
@@ -57,59 +70,110 @@
               <th>S.N</th>
               <th>Subject</th>
               <th>Date</th>
+              <th>Image</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let record of attendanceList">
-              <td>{{ attendanceList.indexOf(record) + 1 }}</td>
-              <td>{{ record.subjectName || record.subjectCode }}</td>
-              <td>{{ record.date | date: 'medium' }}</td>
-            </tr>
-          </tbody>
+  <ng-container *ngFor="let record of attendanceList; let i = index">
+    <tr>
+      <td>{{ i + 1 }}</td>
+      <td>{{ record.subjectName || record.subjectCode }}</td>
+      <td>{{ record.date | date: 'medium' }}</td>
+      <td>
+        <button
+          *ngIf="record.image"
+          class="btn btn-sm btn-view-image"
+          (click)="viewImageInNewTab(record.image, record.rollno)"
+        >
+          <i class="fas fa-image"></i> View Image
+        </button>
+      </td>
+    </tr>
+  </ng-container>
+</tbody>
         </table>
       </div>
     </div>
   </ng-container>
 
-  <!-- Faculty/Admin Section -->
-  <ng-container *ngIf="userRole === 'admin' || userRole === 'faculty'">
-    <div class="admin-section">
-      <!-- Optional: You can keep a refresh button or load automatically -->
-      <!-- <button (click)="fetchAllAttendance()" class="btn btn-admin">
-        <i class="fas fa-list-alt"></i> Refresh All Attendance Records
-      </button> -->
-    </div>
-
-    <!-- Faculty/Admin Attendance Table -->
-    <div *ngIf="attendanceList.length > 0" class="records-container">
-      <h3 class="records-title">All Attendance Records</h3>
-      <div class="table-responsive">
-        <table class="records-table">
-          <thead>
+<!-- FACULTY VIEW -->
+<ng-container *ngIf="userRole === 'faculty'">
+  <div *ngIf="attendanceList.length > 0" class="records-container">
+    <h3 class="records-title">My Subject Attendance Records</h3>
+    <div class="table-responsive">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let record of attendanceList">
             <tr>
-              <th>Roll No</th>
-              <th>Subject</th>
-              <th>Date</th>
-              <th *ngIf="userRole === 'admin'">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let record of attendanceList">
               <td>{{ record.rollno }}</td>
               <td>{{ record.subjectName || record.subjectCode }}</td>
               <td>{{ record.date | date: 'medium' }}</td>
-              <td *ngIf="userRole === 'admin'">
+              <td>
+                <button
+                  *ngIf="record.image"
+                  class="btn btn-sm btn-view-image"
+                  (click)="viewImageInNewTab(record.image, record.rollno)">
+                  <i class="fas fa-image"></i> View Image
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>
+
+<!-- ADMIN VIEW -->
+<ng-container *ngIf="userRole === 'admin'">
+  <div *ngIf="attendanceList.length > 0" class="records-container">
+    <h3 class="records-title">All Attendance Records</h3>
+    <div class="table-responsive">
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>Roll No</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let record of attendanceList">
+            <tr>
+              <td>{{ record.rollno }}</td>
+              <td>{{ record.subjectName || record.subjectCode }}</td>
+              <td>{{ record.date | date: 'medium' }}</td>
+              <td>
+                <button
+                  *ngIf="record.image"
+                  class="btn btn-sm btn-view-image"
+                  (click)="viewImageInNewTab(record.image, record.rollno)">
+                  <i class="fas fa-image"></i> View Image
+                </button>
+              </td>
+              <td>
                 <button
                   class="btn btn-delete"
-                  (click)="deleteAttendance(record._id)"
-                >
+                  (click)="deleteAttendance(record._id)">
                   <i class="fas fa-trash-alt"></i> Delete
                 </button>
               </td>
             </tr>
-          </tbody>
-        </table>
-      </div>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
-  </ng-container>
+  </div>
+</ng-container>
+
 </div>

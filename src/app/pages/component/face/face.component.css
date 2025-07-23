@@ -248,6 +248,17 @@ body {
   background-color: #f1f5f9;
 }
 
+  .btn-view-image {
+    background-color: #176B87;
+    color: white;
+    border: none;
+  }
+
+  .btn-view-image:hover {
+    background-color: #145f76;
+    color: #fff;
+  }
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .attendance-container {

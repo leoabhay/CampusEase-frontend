@@ -44,7 +44,6 @@ export class EnrollmentKeyComponent implements OnInit {
     });
   }
 
-  // ---------- FORM METHODS ----------
   createSubject(): FormGroup {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
@@ -66,7 +65,6 @@ export class EnrollmentKeyComponent implements OnInit {
     return (this.subjects.at(index) as FormGroup).get(controlName);
   }
 
-  // Delete subject from enrollment both backend and form
   removeSubject(index: number): void {
     if (this.subjects.length > 1) {
       const subjectCode = this.subjects.at(index).get('code')?.value;
@@ -79,7 +77,6 @@ export class EnrollmentKeyComponent implements OnInit {
       if (subjectCode) {
         this.enrollmentService.deleteSubjectFromEnrollment(this.currentEnrollmentId, subjectCode).subscribe(
           () => {
-            // alertify.success('Subject deleted successfully from enrollment');
             this.subjects.removeAt(index);
           },
           () => alertify.error('Failed to delete subject')
@@ -95,6 +92,23 @@ export class EnrollmentKeyComponent implements OnInit {
   submitForm(): void {
     if (this.enrollmentForm.valid) {
       const enrollmentData = this.enrollmentForm.value;
+
+      // ❗️ Validation: Prevent assigning same teacher to multiple subjects in one semester
+      const teacherSet = new Set();
+      const duplicateTeacher = this.subjects.controls.some(subject => {
+        const teacher = subject.get('teacher')?.value;
+        if (teacherSet.has(teacher)) {
+          return true;
+        } else {
+          teacherSet.add(teacher);
+          return false;
+        }
+      });
+
+      if (duplicateTeacher) {
+        alertify.error('Each teacher can only be assigned to one subject per semester.');
+        return;
+      }
 
       if (this.editMode && this.currentEnrollmentId) {
         this.enrollmentService.UpdateEnrollmentData(this.currentEnrollmentId, enrollmentData).subscribe(
@@ -112,7 +126,10 @@ export class EnrollmentKeyComponent implements OnInit {
             this.resetForm();
             this.getEnrollmentList();
           },
-          () => alertify.error('Failed to add enrollment')
+          (error) => {
+            console.error('Enrollment error:', error);
+            alertify.error(error.error?.message || 'Failed to add enrollment');
+          }
         );
       }
     } else {
@@ -130,7 +147,6 @@ export class EnrollmentKeyComponent implements OnInit {
     );
   }
 
-  // ---------- LISTING + DELETION ----------
   getEnrollmentList() {
     this.enrollmentService.getEnrollmentData().subscribe((res) => {
       this.listData = res;
@@ -161,22 +177,17 @@ export class EnrollmentKeyComponent implements OnInit {
   }
 
   editEnrollment(enrollment: any): void {
-    console.log('Edit enrollment:', enrollment);  // debug log
-
     this.editMode = true;
     this.currentEnrollmentId = enrollment._id;
 
-    // Patch form with correct property names from backend response
     this.enrollmentForm.patchValue({
       enrollmentKey: enrollment.enrollment_key,
       semester: enrollment.semester,
       department: enrollment.department
     });
 
-    // Clear existing subjects controls
     this.subjects.clear();
 
-    // Add subjects from selected enrollment to formArray
     enrollment.subjects.forEach((subject: any) => {
       this.subjects.push(
         this.formBuilder.group({
