@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { AdminService } from '../../../core/services/admin-register/admin-register.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 import * as alertify from 'alertifyjs';
 import { PasswordService } from '../../../core/services/password.service';
 
@@ -18,7 +19,7 @@ export class RegisterPageComponent {
   message: string = '';
   isError: boolean = false;
 
-  constructor(private fb: FormBuilder, private adminService: AdminService) {
+  constructor(private fb: FormBuilder, private adminService: AdminService, private router: Router, private passwordService: PasswordService) {
     this.adminForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -43,6 +44,8 @@ export class RegisterPageComponent {
           this.message = res.message;
           this.isError = false;
           this.adminForm.reset();
+          alertify.success('Signup successful');
+          this.router.navigate(['/login']);
         },
         error: (err: any) => {
           this.isError = true;

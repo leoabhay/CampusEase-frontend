@@ -118,6 +118,7 @@ export class ProfileComponent implements OnInit {
     this.userService.saveProfile(this.showUserProfileData._id, formData).subscribe({
       next: () => {
         alert('Profile photo updated successfully!');
+        window.location.reload();
         this.loadUserProfile();
       },
       error: () => alert('Error updating profile photo')

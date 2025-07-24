@@ -54,7 +54,7 @@
         <div class="sidebar-inner" data-scrollbar="true" data-height="100%">
           <div class="sidebar-profile">
             <div class="sidebar-profile-inner">
-              <img [src]="showUserProfileData.photo" alt="Profile Photo" class="sidebar-profile-img">
+              <img [src]="showUserProfileData.photo  || 'assets/img/default-profile.jpg'" alt="Profile Photo" class="sidebar-profile-img">
               <div class="sidebar-profile-info">
                 <h5 (click)="showSection('profile')">{{showUserProfileData.name}}</h5>
                 <p>{{showUserProfileData.role}}</p>
