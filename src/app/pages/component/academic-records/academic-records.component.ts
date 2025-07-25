@@ -49,12 +49,30 @@ export class AcademicRecordsComponent implements OnInit {
   }
 
   onFileChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length) {
-      this.selectedFile = input.files[0];
-      this.uploadForm.patchValue({ file: this.selectedFile });
+  const input = event.target as HTMLInputElement;
+
+  if (input.files && input.files.length) {
+    const file = input.files[0];
+
+    // Allowed MIME types
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      alert('Only PDF, DOC, DOCX, and XLSX files are allowed.');
+      this.uploadForm.get('file')?.reset();
+      this.selectedFile = null;
+      return;
     }
+
+    this.selectedFile = file;
+    this.uploadForm.patchValue({ file: this.selectedFile });
   }
+}
 
   uploadFile(): void {
     if (this.uploadForm.valid && this.selectedFile) {

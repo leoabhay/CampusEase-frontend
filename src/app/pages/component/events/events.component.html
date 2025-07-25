@@ -1,6 +1,6 @@
 <div class="container-fluid event-management">
   <!-- Admin View -->
-  <div *ngIf="userRole == 'admin'" class="admin-view">
+  <div *ngIf="userRole == 'admin' || userRole == 'secretary'" class="admin-view">
     <!-- Event Form Card -->
     <h2 class="text-center fw-bold" style="color: #2C3E50;">Event Management</h2>
     <div class="card form-card">
@@ -101,7 +101,7 @@
   </div>
 
   <!-- Student View -->
-  <div *ngIf="userRole == 'student' || userRole == 'faculty' || userRole == 'secretary'" class="user-event-view">
+  <div *ngIf="userRole == 'student' || userRole == 'faculty'" class="user-event-view">
   <h2 class="page-title">All Events</h2>
   <div class="table-responsive">
     <table class="table table-bordered" id="clubTable">

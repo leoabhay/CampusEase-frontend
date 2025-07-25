@@ -65,35 +65,33 @@ export class EnrollmentKeyComponent implements OnInit {
     return (this.subjects.at(index) as FormGroup).get(controlName);
   }
 
-  removeSubject(index: number): void {
-    if (this.subjects.length > 1) {
-      const subjectCode = this.subjects.at(index).get('code')?.value;
-
-      if (!this.currentEnrollmentId) {
-        alertify.error('Select an enrollment to edit before deleting subjects');
-        return;
-      }
-
-      if (subjectCode) {
-        this.enrollmentService.deleteSubjectFromEnrollment(this.currentEnrollmentId, subjectCode).subscribe(
-          () => {
-            this.subjects.removeAt(index);
-          },
-          () => alertify.error('Failed to delete subject')
-        );
-      } else {
-        this.subjects.removeAt(index);
-      }
-    } else {
-      alertify.error('At least one subject is required.');
-    }
+removeSubject(index: number): void {
+  if (this.subjects.length <= 1) {
+    alertify.error('At least one subject is required.');
+    return;
   }
+
+  const subjectCode = this.subjects.at(index).get('code')?.value;
+
+  // If subjectCode exists and enrollment is selected, call backend
+  if (subjectCode && this.currentEnrollmentId) {
+    this.enrollmentService.deleteSubjectFromEnrollment(this.currentEnrollmentId, subjectCode).subscribe(
+      () => {
+        this.subjects.removeAt(index);
+      },
+      () => alertify.error('Failed to delete subject')
+    );
+  } else {
+    // Just remove from form (local only)
+    this.subjects.removeAt(index);
+  }
+}
 
   submitForm(): void {
     if (this.enrollmentForm.valid) {
       const enrollmentData = this.enrollmentForm.value;
 
-      // ❗️ Validation: Prevent assigning same teacher to multiple subjects in one semester
+      // Validation: Prevent assigning same teacher to multiple subjects in one semester
       const teacherSet = new Set();
       const duplicateTeacher = this.subjects.controls.some(subject => {
         const teacher = subject.get('teacher')?.value;

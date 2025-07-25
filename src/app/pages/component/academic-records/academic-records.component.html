@@ -133,7 +133,7 @@
               <span *ngIf="!uploadForm.get('file')?.value">Choose a file or drag it here</span>
               <span *ngIf="uploadForm.get('file')?.value">{{ getFileName(uploadForm.get('file')?.value) }}</span>
             </div>
-            <input type="file" id="fileInput" (change)="onFileChange($event)" hidden />
+            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xlsx" (change)="onFileChange($event)" hidden />
           </label>
           <div *ngIf="uploadForm.get('file')?.touched && uploadForm.get('file')?.invalid" class="error-message">
             <i class="fas fa-exclamation-circle"></i> Please select a file to upload
@@ -166,10 +166,10 @@
           <i class="fas fa-file-alt"></i>
           <span>Accepted formats: PDF, DOCX, XLSX</span>
         </div>
-        <div class="hint-item">
+        <!-- <div class="hint-item">
           <i class="fas fa-database"></i>
           <span>Max file size: 5MB</span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
