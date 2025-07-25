@@ -1,13 +1,13 @@
+<!-- STUDENT SECTION -->
 <section *ngIf="userRole == 'student'" class="sponsorship-section">
   <div class="container-fluid">
     <div class="row">
-          <h2 class="text-center fw-bold" style="color: #2C3E50;">Scholarship / Sponsorship</h2>
+      <h2 class="text-center fw-bold" style="color: #2C3E50;">Scholarship / Sponsorship</h2>
       <div class="col-lg-12">
         <div class="card application-card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <div>
-              </div>
+              <div></div>
               <h5 class="mb-0">Sponsorship / Scholarship Application</h5>
             </div>
           </div>
@@ -16,7 +16,6 @@
               <div class="col-md-6">
                 <label for="faculty" class="form-label">Department Name<span class="required"></span></label>
                 <div class="input-with-icon">
-                  <i class="fas fa-university"></i>
                   <select class="form-select" id="faculty" formControlName="faculty">
                     <option value="" disabled selected>Select Department</option>
                     <option *ngFor="let department of departments" [value]="department.createFaculty">
@@ -29,7 +28,6 @@
               <div class="col-md-6">
                 <label for="semester" class="form-label">Semester<span class="required"></span></label>
                 <div class="input-with-icon">
-                  <i class="fas fa-calendar-alt"></i>
                   <select class="form-select" id="semester" formControlName="semester">
                     <option value="" disabled selected>Select Semester</option>
                     <option *ngFor="let sem of [1,2,3,4,5,6,7,8]" [value]="sem">{{ sem }}</option>
@@ -40,7 +38,6 @@
               <div class="col-md-6">
                 <label for="topic" class="form-label">Topic<span class="required"></span></label>
                 <div class="input-with-icon">
-                  <i class="fas fa-heading"></i>
                   <input class="form-control" id="topic" formControlName="topic" type="text" placeholder="Enter application topic">
                 </div>
               </div>
@@ -48,7 +45,6 @@
               <div class="col-md-6">
                 <label for="money" class="form-label">Amount Requested<span class="required"></span></label>
                 <div class="input-with-icon">
-                  <i class="fas fa-rupee-sign"></i>
                   <input class="form-control" id="money" formControlName="money" type="number" placeholder="Enter amount">
                 </div>
               </div>
@@ -56,7 +52,6 @@
               <div class="col-12">
                 <label for="reason" class="form-label">Reason<span class="required"></span></label>
                 <div class="input-with-icon">
-                  <i class="fas fa-comment-alt top-icon"></i>
                   <textarea class="form-control" id="reason" formControlName="reason" rows="4"
                     placeholder="Explain why you need this sponsorship/scholarship"></textarea>
                 </div>
@@ -64,7 +59,7 @@
 
               <div class="col-12 text-center mt-4">
                 <button type="submit" [disabled]="form.invalid" class="btn btn-apply">
-                  <i class="fas fa-paper-plane me-2"></i>Submit Application
+                 <i class="fas fa-paper-plane"></i>  Submit Application
                 </button>
               </div>
             </form>
@@ -79,8 +74,6 @@
         <div class="card applications-list-card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <div>
-              </div>
               <h5 class="mb-0">My Applications</h5>
             </div>
           </div>
@@ -94,7 +87,6 @@
                     <th>Amount</th>
                     <th>Reason</th>
                     <th>Status</th>
-                    <!-- <th>Actions</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -113,16 +105,6 @@
                         {{ item.decision }}
                       </span>
                     </td>
-                    <!-- <td>
-                      <button type="button" *ngIf="item.decision === 'Pending'" class="btn btn-sm btn-edit" tooltip="Edit"
-                        (click)="updateSponsorship(item._id, 'accepted')">
-                        <i class="fas fa-edit"></i>
-                      </button>
-                      <button type="button" *ngIf="item.decision !== 'Pending'" class="btn btn-sm btn-delete ms-2" tooltip="Delete"
-                        (click)="deleteSpon(item._id)">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </td> -->
                   </tr>
                 </tbody>
               </table>
@@ -137,15 +119,11 @@
   </div>
 </section>
 
+<!-- ADMIN SECTION -->
 <section *ngIf="userRole=='admin'" class="admin-section">
   <div class="container-fluid">
-        <h2 class="text-center fw-bold" style="color: #2C3E50;">Sponsorship / Scholarship Management</h2>
+    <h2 class="text-center fw-bold" style="color: #2C3E50;">Sponsorship / Scholarship Management</h2>
     <div class="card admin-card">
-      <div class="card-header">
-        <div class="d-flex align-items-center">
-          <!-- <h5 class="mb-0">Sponsorship / Scholarship Applications Management</h5> -->
-        </div>
-      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -184,10 +162,10 @@
                 <td>
                   <div *ngIf="item.decision === 'Pending'">
                     <button class="btn btn-sm btn-success" (click)="updateSponsorship(item._id, 'accepted')">
-                      <i class="fas fa-check"></i> Approve
+                      Approve
                     </button>
                     <button class="btn btn-sm btn-danger ms-2" (click)="updateSponsorship(item._id, 'rejected')">
-                      <i class="fas fa-times"></i> Reject
+                      Reject
                     </button>
                   </div>
                   <div *ngIf="item.decision !== 'Pending'">

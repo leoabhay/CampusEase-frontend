@@ -40,7 +40,7 @@ export class SponsorshipComponent implements OnInit {
       money: ['', [Validators.required, Validators.min(0)]],
       reason: ['', Validators.required],
       decision: ['Pending'],
-      sponsor: ['admin@gmail.com'] // fixed email typo
+      sponsor: ['admin@gmail.com']
     });
 
     this.getDepartmentList();
@@ -87,21 +87,7 @@ export class SponsorshipComponent implements OnInit {
       }
     });
   }
-
-  // getSponsorshipByAdminList() {
-  //   this.sponsorshipService.getSponsorshipByAdmin().subscribe({
-  //     next: (res) => {
-  //       console.log(res);
-  //       this.sponsorshipByAdminList = res.sponsorship || res.sponsorships || [];
-  //     },
-  //     error: (err) => {
-  //       console.error('Error fetching sponsorships by admin:', err);
-  //       this.sponsorshipByAdminList = [];
-  //     }
-  //   });
-  // }
   getSponsorshipByAdminList() {
-
   this.sponsorshipService.getSponsorshipRequest().subscribe({
       next: (res) => {
         console.log(res);
@@ -137,6 +123,7 @@ export class SponsorshipComponent implements OnInit {
           console.log(res);
           this.getSponsorshipByEmailList();
           this.confirmationService.showSuccessMessage('Deleted Successfully');
+          // window.location.reload();
         },
         error: (err) => {
           console.error('Error deleting sponsorship:', err);

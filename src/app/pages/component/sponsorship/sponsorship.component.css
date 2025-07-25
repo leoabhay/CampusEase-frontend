@@ -17,7 +17,7 @@
 }
 
 .card-header {
-  background: white;
+  background: #176B87;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 15px 20px;
   border-radius: 10px 10px 0 0 !important;
@@ -25,7 +25,7 @@
 
 .card-header h5 {
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
   margin: 0;
 }
 
@@ -67,21 +67,13 @@
   position: relative;
 }
 
-.input-with-icon i {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  color: #a0aec0;
-  z-index: 1;
-}
-
 .input-with-icon .top-icon {
   top: 16px;
 }
 
 .input-with-icon .form-control,
 .input-with-icon .form-select {
-  padding-left: 38px;
+  padding-left: 15px;
 }
 
 .form-control, .form-select {

@@ -15,7 +15,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ isEditMode ? 'Edit Discussion' : 'Create New Discussion' }}</h5>
+          <h5 class="modal-title">{{ isEditMode ? 'Edit Notice' : 'Create New Notice' }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -66,9 +66,13 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal()">Cancel</button>
-              <button type="submit" class="btn btn-primary" [disabled]="discussionTable.invalid">
-                <i class="fas" [ngClass]="{'fa-save': isEditMode, 'fa-plus': !isEditMode}"></i> {{ isEditMode ? 'Update' : 'Create' }}
-              </button>
+              <button type="submit"
+        class="btn text-white"
+        [ngStyle]="{ 'background-color': '#176B87', 'border-color': '#176B87' }"
+        [disabled]="discussionTable.invalid">
+  <i class="fas" [ngClass]="{ 'fa-save': isEditMode, 'fa-plus': !isEditMode }"></i>
+  {{ isEditMode ? 'Update' : 'Create' }}
+</button>
             </div>
           </form>
         </div>
