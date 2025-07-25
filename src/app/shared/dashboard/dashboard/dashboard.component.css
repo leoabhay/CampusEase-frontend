@@ -116,6 +116,7 @@ html, body {
   overflow-y: auto;
   transition: var(--transition);
   z-index: 1000;
+  cursor: pointer;
 }
 
 .sidebar-inner {
