@@ -1,3 +1,3 @@
 export const environment = {
-    api_url:'http://localhost:3200/'
+    api_url: 'https://campusease-backend.onrender.com/'
 };

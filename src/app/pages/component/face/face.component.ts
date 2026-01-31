@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { Subject } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -71,7 +72,7 @@ export class FaceComponent implements OnInit {
     this.loading = true;
 
     this.http
-      .post('http://localhost:3200/mark-attendance', {
+      .post(environment.api_url + 'mark-attendance', {
         image: this.webcamImage.imageAsDataUrl,
         subjectName: this.subjectName,
       })
@@ -104,7 +105,7 @@ fetchEnrolledSubjects(): void {
     Authorization: `Bearer ${token}`,
   };
 
-  this.http.get<{ subjects: { name: string; code: string }[] }>('http://localhost:3200/enrollmentDatabyEmail', { headers }).subscribe({
+  this.http.get<{ subjects: { name: string; code: string }[] }>(environment.api_url + 'enrollmentDatabyEmail', { headers }).subscribe({
     next: (res) => {
       if (res && res.subjects) {
         this.enrolledSubjects = res.subjects;
@@ -122,7 +123,7 @@ fetchEnrolledSubjects(): void {
 
   fetchAllAttendance(): void {
     this.loading = true;
-    this.http.get('http://localhost:3200/getAllFaceAttendances').subscribe({
+    this.http.get(environment.api_url + 'getAllFaceAttendances').subscribe({
       next: (res: any) => {
         this.attendanceList = res;
         this.loading = false;
@@ -147,7 +148,7 @@ fetchEnrolledSubjects(): void {
 
     this.loading = true;
     this.http
-      .get(`http://localhost:3200/getFaceAttendances/${this.searchRollno}`, { headers })
+      .get(`${environment.api_url}getFaceAttendances/${this.searchRollno}`, { headers })
       .subscribe({
         next: (res: any) => {
           this.attendanceList = res;
@@ -234,7 +235,7 @@ fetchEnrolledSubjects(): void {
   deleteAttendance(id: string): void {
     if (!confirm('Are you sure you want to delete this attendance record?')) return;
 
-    this.http.delete(`http://localhost:3200/deleteFaceAttendance/${id}`).subscribe({
+    this.http.delete(`${environment.api_url}deleteFaceAttendance/${id}`).subscribe({
       next: () => {
         alert('🗑 Attendance record deleted successfully');
         if (this.userRole === 'admin' || this.userRole === 'faculty') {
@@ -267,7 +268,7 @@ fetchAttendanceForMySubjects(): void {
 
   this.loading = true;
   this.http
-    .get<any[]>('http://localhost:3200/getFaceAttendanceForMySubjects', { headers })
+    .get<any[]>(environment.api_url + 'getFaceAttendanceForMySubjects', { headers })
     .subscribe({
       next: (res) => {
         this.attendanceList = res;

@@ -1,7 +1,9 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-student-details',
@@ -16,6 +18,7 @@ export class StudentDetailsComponent implements OnInit {
   userData: any = null;
   errorMessage: string = '';
   loading: boolean = false;
+  api_url: string = environment.api_url;
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +39,7 @@ export class StudentDetailsComponent implements OnInit {
       .set('rollno', this.searchTerm)
       .set('email', this.searchTerm);
 
-    const endpoint = `http://localhost:3200/${this.role}/search`;
+    const endpoint = `${environment.api_url}${this.role}/search`;
 
     this.http.get<any>(endpoint, { params }).subscribe({
       next: (response) => {

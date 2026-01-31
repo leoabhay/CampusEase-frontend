@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ export class ChatComponent implements OnInit {
   messageCounts: { [userId: string]: number } = {};
   showOptions = false;
 
-  API_BASE = 'http://localhost:3200';
+  API_BASE = environment.api_url.replace(/\/$/, "");
 
   constructor() {
     this.socket = io(this.API_BASE, {

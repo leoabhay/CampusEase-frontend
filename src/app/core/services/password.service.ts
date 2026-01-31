@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordService {
-  private baseUrl = 'http://localhost:3200';
+  private baseUrl = environment.api_url;
 
   constructor(private http: HttpClient) {}
   requestPasswordReset(email: string): Observable<any> {

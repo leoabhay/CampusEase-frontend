@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -85,7 +86,7 @@ export class AcademicRecordsComponent implements OnInit {
         Authorization: `Bearer ${token}`
       });
 
-      this.http.post('http://localhost:3200/upload', formData, { headers })
+      this.http.post(environment.api_url + 'upload', formData, { headers })
         .subscribe(
           res => {
             alert('File uploaded and emailed to all students.');

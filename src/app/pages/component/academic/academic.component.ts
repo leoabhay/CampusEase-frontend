@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -31,7 +32,7 @@ export class AcademicComponent implements OnInit {
   userRole: string = '';
   userEmail: string = '';
 
-  private API_URL = 'http://localhost:3200';
+  private API_URL = environment.api_url.replace(/\/$/, "");
 
   constructor(private http: HttpClient) {}
 

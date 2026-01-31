@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +29,7 @@ export class FaceRegisterComponent implements OnInit {
   }
 
   loadValidRollnos(): void {
-    this.http.get<number[]>('http://localhost:3200/valid-rollnos').subscribe({
+    this.http.get<number[]>(environment.api_url + 'valid-rollnos').subscribe({
       next: (res) => {
         this.validRollnos = res;
       },
@@ -96,7 +97,7 @@ export class FaceRegisterComponent implements OnInit {
 
     fetchAllAttendance(): void {
     this.loading = true;
-    this.http.get('http://localhost:3200/getAllFaceAttendances').subscribe({
+    this.http.get(environment.api_url + 'getAllFaceAttendances').subscribe({
       next: (res: any) => {
         this.attendanceList = res;
         this.loading = false;

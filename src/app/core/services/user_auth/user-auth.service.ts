@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class UserAuthService {
 
   constructor(private http:HttpClient) { }
   login(credentials: { email: string; password: string }) {
-    return this.http.post<any>('http://localhost:3200/login', credentials).pipe(
+    return this.http.post<any>(environment.api_url + 'login', credentials).pipe(
       tap(({ accessToken }) => {
         localStorage.setItem('userToken', accessToken);
       })

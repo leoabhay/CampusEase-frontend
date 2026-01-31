@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -72,7 +73,7 @@ export class ResetPasswordComponent implements OnInit {
 
     const email = this.emailForm.value.email;
 
-    this.http.post<any>('http://localhost:3200/request-reset-password', { email }).subscribe({
+    this.http.post<any>(environment.api_url + 'request-reset-password', { email }).subscribe({
       next: (res) => {
         alertify.success(res.message || 'Reset link sent to email');
         console.log('Reset link:', res.resetUrl); // For dev
@@ -89,7 +90,7 @@ export class ResetPasswordComponent implements OnInit {
     const { newPassword, confirmPassword } = this.passwordForm.value;
 
     this.http.post<any>(
-      `http://localhost:3200/reset-password?token=${this.token}`,
+      `${environment.api_url}reset-password?token=${this.token}`,
       { newPassword, confirmPassword }
     ).subscribe({
       next: (res) => {

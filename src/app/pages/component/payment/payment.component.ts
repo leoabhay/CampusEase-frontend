@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +24,7 @@ export class PaymentComponent implements OnInit {
 
   fetchIdCardData(): void {
   const token = localStorage.getItem('userToken') || '';
-  this.http.get<any>('http://localhost:3200/getIdCard', {
+  this.http.get<any>(environment.api_url + 'getIdCard', {
     headers: { Authorization: `Bearer ${token}` }
   }).subscribe(response => {
     this.idCardData = response.idcard;
@@ -32,14 +33,14 @@ export class PaymentComponent implements OnInit {
 
 
   approvePayment(id: string): void {
-    this.http.post(`http://localhost:3200/approvePayment/${id}`, {}).subscribe(() => {
+    this.http.post(`${environment.api_url}approvePayment/${id}`, {}).subscribe(() => {
       this.fetchIdCardData(); // refresh list after update
     });
   }
 
   declinePayment(id: string): void {
     if (confirm('Are you sure you want to delete this ID card request?')) {
-      this.http.delete(`http://localhost:3200/deleteIdCard/${id}`).subscribe(() => {
+      this.http.delete(`${environment.api_url}deleteIdCard/${id}`).subscribe(() => {
         this.fetchIdCardData(); // refresh list after delete
       });
     }
@@ -52,7 +53,7 @@ export class PaymentComponent implements OnInit {
 
   updateCard(): void {
     const id = this.editCardData._id;
-    this.http.put(`http://localhost:3200/IDCardUpdate/${id}`, this.editCardData).subscribe(() => {
+    this.http.put(`${environment.api_url}IDCardUpdate/${id}`, this.editCardData).subscribe(() => {
   this.editMode = false;
   this.fetchIdCardData();
 });
