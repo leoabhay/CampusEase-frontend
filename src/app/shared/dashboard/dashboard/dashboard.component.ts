@@ -93,6 +93,7 @@ export class DashboardComponent implements OnInit {
   searchQuery!: string;
   searchResults: any;
   isDarkTheme: boolean = false;
+  sidebarVisible: boolean = false;
 
   constructor(
     private router: Router,
@@ -102,6 +103,14 @@ export class DashboardComponent implements OnInit {
     this.userService.getuserDataLogin().subscribe((res) => {
       this.showUserProfileData = res.data;
     });
+  }
+
+  toggleSidebar(): void {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  closeSidebar(): void {
+    this.sidebarVisible = false;
   }
 
   ngOnInit(): void {
@@ -126,6 +135,7 @@ export class DashboardComponent implements OnInit {
   showSection(section: string): void {
     this.currentSection = section;
     localStorage.setItem('currentSection', section);
+    this.closeSidebar();
   }
 
   toggleTheme(event: any): void {

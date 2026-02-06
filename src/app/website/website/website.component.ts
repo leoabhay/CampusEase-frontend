@@ -26,6 +26,7 @@ export class WebsiteComponent implements OnInit {
   showSecretaryData: any[] = [];
   showSecretaryCount: number = 0;
   jobVacancyCount: number = 0;
+  isMenuOpen: boolean = false;
 
   constructor(
     private router: Router,
@@ -34,8 +35,16 @@ export class WebsiteComponent implements OnInit {
     private userService: UserAuthService,
     private clubService: ClubService,
     private departmentService: DepartmentService,
-    private enrollmentService: EnrollmentService, // keep only if used elsewhere
+    private enrollmentService: EnrollmentService,
   ) {}
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
 
   loginButton() {
     this.router.navigate(['login']);
