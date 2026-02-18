@@ -48,11 +48,7 @@
     <div class="profile-header">
       <div class="profile-photo-container" *ngIf="userData.photo">
         <img
-          [src]="
-            userData.photo.startsWith('http')
-              ? userData.photo
-              : apiUrl + userData.photo
-          "
+          [src]="userData.photo.startsWith('http') ? userData.photo : (api_url + userData.photo)"
           alt="Profile Photo"
           class="profile-photo"
         />

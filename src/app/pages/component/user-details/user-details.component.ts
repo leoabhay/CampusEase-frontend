@@ -1,8 +1,8 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-details',
@@ -17,7 +17,7 @@ export class StudentDetailsComponent implements OnInit {
   userData: any = null;
   errorMessage: string = '';
   loading: boolean = false;
-  apiUrl: string = environment.api_url;
+  api_url: string = environment.api_url;
 
   constructor(private http: HttpClient) {}
 

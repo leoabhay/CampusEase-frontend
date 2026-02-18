@@ -1,10 +1,10 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import * as alertify from 'alertifyjs';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-academic',

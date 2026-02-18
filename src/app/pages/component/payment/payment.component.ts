@@ -1,8 +1,8 @@
+import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- Required for [(ngModel)]
-import { environment } from '../../../../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-payment',

@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -12,7 +13,6 @@ import {
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import * as alertify from 'alertifyjs';
-import { environment } from '../../../../environments/environment';
 
 // Custom validator to check if newPassword and confirmPassword match
 function passwordMatchValidator(): ValidatorFn {

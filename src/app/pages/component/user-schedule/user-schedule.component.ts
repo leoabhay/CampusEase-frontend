@@ -20,10 +20,8 @@ export class UserScheduleComponent implements OnInit {
   }
 
   getSchedules() {
-    this.http
-      .get<any>(environment.api_url + 'getSchedules')
-      .subscribe((res) => {
-        this.schedules = res.schedules;
-      });
+    this.http.get<any>(environment.api_url + 'getSchedules').subscribe(res => {
+      this.schedules = res.schedules;
+    });
   }
 }

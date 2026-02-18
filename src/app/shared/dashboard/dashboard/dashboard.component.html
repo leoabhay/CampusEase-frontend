@@ -13,8 +13,10 @@
     <!-- === TOP NAVBAR === -->
     <nav class="navbar navbar-expand-lg navbar-dark campus-navbar fixed-top">
       <div class="container-fluid">
-        <a class="navbar-brand fw-bold campus-brand" href="/dashboard">CampusEase
-        </a>
+        <button class="navbar-toggler d-block d-lg-none border-0 shadow-none me-2" type="button" (click)="toggleSidebar()">
+          <i class="fas fa-bars" style="color: white; font-size: 1.5rem;"></i>
+        </button>
+        <a class="navbar-brand fw-bold campus-brand" href="/dashboard">CampusEase</a>
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
@@ -50,7 +52,10 @@
     </nav>
 
     <div class="app-container">
-      <div id="sidebar" class="campus-sidebar">
+      <!-- Sidebar Backdrop for mobile -->
+      <div class="sidebar-backdrop" [class.show]="sidebarVisible" (click)="closeSidebar()"></div>
+
+      <div id="sidebar" class="campus-sidebar" [class.show]="sidebarVisible">
         <div class="sidebar-inner" data-scrollbar="true" data-height="100%">
           <div class="sidebar-profile">
             <div class="sidebar-profile-inner">

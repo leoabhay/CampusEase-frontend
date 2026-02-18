@@ -1,8 +1,8 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import io from 'socket.io-client';
 
 @Component({

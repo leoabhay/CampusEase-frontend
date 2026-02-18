@@ -6,15 +6,15 @@
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar" [class.navbar-mobile]="isMenuOpen">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero"><i class="fa-solid fa-house"></i> Home</a></li>
-          <li><a class="nav-link scrollto" href="#about"><i class="fa-solid fa-address-card"></i> About</a></li>
-          <li><a class="nav-link scrollto" href="#events"><i class="fa-solid fa-calendar"></i> Events</a></li>
-          <li><a class="nav-link scrollto" href="#contact"><i class="fa-solid fa-phone"></i> Contact</a></li>
-          <li><a  class="nav-link scrollto" href="/login" style="text-decoration: none;"><i class="fa-solid fa-play"></i> Get Started</a></li>
+          <li><a class="nav-link scrollto active" href="#hero" (click)="closeMenu()"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a class="nav-link scrollto" href="#about" (click)="closeMenu()"><i class="fa-solid fa-address-card"></i> About</a></li>
+          <li><a class="nav-link scrollto" href="#events" (click)="closeMenu()"><i class="fa-solid fa-calendar"></i> Events</a></li>
+          <li><a class="nav-link scrollto" href="#contact" (click)="closeMenu()"><i class="fa-solid fa-phone"></i> Contact</a></li>
+          <li><a class="nav-link scrollto" href="/login" (click)="closeMenu()" style="text-decoration: none;"><i class="fa-solid fa-play"></i> Get Started</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        <i class="bi" [ngClass]="isMenuOpen ? 'bi-x mobile-nav-toggle' : 'bi-list mobile-nav-toggle'" (click)="toggleMenu()"></i>
       </nav><!-- .navbar -->
 
     </div>
@@ -25,7 +25,7 @@
 
   <div class="container position-relative z-2">
     <div class="row">
-      <div class="col-lg-8 hero-glass" id="about">
+      <div class="col-lg-8 hero-glass">
         <h1 class="mb-4 fw-bold text-white">Streamline Your College Operations</h1>
         <ul class="mb-4 fw-bold">
           <li><i class="fas fa-check"></i> Simplify administrative tasks with automated workflows</li>

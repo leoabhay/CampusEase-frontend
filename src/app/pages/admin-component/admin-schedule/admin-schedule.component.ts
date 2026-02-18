@@ -1,3 +1,4 @@
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,7 +8,6 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../../environments/environment';
 
 // Import alertifyjs (make sure alertifyjs is installed and styles included in your project)
 import * as alertify from 'alertifyjs';

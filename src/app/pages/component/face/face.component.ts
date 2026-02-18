@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { Subject } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-face',
@@ -121,6 +121,7 @@ export class FaceComponent implements OnInit {
       });
   }
 
+
   fetchAllAttendance(): void {
     this.loading = true;
     this.http.get(environment.api_url + 'getAllFaceAttendances').subscribe({
@@ -148,9 +149,7 @@ export class FaceComponent implements OnInit {
 
     this.loading = true;
     this.http
-      .get(`${environment.api_url}getFaceAttendances/${this.searchRollno}`, {
-        headers,
-      })
+      .get(`${environment.api_url}getFaceAttendances/${this.searchRollno}`, { headers })
       .subscribe({
         next: (res: any) => {
           this.attendanceList = res;
@@ -238,22 +237,20 @@ export class FaceComponent implements OnInit {
     if (!confirm('Are you sure you want to delete this attendance record?'))
       return;
 
-    this.http
-      .delete(`${environment.api_url}deleteFaceAttendance/${id}`)
-      .subscribe({
-        next: () => {
-          alert('🗑 Attendance record deleted successfully');
-          if (this.userRole === 'admin' || this.userRole === 'faculty') {
-            this.fetchAllAttendance();
-          } else if (this.searchRollno) {
-            this.fetchAttendanceByRollno();
-          }
-        },
-        error: (err) => {
-          console.error('Error deleting attendance:', err);
-          alert('Failed to delete attendance');
-        },
-      });
+    this.http.delete(`${environment.api_url}deleteFaceAttendance/${id}`).subscribe({
+      next: () => {
+        alert('🗑 Attendance record deleted successfully');
+        if (this.userRole === 'admin' || this.userRole === 'faculty') {
+          this.fetchAllAttendance();
+        } else if (this.searchRollno) {
+          this.fetchAttendanceByRollno();
+        }
+      },
+      error: (err) => {
+        console.error('Error deleting attendance:', err);
+        alert('Failed to delete attendance');
+      },
+    });
   }
   populateSubjects() {
     if (!this.subjectsPopulated) {
