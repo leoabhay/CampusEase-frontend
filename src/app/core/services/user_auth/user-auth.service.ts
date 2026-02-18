@@ -17,10 +17,12 @@ export class UserAuthService {
   }
 
   postuserRegister(obj: any): Observable<any> {
-    return this.http.post(environment.api_url + 'signupUser', obj);
+    const url = `${environment.api_url.replace(/\/$/, '')}/signupUser`;
+    return this.http.post(url, obj);
   }
   postUserSignIn(obj: any): Observable<any> {
-    return this.http.post(environment.api_url + 'signin', obj);
+    const url = `${environment.api_url.replace(/\/$/, '')}/signin`;
+    return this.http.post(url, obj);
   }
   getuserData(): Observable<any> {
     return this.http.get(environment.api_url + 'userdata');

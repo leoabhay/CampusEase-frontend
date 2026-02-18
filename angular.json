@@ -23,11 +23,18 @@
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/alertifyjs/build/css/alertify.min.css",
-              "node_modules/alertifyjs/build/css/themes/default.min.css"
+              "node_modules/alertifyjs/build/css/themes/default.min.css",
+              "src/assets/js/vendor/glightbox/css/glightbox.min.css",
+              "src/assets/js/vendor/swiper/swiper-bundle.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/alertifyjs/build/alertify.min.js"
+              "node_modules/alertifyjs/build/alertify.min.js",
+              "src/assets/js/vendor/glightbox/js/glightbox.min.js",
+              "src/assets/js/vendor/isotope-layout/isotope.pkgd.min.js",
+              "src/assets/js/vendor/swiper/swiper-bundle.min.js",
+              "src/assets/js/vendor/purecounter/purecounter_vanilla.js",
+              "src/assets/js/main2.js"
             ]
           },
           "configurations": {
