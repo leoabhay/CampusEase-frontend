@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 // Import alertifyjs (make sure alertifyjs is installed and styles included in your project)
 import * as alertify from 'alertifyjs';
@@ -21,7 +27,10 @@ export class AdminScheduleComponent implements OnInit {
   isEditMode = false;
   selectedScheduleId: string | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+  ) {}
 
   ngOnInit(): void {
     this.scheduleForm = this.fb.group({
@@ -34,7 +43,7 @@ export class AdminScheduleComponent implements OnInit {
       block: ['', Validators.required],
       roomNo: [''],
       semester: [''],
-      date: ['', Validators.required],  // <-- added date input here
+      date: ['', Validators.required], // <-- added date input here
     });
 
     this.loadFaculties();
@@ -43,7 +52,7 @@ export class AdminScheduleComponent implements OnInit {
   }
 
   loadFaculties() {
-    this.http.get<any>('http://localhost:3200/user/faculty').subscribe({
+    this.http.get<any>(environment.api_url + 'user/faculty').subscribe({
       next: (res) => {
         this.faculties = res.faculty || [];
         console.log('Loaded faculties:', this.faculties);
@@ -56,7 +65,7 @@ export class AdminScheduleComponent implements OnInit {
   }
 
   loadDepartments() {
-    this.http.get<any[]>('http://localhost:3200/getDepartments').subscribe({
+    this.http.get<any[]>(environment.api_url + 'getDepartments').subscribe({
       next: (res) => {
         this.departments = res || [];
         console.log('Departments loaded:', this.departments);
@@ -69,7 +78,7 @@ export class AdminScheduleComponent implements OnInit {
   }
 
   getSchedules() {
-    this.http.get<any>('http://localhost:3200/getSchedules').subscribe({
+    this.http.get<any>(environment.api_url + 'getSchedules').subscribe({
       next: (res) => {
         this.schedules = res.schedules || [];
         console.log('Schedules:', this.schedules);
@@ -90,7 +99,10 @@ export class AdminScheduleComponent implements OnInit {
     const data = this.scheduleForm.value;
     if (this.isEditMode && this.selectedScheduleId) {
       this.http
-        .put(`http://localhost:3200/updateSchedule/${this.selectedScheduleId}`, data)
+        .put(
+          `${environment.api_url}updateSchedule/${this.selectedScheduleId}`,
+          data,
+        )
         .subscribe({
           next: () => {
             alertify.success('Schedule updated successfully.');
@@ -103,7 +115,7 @@ export class AdminScheduleComponent implements OnInit {
           },
         });
     } else {
-      this.http.post('http://localhost:3200/addSchedule', data).subscribe({
+      this.http.post(environment.api_url + 'addSchedule', data).subscribe({
         next: () => {
           alertify.success('Schedule created successfully.');
           this.resetForm();
@@ -136,7 +148,7 @@ export class AdminScheduleComponent implements OnInit {
 
   onDelete(id: string) {
     if (confirm('Are you sure you want to delete this schedule?')) {
-      this.http.delete(`http://localhost:3200/deleteSchedule/${id}`).subscribe({
+      this.http.delete(`${environment.api_url}deleteSchedule/${id}`).subscribe({
         next: () => {
           alertify.success('Schedule deleted successfully.');
           this.getSchedules();

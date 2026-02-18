@@ -4,6 +4,7 @@ import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-face',
@@ -28,26 +29,24 @@ export class FaceComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-  const token = localStorage.getItem('userToken');
-  if (token) {
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
 
-    this.userRole = payload.role;
+      this.userRole = payload.role;
 
-    if (this.userRole === 'student' && payload.rollno) {
-      this.searchRollno = payload.rollno;
-      this.fetchEnrolledSubjects(); // fetch subjects for dropdown
-      this.fetchAttendanceByRollno(); // Fetch student's attendance automatically
-
-    } else if (this.userRole === 'faculty') {
-      this.fetchEnrolledSubjects(); // Optional: if you want faculty to see subject dropdown too
-      this.fetchAttendanceForMySubjects(); // ✅ NEW: Fetch only for their subjects
-
-    } else if (this.userRole === 'admin') {
-      this.fetchAllAttendance(); // ✅ Admin gets full access
+      if (this.userRole === 'student' && payload.rollno) {
+        this.searchRollno = payload.rollno;
+        this.fetchEnrolledSubjects(); // fetch subjects for dropdown
+        this.fetchAttendanceByRollno(); // Fetch student's attendance automatically
+      } else if (this.userRole === 'faculty') {
+        this.fetchEnrolledSubjects(); // Optional: if you want faculty to see subject dropdown too
+        this.fetchAttendanceForMySubjects(); // ✅ NEW: Fetch only for their subjects
+      } else if (this.userRole === 'admin') {
+        this.fetchAllAttendance(); // ✅ Admin gets full access
+      }
     }
   }
-}
 
   // Webcam trigger
   get triggerObservable() {
@@ -71,7 +70,7 @@ export class FaceComponent implements OnInit {
     this.loading = true;
 
     this.http
-      .post('http://localhost:3200/mark-attendance', {
+      .post(environment.api_url + 'mark-attendance', {
         image: this.webcamImage.imageAsDataUrl,
         subjectName: this.subjectName,
       })
@@ -93,36 +92,38 @@ export class FaceComponent implements OnInit {
       });
   }
 
-fetchEnrolledSubjects(): void {
-  const token = localStorage.getItem('userToken');
-  if (!token) {
-    console.warn('No user token found');
-    return;
+  fetchEnrolledSubjects(): void {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      console.warn('No user token found');
+      return;
+    }
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    this.http
+      .get<{
+        subjects: { name: string; code: string }[];
+      }>(environment.api_url + 'enrollmentDatabyEmail', { headers })
+      .subscribe({
+        next: (res) => {
+          if (res && res.subjects) {
+            this.enrolledSubjects = res.subjects;
+            // if (this.enrolledSubjects.length > 0) {
+            //   this.subjectName = this.enrolledSubjects[0].name;
+          }
+        },
+        error: (err) => {
+          console.error('Failed to fetch enrolled subjects:', err);
+        },
+      });
   }
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-
-  this.http.get<{ subjects: { name: string; code: string }[] }>('http://localhost:3200/enrollmentDatabyEmail', { headers }).subscribe({
-    next: (res) => {
-      if (res && res.subjects) {
-        this.enrolledSubjects = res.subjects;
-        // if (this.enrolledSubjects.length > 0) {
-        //   this.subjectName = this.enrolledSubjects[0].name;
-
-      }
-    },
-    error: (err) => {
-      console.error('Failed to fetch enrolled subjects:', err);
-    },
-  });
-}
-
 
   fetchAllAttendance(): void {
     this.loading = true;
-    this.http.get('http://localhost:3200/getAllFaceAttendances').subscribe({
+    this.http.get(environment.api_url + 'getAllFaceAttendances').subscribe({
       next: (res: any) => {
         this.attendanceList = res;
         this.loading = false;
@@ -147,7 +148,9 @@ fetchEnrolledSubjects(): void {
 
     this.loading = true;
     this.http
-      .get(`http://localhost:3200/getFaceAttendances/${this.searchRollno}`, { headers })
+      .get(`${environment.api_url}getFaceAttendances/${this.searchRollno}`, {
+        headers,
+      })
       .subscribe({
         next: (res: any) => {
           this.attendanceList = res;
@@ -232,53 +235,57 @@ fetchEnrolledSubjects(): void {
   }
 
   deleteAttendance(id: string): void {
-    if (!confirm('Are you sure you want to delete this attendance record?')) return;
+    if (!confirm('Are you sure you want to delete this attendance record?'))
+      return;
 
-    this.http.delete(`http://localhost:3200/deleteFaceAttendance/${id}`).subscribe({
-      next: () => {
-        alert('🗑 Attendance record deleted successfully');
-        if (this.userRole === 'admin' || this.userRole === 'faculty') {
-          this.fetchAllAttendance();
-        } else if (this.searchRollno) {
-          this.fetchAttendanceByRollno();
-        }
-      },
-      error: (err) => {
-        console.error('Error deleting attendance:', err);
-        alert('Failed to delete attendance');
-      },
-    });
+    this.http
+      .delete(`${environment.api_url}deleteFaceAttendance/${id}`)
+      .subscribe({
+        next: () => {
+          alert('🗑 Attendance record deleted successfully');
+          if (this.userRole === 'admin' || this.userRole === 'faculty') {
+            this.fetchAllAttendance();
+          } else if (this.searchRollno) {
+            this.fetchAttendanceByRollno();
+          }
+        },
+        error: (err) => {
+          console.error('Error deleting attendance:', err);
+          alert('Failed to delete attendance');
+        },
+      });
   }
   populateSubjects() {
-  if (!this.subjectsPopulated) {
-    this.subjectsPopulated = true;
+    if (!this.subjectsPopulated) {
+      this.subjectsPopulated = true;
+    }
   }
-}
-fetchAttendanceForMySubjects(): void {
-  const token = localStorage.getItem('userToken');
-  if (!token) {
-    console.warn('No user token found');
-    return;
+  fetchAttendanceForMySubjects(): void {
+    const token = localStorage.getItem('userToken');
+    if (!token) {
+      console.warn('No user token found');
+      return;
+    }
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    this.loading = true;
+    this.http
+      .get<
+        any[]
+      >(environment.api_url + 'getFaceAttendanceForMySubjects', { headers })
+      .subscribe({
+        next: (res) => {
+          this.attendanceList = res;
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching subject-specific attendance:', err);
+          this.loading = false;
+          alert('Failed to fetch attendance for your subjects');
+        },
+      });
   }
-
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-
-  this.loading = true;
-  this.http
-    .get<any[]>('http://localhost:3200/getFaceAttendanceForMySubjects', { headers })
-    .subscribe({
-      next: (res) => {
-        this.attendanceList = res;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching subject-specific attendance:', err);
-        this.loading = false;
-        alert('Failed to fetch attendance for your subjects');
-      },
-    });
-}
-
 }

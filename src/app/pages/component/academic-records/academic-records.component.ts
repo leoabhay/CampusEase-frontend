@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-academic-records',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './academic-records.component.html',
-  styleUrls: ['./academic-records.component.css']
+  styleUrls: ['./academic-records.component.css'],
 })
 export class AcademicRecordsComponent implements OnInit {
   uploadForm!: FormGroup;
@@ -23,56 +29,61 @@ export class AcademicRecordsComponent implements OnInit {
     { clubName: 'Network Programming', position: 'A', joinedDate: 3 },
     { clubName: 'Cloud Computing', position: 'B+', joinedDate: 3 },
     { clubName: 'Java', position: 'A-', joinedDate: 3 },
-    { clubName: 'DBMS', position: 'A+', joinedDate: 3 }
+    { clubName: 'DBMS', position: 'A+', joinedDate: 3 },
   ];
   paginatedItems: any[] = [];
   itemsPerPage = 5;
   currentPage = 1;
   totalPages: number[] = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+  ) {}
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole');
     this.showUserProfileData = {
       name: localStorage.getItem('userName') || 'Student',
-      role: this.userRole
+      role: this.userRole,
     };
 
     this.uploadForm = this.fb.group({
       file: [null, Validators.required],
-      type: ['', Validators.required]
+      type: ['', Validators.required],
     });
 
-    this.totalPages = Array(Math.ceil(this.items.length / this.itemsPerPage)).fill(0).map((x, i) => i + 1);
+    this.totalPages = Array(Math.ceil(this.items.length / this.itemsPerPage))
+      .fill(0)
+      .map((x, i) => i + 1);
     this.setPage(1);
   }
 
   onFileChange(event: Event): void {
-  const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement;
 
-  if (input.files && input.files.length) {
-    const file = input.files[0];
+    if (input.files && input.files.length) {
+      const file = input.files[0];
 
-    // Allowed MIME types
-    const allowedTypes = [
-      'application/pdf',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    ];
+      // Allowed MIME types
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      ];
 
-    if (!allowedTypes.includes(file.type)) {
-      alert('Only PDF, DOC, DOCX, and XLSX files are allowed.');
-      this.uploadForm.get('file')?.reset();
-      this.selectedFile = null;
-      return;
+      if (!allowedTypes.includes(file.type)) {
+        alert('Only PDF, DOC, DOCX, and XLSX files are allowed.');
+        this.uploadForm.get('file')?.reset();
+        this.selectedFile = null;
+        return;
+      }
+
+      this.selectedFile = file;
+      this.uploadForm.patchValue({ file: this.selectedFile });
     }
-
-    this.selectedFile = file;
-    this.uploadForm.patchValue({ file: this.selectedFile });
   }
-}
 
   uploadFile(): void {
     if (this.uploadForm.valid && this.selectedFile) {
@@ -82,22 +93,23 @@ export class AcademicRecordsComponent implements OnInit {
 
       const token = localStorage.getItem('userToken');
       const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       });
 
-      this.http.post('http://localhost:3200/upload', formData, { headers })
+      this.http
+        .post(environment.api_url + 'upload', formData, { headers })
         .subscribe(
-          res => {
+          (res) => {
             alert('File uploaded and emailed to all students.');
             this.uploadForm.reset();
             this.selectedFile = null;
             // Optionally, refresh the page or update the UI to reflect the new data
             window.location.reload();
           },
-          err => {
+          (err) => {
             console.error(err);
             alert('Upload failed. Check console for error.');
-          }
+          },
         );
     }
   }
@@ -111,59 +123,70 @@ export class AcademicRecordsComponent implements OnInit {
   }
   // Add these methods to your existing AcademicRecordsComponent class
 
-// Calculate overall performance percentage
-calculateOverallPerformance(): number {
-  // This is a sample calculation - adjust based on your actual data
-  const grades = this.items.map(item => {
-    switch(item.position) {
-      case 'A+': return 95;
-      case 'A': return 90;
-      case 'A-': return 85;
-      case 'B+': return 80;
-      case 'B': return 75;
-      case 'B-': return 70;
-      case 'C+': return 65;
-      case 'C': return 60;
-      case 'D': return 55;
-      default: return 50;
-    }
-  });
+  // Calculate overall performance percentage
+  calculateOverallPerformance(): number {
+    // This is a sample calculation - adjust based on your actual data
+    const grades = this.items.map((item) => {
+      switch (item.position) {
+        case 'A+':
+          return 95;
+        case 'A':
+          return 90;
+        case 'A-':
+          return 85;
+        case 'B+':
+          return 80;
+        case 'B':
+          return 75;
+        case 'B-':
+          return 70;
+        case 'C+':
+          return 65;
+        case 'C':
+          return 60;
+        case 'D':
+          return 55;
+        default:
+          return 50;
+      }
+    });
 
-  const average = grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
-  return Math.round(average);
-}
-
-// Get CSS class for grade badges
-getGradeClass(grade: string): string {
-  switch(grade) {
-    case 'A+':
-    case 'A':
-    case 'A-':
-      return 'grade-a';
-    case 'B+':
-    case 'B':
-    case 'B-':
-      return 'grade-b';
-    case 'C+':
-    case 'C':
-      return 'grade-c';
-    default:
-      return 'grade-d';
+    const average =
+      grades.reduce((sum, grade) => sum + grade, 0) / grades.length;
+    return Math.round(average);
   }
-}
 
-// Get CSS class for progress bars
-getProgressBarClass(progress: number): string {
-  if (progress >= 85) return 'progress-excellent';
-  if (progress >= 70) return 'progress-good';
-  if (progress >= 55) return 'progress-average';
-  return 'progress-poor';
-}
+  // Get CSS class for grade badges
+  getGradeClass(grade: string): string {
+    switch (grade) {
+      case 'A+':
+      case 'A':
+      case 'A-':
+        return 'grade-a';
+      case 'B+':
+      case 'B':
+      case 'B-':
+        return 'grade-b';
+      case 'C+':
+      case 'C':
+        return 'grade-c';
+      default:
+        return 'grade-d';
+    }
+  }
 
-// Extract filename from file input
-getFileName(file: any): string {
-  if (!file) return '';
-  if (typeof file === 'string') return file;
-  return file.name;
-}
+  // Get CSS class for progress bars
+  getProgressBarClass(progress: number): string {
+    if (progress >= 85) return 'progress-excellent';
+    if (progress >= 70) return 'progress-good';
+    if (progress >= 55) return 'progress-average';
+    return 'progress-poor';
+  }
+
+  // Extract filename from file input
+  getFileName(file: any): string {
+    if (!file) return '';
+    if (typeof file === 'string') return file;
+    return file.name;
+  }
 }

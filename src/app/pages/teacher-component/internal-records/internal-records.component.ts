@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface InternalMark {
   rollno: number;
@@ -14,7 +15,7 @@ interface InternalMark {
   standalone: true,
   imports: [CommonModule, HttpClientModule],
   templateUrl: './internal-records.component.html',
-  styleUrls: ['./internal-records.component.css']
+  styleUrls: ['./internal-records.component.css'],
 })
 export class InternalRecordsComponent implements OnInit {
   internalMarks: InternalMark[] = [];
@@ -29,10 +30,11 @@ export class InternalRecordsComponent implements OnInit {
   }
 
   fetchMarks(): void {
-    this.http.get<InternalMark[]>('http://localhost:3200/internal-marks')
+    this.http
+      .get<InternalMark[]>(environment.api_url + 'internal-marks')
       .subscribe({
-        next: data => this.internalMarks = data,
-        error: err => console.error('Failed to fetch internal marks', err)
+        next: (data) => (this.internalMarks = data),
+        error: (err) => console.error('Failed to fetch internal marks', err),
       });
   }
 
@@ -44,7 +46,8 @@ export class InternalRecordsComponent implements OnInit {
     this.isCalculating = true;
     this.successMessage = '';
 
-    this.http.post('http://localhost:3200/calculate-internal-marks', {})
+    this.http
+      .post(environment.api_url + 'calculate-internal-marks', {})
       .subscribe({
         next: () => {
           this.isCalculating = false;
@@ -52,12 +55,12 @@ export class InternalRecordsComponent implements OnInit {
           this.fetchMarks();
 
           // Hide success message after 3 seconds
-          setTimeout(() => this.successMessage = '', 3000);
+          setTimeout(() => (this.successMessage = ''), 3000);
         },
-        error: err => {
+        error: (err) => {
           this.isCalculating = false;
           console.error('Failed to recalculate internal marks', err);
-        }
+        },
       });
   }
 }

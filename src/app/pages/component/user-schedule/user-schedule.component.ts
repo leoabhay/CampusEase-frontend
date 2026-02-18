@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-user-schedule',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-schedule.component.html',
-  styleUrls: ['./user-schedule.component.css']
+  styleUrls: ['./user-schedule.component.css'],
 })
 export class UserScheduleComponent implements OnInit {
   schedules: any[] = [];
@@ -19,8 +20,10 @@ export class UserScheduleComponent implements OnInit {
   }
 
   getSchedules() {
-    this.http.get<any>('http://localhost:3200/getSchedules').subscribe(res => {
-      this.schedules = res.schedules;
-    });
+    this.http
+      .get<any>(environment.api_url + 'getSchedules')
+      .subscribe((res) => {
+        this.schedules = res.schedules;
+      });
   }
 }

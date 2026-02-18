@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-details',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.css'
+  styleUrl: './user-details.component.css',
 })
 export class StudentDetailsComponent implements OnInit {
   searchTerm: string = '';
@@ -16,6 +17,7 @@ export class StudentDetailsComponent implements OnInit {
   userData: any = null;
   errorMessage: string = '';
   loading: boolean = false;
+  apiUrl: string = environment.api_url;
 
   constructor(private http: HttpClient) {}
 
@@ -36,18 +38,19 @@ export class StudentDetailsComponent implements OnInit {
       .set('rollno', this.searchTerm)
       .set('email', this.searchTerm);
 
-    const endpoint = `http://localhost:3200/${this.role}/search`;
+    const endpoint = `${environment.api_url}${this.role}/search`;
 
     this.http.get<any>(endpoint, { params }).subscribe({
       next: (response) => {
         this.userData = response;
-        console.log("Fetched user:", this.userData); // ✅ Check if courses is included
+        console.log('Fetched user:', this.userData); // ✅ Check if courses is included
         this.loading = false;
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'An error occurred while searching.';
+        this.errorMessage =
+          error.error?.message || 'An error occurred while searching.';
         this.loading = false;
-      }
+      },
     });
   }
 }

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import * as alertify from 'alertifyjs';
 import KhaltiCheckout from "khalti-checkout-web";
 import QRCode from 'qrcode';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-fee',

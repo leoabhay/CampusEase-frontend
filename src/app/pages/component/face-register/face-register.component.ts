@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-face-register',
@@ -28,7 +29,7 @@ export class FaceRegisterComponent implements OnInit {
   }
 
   loadValidRollnos(): void {
-    this.http.get<number[]>('http://localhost:3200/valid-rollnos').subscribe({
+    this.http.get<number[]>(environment.api_url + 'valid-rollnos').subscribe({
       next: (res) => {
         this.validRollnos = res;
       },
@@ -68,7 +69,7 @@ export class FaceRegisterComponent implements OnInit {
     this.message = '';
 
     this.http
-      .post('http://localhost:5000/register-face', {
+      .post(environment.face_api_url + 'register-face', {
         rollno: this.rollno,
         image: this.base64Image,
       })
@@ -81,22 +82,24 @@ export class FaceRegisterComponent implements OnInit {
             this.base64Image = null;
             this.previewImage = null;
           } else {
-            this.message = 'Face registration failed: ' + (res.message || 'Unknown error');
+            this.message =
+              'Face registration failed: ' + (res.message || 'Unknown error');
             this.success = false;
           }
           this.loading = false;
         },
         error: (err) => {
-          this.message = 'Error: ' + (err.error?.message || err.message || 'Unknown error');
+          this.message =
+            'Error: ' + (err.error?.message || err.message || 'Unknown error');
           this.success = false;
           this.loading = false;
         },
       });
   }
 
-    fetchAllAttendance(): void {
+  fetchAllAttendance(): void {
     this.loading = true;
-    this.http.get('http://localhost:3200/getAllFaceAttendances').subscribe({
+    this.http.get(environment.api_url + 'getAllFaceAttendances').subscribe({
       next: (res: any) => {
         this.attendanceList = res;
         this.loading = false;
